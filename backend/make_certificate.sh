@@ -13,8 +13,14 @@ keytool -genkeypair \
     -keystore serverkeystore.jks \
     -storepass $keystore_password
 
+keytool -export \
+    -alias server \
+    -keystore serverkeystore.jks \
+    -file server.cer \
+    -storepass $keystore_password
+
 chmod 600 serverkeystore.jks
 
-mv serverkeystore.jks /src/main/resources
-
-echo "Certificate generated successfully"
+mv serverkeystore.jks ./src/main/resources/.
+cp server.cer ./src/main/resources/.
+cp server.cer ../frontend/src/main/resources/.
