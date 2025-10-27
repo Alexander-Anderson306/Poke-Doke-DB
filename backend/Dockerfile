@@ -14,7 +14,7 @@ ENV PATH="$JAVA_HOME/bin:$PATH"
 RUN apt-get update && apt-get install -y mysql-server && rm -rf /var/lib/apt/lists/*
 
 # Expose ports
-EXPOSE 5000 3306
+EXPOSE 5001 3306
 
 # Copy project
 COPY . /app
