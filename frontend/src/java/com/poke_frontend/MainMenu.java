@@ -1,6 +1,0 @@
-
-public class MainMenu {
-
-    // Dingus
-
-}

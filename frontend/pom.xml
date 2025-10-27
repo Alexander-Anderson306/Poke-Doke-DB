@@ -22,7 +22,7 @@
     </properties>
 
     <dependencies>
-        <!-- Common dependencies (none here, all platform-specific below) -->
+        <!-- Dependencies are added per platform profile -->
     </dependencies>
 
     <profiles>
@@ -131,6 +131,16 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <!-- ✅ JavaFX plugin for mvn javafx:run -->
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <configuration>
+                    <mainClass>${mainClass}</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>

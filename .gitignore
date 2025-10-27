@@ -1,4 +1,6 @@
-.class
-.vscode/
-.jks
-.cer
+*.class
+*.vscode/
+*.jks
+*.cer
+*.idea
+*maven*
