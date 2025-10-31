@@ -7,6 +7,8 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 
+//TODO change this to use Javalin API
+
 public class Client {
     /**
      * Send a request to the server and return the response.

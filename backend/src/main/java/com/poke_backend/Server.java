@@ -6,6 +6,8 @@ import java.security.*;
 import java.security.cert.CertificateException;
 import java.util.concurrent.*;
 
+//TODO change this to use Javalin API
+
 public class Server {
     private static int port = 5001;
 
