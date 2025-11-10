@@ -21,14 +21,6 @@
         <javafx.version>25</javafx.version>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>io.javalin</groupId>
-            <artifactId>javalin</artifactId>
-            <version>6.7.0</version>
-        </dependency>
-    </dependencies>
-
     <profiles>
         <!-- Windows -->
         <profile>
