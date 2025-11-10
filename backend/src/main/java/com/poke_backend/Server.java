@@ -1,107 +1,36 @@
 package com.poke_backend;
 
-import javax.net.ssl.*;
-import java.io.*;
-import java.security.*;
-import java.security.cert.CertificateException;
-import java.util.concurrent.*;
-
-//TODO change this to use Javalin API
+import io.javalin.Javalin;
+import io.javalin.community.ssl.*;
 
 public class Server {
-    private static int port = 5001;
-
     /**
-     * Key starting point for the server. This method sets up the SSL context
-     * for the server, which includes loading the keystore and getting the
-     * password from the admin.
+     * Creates a Javalin server with SSL enabled.
      *
-     * @return the SSLContext for the server
-     * @throws Exception if there is an issue with loading the keystore
+     * This method loads the certificate and private key from the resources
+     * directory, and sets up the server to listen on localhost at port 443.
+     * 
+     * @return the Javalin server
      */
-    private static SSLContext keyStart() throws Exception {
-        //getting acess to the keystore file for certificate authentication
-        String keystorePath = "../../resources/serverkeystore.jks";
+    private static Javalin createServer() {
 
-        Console console = System.console();
+       Javalin app = Javalin.create(conf -> {
+            conf.registerPlugin(new SslPlugin(ssl -> {
+                ssl.pemFromPath("../../resources/cert.pem", "../../resources/key.pem");
 
-        if (console == null) {
-            throw new Exception("No console");
-        }
-
-        char[] passwordChars = console.readPassword("Enter the password for the keystore file: ");
-
-        KeyStore ks = KeyStore.getInstance("JKS");
-        try {
-            ks.load(new FileInputStream(keystorePath), passwordChars);
-        } catch (IOException e) {
-            throw new Exception("Failed to load keystore, check password", e);
-        } catch (CertificateException e) {
-            throw new Exception("Failed to load keystore, keystore may not exist", e);
-        }
-
-        //key manager handles the key within keystore
-        KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
-        kmf.init(ks, passwordChars);
-
-        SSLContext sc = SSLContext.getInstance("TLS");
-        sc.init(kmf.getKeyManagers(), null, null);
-
-        //the sc is our sever context (it contains our cert stuff
-        //making sure our http is https 😎)
-        return sc;
+                //connection settings
+                ssl.host = "localhost";
+                ssl.insecure = false;
+                ssl.secure = true;
+                ssl.securePort = 443;
+            }));
+        }).start();
+        return app;
     }
 
-    private static void serverStart(SSLContext sc) {
-        try {
-            //open our secure socket here
-            SSLServerSocketFactory ssf = sc.getServerSocketFactory();
-            SSLServerSocket serverSocket = (SSLServerSocket) ssf.createServerSocket(port);
+    void main() {
+        Javalin app = createServer();
 
-            //we use a thread pool with one thread per core to handle traffic
-            int cores = Runtime.getRuntime().availableProcessors();
-            ExecutorService pool = Executors.newWorkStealingPool(cores);
-
-            while (true) {
-                SSLSocket clientSocket = (SSLSocket) serverSocket.accept();
-                pool.submit(() -> handleClient(clientSocket));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        app.get("/", ctx -> ctx.result("Hello HTTPS"));
     }
-
-
-    private static void handleClient(SSLSocket clientSocket) {
-        try (clientSocket) {
-            //in and out for reading and writing
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
-
-            //read the request from the client
-            String line;
-            while ((line = in.readLine()) != null && !line.isEmpty()) {
-                System.out.println(line); // log request headers
-            }
-
-            out.write("HTTP/1.1 200 OK\r\n");
-            out.write("Content-Type: text/plain\r\n");
-            out.write("Connection: close\r\n");
-            out.write("\r\n");
-            out.write("Hello from Java HTTPS server!\n");
-            out.flush();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void main(String[] args) {
-        try {
-            SSLContext sc = keyStart();
-            serverStart(sc);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 }
