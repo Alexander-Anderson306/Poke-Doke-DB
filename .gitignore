@@ -4,3 +4,5 @@
 *.cer
 *.idea
 *maven*
+backend/target/
+frontend/target/
