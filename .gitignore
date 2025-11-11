@@ -6,3 +6,5 @@
 *maven*
 backend/target/
 frontend/target/
+*.classpath
+*.project
