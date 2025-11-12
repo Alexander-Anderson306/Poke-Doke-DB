@@ -28,12 +28,12 @@ public class MainPage {
 
     @FXML
     void goToDatabase(ActionEvent event) {
-
+        App.changeCurrentPage(Page.VIEW_DATABASE);
     }
 
     @FXML
     void goToInventory(ActionEvent event) {
-
+        App.changeCurrentPage(Page.VIEW_INVENTORY);
     }
 
     @FXML
@@ -43,7 +43,7 @@ public class MainPage {
 
     @FXML
     void logOut(ActionEvent event) {
-
+        App.changeCurrentPage(Page.LOGIN);
     }
 
 }

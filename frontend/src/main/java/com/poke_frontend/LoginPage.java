@@ -20,5 +20,6 @@ public class LoginPage {
     void clickLoginButton(ActionEvent event) {
         IO.print(usernameField.getText());
         IO.print(passwordField.getText());
+        App.changeCurrentPage(Page.MAIN_MENU);
     }
 }

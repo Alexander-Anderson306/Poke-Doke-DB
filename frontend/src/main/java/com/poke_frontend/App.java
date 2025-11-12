@@ -9,9 +9,7 @@ import java.io.IOException;
 
 public class App extends Application {
 
-    // 0 for login, 1 for main menu, 2 for inventory, 3 for database, 4 for shop.
-    // Carson will make this an enum later.
-    static int currentPage = 0;
+    static Page currentPage = Page.LOGIN;
 
     private static Scene currentScene;
 
@@ -22,22 +20,11 @@ public class App extends Application {
      * Refer to the app class to determine which number will lead to which page.
      * @param newPage The num of the page to be switched to.
      */
-    public static void changeCurrentPage(int newPage) {
+    public static void changeCurrentPage(Page newPage) {
 
         currentPage = newPage;
 
-        String fxml;
-        if (currentPage==0)
-            fxml = "/fxml/login.fxml";
-        else if (currentPage==1)
-            fxml = "/fxml/mainMenu.fxml";
-        else if (currentPage==2 || currentPage==3)
-            fxml = "/fxml/viewCards.fxml";
-        else {
-            fxml = "";
-            System.out.println("ERROR: Invalid Page Destination.");
-            System.exit(27);
-        }
+        String fxml = currentPage.getFXML();
 
         try {
             currentScene = new Scene(FXMLLoader.load(App.class.getResource(fxml)));
