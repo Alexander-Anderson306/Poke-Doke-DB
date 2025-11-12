@@ -17,8 +17,7 @@ public class App extends Application {
 
     /**
      * Will change the current page the application is displaying.
-     * Refer to the app class to determine which number will lead to which page.
-     * @param newPage The num of the page to be switched to.
+     * @param newPage The page to be switched to.
      */
     public static void changeCurrentPage(Page newPage) {
 
