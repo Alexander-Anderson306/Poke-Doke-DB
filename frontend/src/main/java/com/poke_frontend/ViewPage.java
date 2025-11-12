@@ -8,6 +8,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.Image;
+
+import java.util.List;
 
 public class ViewPage {
 
@@ -73,6 +76,43 @@ public class ViewPage {
 
     @FXML
     private Label username_label;
+
+    /**
+     * This method will take the given list of image urls and set all images in the database view to the provided images.
+     * This code should run anytime someone enters a view page.
+     * UNIMPLEMENTED FEATURES
+     * List of image view elements is not set up.
+     * The default image to show up when there are no more cards to display is untested.
+     *
+     * @param urls A list of strings of the urls of the desired images.
+     */
+    void loadViewPage(List<String> urls) {
+
+        // TODO, place all ImageView objects in this list.
+        // Or set up a global list of all image views somewhere else.
+        List<ImageView> allImageViews = List.of(this.imageSlot1, this.imageSlot2, this.imageSlot, this.imageSlot21);
+
+        // TODO, test that this works or replace this with something better.
+        final Image noImage = new Image("");
+
+        int numUrls = urls.size();
+        int numImageViews = allImageViews.size();
+        int i = 0;
+
+        while (true) {
+            if (i>=numImageViews) {
+                return;
+            }
+            else if (i>=numUrls) {
+                allImageViews.get(i).setImage(noImage);
+            }
+            else {
+                allImageViews.get(i).setImage(new Image(urls.get(i)));
+            }
+            i++;
+        }
+
+    }
 
     @FXML
     void goToLogin(ActionEvent event) {
