@@ -9,3 +9,5 @@ frontend/target/
 *.classpath
 *.project
 *.settings/
+*.pem
+*.p12

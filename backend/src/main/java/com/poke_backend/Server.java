@@ -2,6 +2,8 @@ package com.poke_backend;
 
 import io.javalin.Javalin;
 import io.javalin.community.ssl.*;
+import org.conscrypt.OpenSSLProvider;
+import java.security.Security;
 
 public class Server {
     /**
@@ -13,11 +15,11 @@ public class Server {
      * @return the Javalin server
      */
     private static Javalin createServer() {
-
-       Javalin app = Javalin.create(conf -> {
+        Security.addProvider(new OpenSSLProvider());
+        Javalin app = Javalin.create(conf -> {
             conf.registerPlugin(new SslPlugin(ssl -> {
-                ssl.pemFromPath("../../resources/cert.pem", "../../resources/key.pem");
-
+                //certificate
+                ssl.pemFromPath("/app/src/main/resources/cert.pem", "/app/src/main/resources/key.pem" , "password");
                 //connection settings
                 ssl.host = "localhost";
                 ssl.insecure = false;
