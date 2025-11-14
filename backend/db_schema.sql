@@ -34,7 +34,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`cards` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `card_name` VARCHAR(50) NOT NULL,
   `rarity` VARCHAR(50) NOT NULL,
-  `picture_name` VARCHAR(45) NULL,
+  `image_path` VARCHAR(255) NULL,
+  `thumb_path` VARCHAR(255) NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `cardName_UNIQUE` (`card_name` ASC) VISIBLE)
 ENGINE = InnoDB
@@ -121,6 +122,44 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user_inventory` (
     REFERENCES `mydb`.`users` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
+
+-- -----------------------------------------------------
+-- TEST DATA FOR PROJECT
+-- -----------------------------------------------------
+INSERT INTO `mydb`.`poke_types` (`name`) VALUES
+  ('Fire'), 
+  ('Water'),
+  ('Electric')
+  ON DUPLICATE KEY UPDATE name = VALUES(name);
+
+INSERT INTO `mydb`.`cards` (`card_name`, `rarity`,`image_path`, `thumb_path`) VALUES
+  ('Charizard', 'Rare', 'assets/images/cards/charizard.png', 'assets/images/thumbs/charizard.png'),
+  ('Pikachu', 'Uncommon', 'assets/images/cards/pikachu.png', 'assets/images/thumbs/pikachu.png'),
+  ('Squirtle', 'Common', 'assets/images/cards/squirtle.png', 'assets/images/thumbs/squirtle.png');
+
+INSERT INTO `mydb`.`card_pack`(`pack_name`, `price`, `pack_rarity`) VALUES
+  ('Starter Pack', 4.99, 'Common');
+
+INSERT INTO `mydb`.`users` (`user_name`, `password`, `name`,`picture_name` ) VALUES
+  ('ash', 'password123', 'Ash Ketchup', NULL),
+  ('brock', 'password456', 'Brock Powers', NULL);
+
+INSERT INTO `mydb`.`types_bridge` (`card_id`, `type_id`)
+  SELECT c.id, t.id FROM cards c JOIN poke_types t
+  WHERE c.card_name= 'Charizard' AND t.name= 'Fire'
+  UNION ALL
+  SELECT c.id, t.id FROM cards c JOIN poke_types t 
+  WHERE c.card_name= 'Squirtle' AND t.name='Water'
+  UNION ALL
+  SELECT c.id, t.id FROM cards c JOIN poke_types t 
+  WHERE c.card_name='Pikachu' AND t.name='Electric';
+
+INSERT INTO `mydb`.`user_inventory` (`user_id`, `card_id`, `quantity`)
+  SELECT u.id, c.id, 2 FROM users u JOIN cards c
+  WHERE u.user_name='ash' AND c.card_name='Pikachu'
+  UNION ALL
+  SELECT u.id, c.id, 2 FROM users u JOIN cards c
+  WHERE u.user_name='ash' AND c.card_name='Charizard';
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
