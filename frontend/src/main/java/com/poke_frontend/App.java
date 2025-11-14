@@ -40,7 +40,7 @@ public class App extends Application {
 
         theStage = stage;
 
-        currentScene = new Scene(FXMLLoader.load(App.class.getResource("/fxml/login.fxml")));
+        currentScene = new Scene(FXMLLoader.load(App.class.getResource("/fxml/createAccount.fxml")));
         stage.setScene(currentScene);
         stage.show();
 

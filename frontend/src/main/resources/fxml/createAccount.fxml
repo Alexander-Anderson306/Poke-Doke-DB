@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.poke_frontend.CreateAccountPage">
+   <center>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="username_Text" layoutX="298.0" layoutY="100.0" prefWidth="150.0" promptText="Username" />
+            <Label alignment="CENTER_RIGHT" layoutX="159.0" layoutY="97.0" prefHeight="25.0" prefWidth="130.0" text="Username:" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="fname_Text" layoutX="298.0" layoutY="137.0" prefWidth="150.0" promptText="First Name" />
+            <Label alignment="CENTER_RIGHT" layoutX="159.0" layoutY="134.0" prefHeight="25.0" prefWidth="130.0" text="First Name:" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="lname_Text" layoutX="298.0" layoutY="174.0" prefHeight="25.0" prefWidth="150.0" promptText="Last Name" />
+            <Label alignment="CENTER_RIGHT" layoutX="159.0" layoutY="171.0" prefHeight="25.0" prefWidth="130.0" text="Last Name:" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="email_Text" layoutX="298.0" layoutY="211.0" prefHeight="25.0" prefWidth="178.0" promptText="Email Address">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </TextField>
+            <Label alignment="CENTER_RIGHT" layoutX="125.0" layoutY="208.0" prefHeight="30.0" prefWidth="164.0" text="Email Address:" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="159.0" layoutY="245.0" prefHeight="25.0" prefWidth="130.0" text="Password:" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="password_Text" layoutX="298.0" layoutY="248.0" prefWidth="150.0" promptText="Password" />
+            <Label alignment="CENTER_RIGHT" layoutX="98.0" layoutY="282.0" prefHeight="30.0" prefWidth="191.0" text="Confirm Password:" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="confirmPassword_Text" layoutX="298.0" layoutY="285.0" prefWidth="150.0" promptText="Confirm Password" />
+            <Label alignment="CENTER" layoutX="134.0" layoutY="35.0" prefHeight="53.0" prefWidth="329.0" text="CREATE POKEDOKE ACCOUNT" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Button fx:id="createAccountButton" layoutX="200.0" layoutY="328.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: BLACK;" text="Create Account" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Label fx:id="usernameError" alignment="BOTTOM_LEFT" graphicTextGap="1.0" layoutX="459.0" layoutY="104.0" text="* Username been taken." textAlignment="CENTER" textFill="RED" visible="false" />
+            <Label fx:id="passwordError" alignment="BOTTOM_LEFT" graphicTextGap="1.0" layoutX="462.0" layoutY="253.0" text="* Password does not match" textAlignment="CENTER" textFill="RED" visible="false">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </center>
+</BorderPane>
