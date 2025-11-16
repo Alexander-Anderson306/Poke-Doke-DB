@@ -6,14 +6,15 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.poke_frontend.ViewPage">
    <center>
-      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <Pane prefHeight="200.0" prefWidth="786.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="homeButton_View" layoutX="180.0" layoutY="7.0" mnemonicParsing="false" onAction="#goToMainMenu" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: Black;" text="Home" textFill="WHITE">
                <font>
@@ -27,70 +28,14 @@
             </Button>
             <ScrollPane fx:id="scrollView" layoutX="16.0" layoutY="106.0" prefHeight="278.0" prefWidth="569.0">
                <content>
-                <AnchorPane fx:id="cardView" minHeight="0.0" minWidth="0.0" prefHeight="772.0" prefWidth="554.0">
-                     <children>
-                        <ImageView fx:id="imageSlot" fitHeight="150.0" fitWidth="200.0" layoutX="25.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../TempImages/RioluCard.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="imageSlot1" fitHeight="150.0" fitWidth="200.0" layoutX="160.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../TempImages/RioluCard.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="imageSlot11" fitHeight="150.0" fitWidth="200.0" layoutX="290.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../TempImages/RioluCard.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="imageSlot111" fitHeight="150.0" fitWidth="200.0" layoutX="425.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../TempImages/RioluCard.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="imageSlot2" fitHeight="150.0" fitWidth="200.0" layoutX="23.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../TempImages/RioluCard.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="imageSlot12" fitHeight="150.0" fitWidth="200.0" layoutX="158.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../TempImages/RioluCard.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="imageSlot112" fitHeight="150.0" fitWidth="200.0" layoutX="288.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../TempImages/RioluCard.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="imageSlot1111" fitHeight="150.0" fitWidth="200.0" layoutX="423.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../TempImages/RioluCard.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="imageSlot21" fitHeight="150.0" fitWidth="200.0" layoutX="23.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../TempImages/RioluCard.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="imageSlot121" fitHeight="150.0" fitWidth="200.0" layoutX="158.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../TempImages/RioluCard.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="imageSlot1121" fitHeight="150.0" fitWidth="200.0" layoutX="288.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../TempImages/RioluCard.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="imageSlot11111" fitHeight="150.0" fitWidth="200.0" layoutX="423.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../TempImages/RioluCard.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </AnchorPane>
+                  <GridPane fx:id="gird_View" alignment="CENTER" prefHeight="402.0" prefWidth="546.0">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" />
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" />
+                    </columnConstraints>
+                  </GridPane>
                </content>
             </ScrollPane>
             <TextField fx:id="searchBar" layoutX="16.0" layoutY="70.0" prefHeight="25.0" prefWidth="134.0" promptText="Search" />
