@@ -22,4 +22,7 @@ public class LoginPage {
         IO.print(passwordField.getText());
         App.changeCurrentPage(Page.MAIN_MENU);
     }
+
+    public void clickCreateAccountButton(ActionEvent actionEvent) {
+    }
 }
