@@ -65,7 +65,7 @@ public class Server {
         });
 
         //rout for logging out
-         app.post("/logout", ctx -> {
+        app.post("/logout", ctx -> {
 
         });
 
