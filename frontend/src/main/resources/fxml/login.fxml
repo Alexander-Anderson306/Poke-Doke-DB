@@ -12,5 +12,7 @@
     <TextField fx:id="usernameField" layoutX="10.0" layoutY="40.0" prefHeight="20.0" prefWidth="150.0" promptText="Username" />
     <PasswordField fx:id="passwordField" layoutX="10.0" layoutY="70.0" prefHeight="20.0" prefWidth="150.0" promptText="Password" />
     <Button layoutX="10.0" layoutY="100.0" mnemonicParsing="false" onAction="#clickLoginButton" prefHeight="20.0" prefWidth="150.0" text="Login" />
+    <Label alignment="CENTER" layoutX="10.0" layoutY="130.0" prefHeight="20.0" prefWidth="150.0" text="No account?" />
+    <Button layoutX="10.0" layoutY="150.0" mnemonicParsing="false" onAction="#clickCreateAccountButton" prefHeight="20.0" prefWidth="150.0" text="Create Account" />
 </children>
 </Pane>
