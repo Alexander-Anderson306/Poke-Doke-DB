@@ -79,7 +79,7 @@ public class Server {
         });
 
         //rout for buying a pack
-        app.post("/purchas", ctx -> {
+        app.post("/purchase", ctx -> {
 
         });
 
