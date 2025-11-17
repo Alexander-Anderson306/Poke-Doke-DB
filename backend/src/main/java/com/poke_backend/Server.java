@@ -58,6 +58,7 @@ public class Server {
         app.post("/create-account", ctx -> {
             //
         });
+
         //rout for logging in
         app.post("/login", ctx -> {
 
@@ -71,6 +72,11 @@ public class Server {
         //rout for inventory search
         app.post("/inventory", ctx -> {
 
+        });
+
+        //rout for database card search
+        app.post("/cards", ctx -> {
+            
         });
 
         //rout for pack search
