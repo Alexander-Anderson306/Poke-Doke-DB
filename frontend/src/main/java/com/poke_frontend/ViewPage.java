@@ -138,7 +138,7 @@ public class ViewPage {
         String tempImg = "/TempImages/RioluCard.png";
 
         //Get the amount of images from list
-        int amountImgs = 45;
+        int amountImgs = 35;
 
         //calulate the amount of rows needed in the grid pane
         int amountOfRows = amountImgs/4;
