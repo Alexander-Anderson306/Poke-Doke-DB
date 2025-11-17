@@ -7,8 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-import java.sql.*;
-
 public class CreateAccountPage {
 
     @FXML
@@ -51,22 +49,6 @@ public class CreateAccountPage {
         String password = password_Text.getText();
 
         if(validInput(email, fname, lname, userName, password)) {
-            String sql = "INSERT INTO [database_name] (id, user_name, password, name) VALUES (?, ?, ?, ?)";
-            String name = fname + ", " + lname;
-
-            try(Connection conn = DriverManager.getConnection(url, root, db_password);
-                PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-                stmt.setString(1, email);
-                stmt.setString(2, userName);
-                stmt.setString(3, password);
-                stmt.setString(4, name);
-
-            } catch (SQLException e) {
-                System.out.println("Database Error: " + e.getMessage());
-            }
-
-            App.changeCurrentPage(Page.MAIN_MENU);
         }
     }
 

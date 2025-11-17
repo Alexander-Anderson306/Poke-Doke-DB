@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get update && apt-get install -y mariadb-server && rm -rf /var/lib/apt/lists/*
 
 
-EXPOSE 443 3306
+EXPOSE 443 8080
 
 WORKDIR /app
 COPY . .
