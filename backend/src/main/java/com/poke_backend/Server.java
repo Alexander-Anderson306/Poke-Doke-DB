@@ -56,7 +56,7 @@ public class Server {
     private static void registerRoutes(Javalin app) {
         //rout for creating an account
         app.post("/create-account", ctx -> {
-            //CreateAccountRequest request = ctx.body().asClass(CreateAccountRequest.class);
+            //
         });
         //rout for logging in
         app.post("/login", ctx -> {

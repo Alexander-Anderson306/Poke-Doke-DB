@@ -1,13 +1,10 @@
-package com.poke_backend;
+package com.poke_frontend.models;
 
 public class CardPack {
     private int id;
     private String packName;
     private float price;
     private String packRarity;
-
-    //empty constructor for jackson
-    public CardPack() {}
 
     public CardPack(int id, String packName, float price, String packRarity) {
         this.id = id;
@@ -16,7 +13,7 @@ public class CardPack {
         this.packRarity = packRarity;
     }
 
-    //getters (for jackson)
+    //getters
     public int getId() {return id;}
     public String getPackName() {return packName;}
     public float getPrice() {return price;}

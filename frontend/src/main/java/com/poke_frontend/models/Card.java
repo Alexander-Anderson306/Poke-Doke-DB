@@ -1,4 +1,4 @@
-package com.poke_backend;
+package com.poke_frontend.models;
 
 public class Card {
     private int id;
@@ -6,9 +6,6 @@ public class Card {
     private String rarity;
     private String imagePath;
     private String thumbPath;
-
-    //empty constructor for jackson
-    public Card() {}
 
     public Card(int id, String cardName, String rarity, String imagePath, String thumbPath) {
         this.id = id;
@@ -19,14 +16,14 @@ public class Card {
 
     }
 
-    //getters (for jackson)
+    //getters
     public int getId() {return id;}
     public String getCardName() {return cardName;}
     public String getRarity() {return rarity;}
     public String getImagePath() {return imagePath;}
     public String getThumbPath() {return thumbPath;}
 
-    //setters (for jackson)
+    //setters
     public void setId(int id) {this.id = id;}
     public void setCardName(String cardName) {this.cardName = cardName;}
     public void setRarity(String rarity) {this.rarity = rarity;}

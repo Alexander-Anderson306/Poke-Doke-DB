@@ -1,4 +1,4 @@
-package com.poke_backend;
+package com.poke_frontend.models;
 
 public class User {
     private int id;
@@ -8,9 +8,6 @@ public class User {
     private String name;
     private String pictureName;
 
-    //no argument constructor used by jackson
-    public User() {}
-
     public User(int id, String userName, String passowrd, String name, String picture_name) {
         this.id = id;
         this.userName = userName;
@@ -19,14 +16,14 @@ public class User {
         this.pictureName = picture_name;
     }
 
-    //getters (for jackson)
+    //getters
     public int getId() {return id;}
     public String getUserName() {return userName;}
     public String getPassowrd() {return passowrd;}
     public String getName() {return name;}
     public String getPicture_name() {return pictureName;}
 
-    //setters (for jackson)
+    //setters
     public void setId(int id) {this.id = id;}
     public void setUserName(String userName) {this.userName = userName;}
     public void setPassowrd(String passowrd) {this.passowrd = passowrd;}
