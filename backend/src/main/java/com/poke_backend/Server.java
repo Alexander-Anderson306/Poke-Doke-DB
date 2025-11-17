@@ -1,9 +1,12 @@
 package com.poke_backend;
 
 import io.javalin.Javalin;
+import io.javalin.http.Context;
+import io.javalin.json.JavalinJackson;
 import io.javalin.community.ssl.*;
 import org.conscrypt.OpenSSLProvider;
 import java.security.Security;
+import java.util.Map;
 
 public class Server {
     /**
@@ -45,12 +48,44 @@ public class Server {
                     it.anyHost();
                 });
             });
+
+            config.jsonMapper(new JavalinJackson());
         }).start(8080);
+    }
+
+    private static void registerRoutes(Javalin app) {
+        //rout for creating an account
+        app.post("/create-account", ctx -> {
+            //CreateAccountRequest request = ctx.body().asClass(CreateAccountRequest.class);
+        });
+        //rout for logging in
+        app.post("/login", ctx -> {
+
+        });
+
+        //rout for logging out
+         app.post("/logout", ctx -> {
+
+        });
+
+        //rout for inventory search
+        app.post("/inventory", ctx -> {
+
+        });
+
+        //rout for pack search
+        app.post("/store", ctx -> {
+
+        });
+
+        //rout for buying a pack
+        app.post("/purchas", ctx -> {
+
+        });
+
     }
 
     void main() {
         Javalin app = createNGrokCompatableServer();
-
-        app.get("/", ctx -> ctx.result("Hello HTTPS"));
     }
 }
