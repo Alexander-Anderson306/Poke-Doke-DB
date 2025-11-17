@@ -47,7 +47,7 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`card_pack_inventory` (
   `pack_id` INT NOT NULL,
-  `card_id` INT NULL,
+  `card_id` INT NOT NULL,
   PRIMARY KEY (`pack_id`, `card_id`),
   INDEX `fk_cpi_cards` (`card_id` ASC) VISIBLE,
   CONSTRAINT `fk_cpi_card_pack`
@@ -76,7 +76,7 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- Table `mydb`.`types_bridge`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`types_bridge` (
-  `card_id` INT NULL,
+  `card_id` INT NOT NULL,
   `type_id` INT NOT NULL,
   PRIMARY KEY (`card_id`, `type_id`),
   INDEX `fk_types_bridge_poke_types` (`type_id` ASC) VISIBLE,
@@ -110,7 +110,7 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`user_inventory` (
   `user_id` INT NOT NULL,
-  `card_id` INT NULL,
+  `card_id` INT NOT NULL,
   `quantity` INT NOT NULL DEFAULT '0',
   PRIMARY KEY (`user_id`, `card_id`),
   INDEX `fk_user_inventory_cards` (`card_id` ASC) VISIBLE,
