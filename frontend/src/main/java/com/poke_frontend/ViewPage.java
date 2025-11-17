@@ -32,42 +32,6 @@ public class ViewPage {
     private Button homeButton_View;
 
     @FXML
-    private ImageView imageSlot;
-
-    @FXML
-    private ImageView imageSlot1;
-
-    @FXML
-    private ImageView imageSlot11;
-
-    @FXML
-    private ImageView imageSlot111;
-
-    @FXML
-    private ImageView imageSlot1111;
-
-    @FXML
-    private ImageView imageSlot11111;
-
-    @FXML
-    private ImageView imageSlot112;
-
-    @FXML
-    private ImageView imageSlot1121;
-
-    @FXML
-    private ImageView imageSlot12;
-
-    @FXML
-    private ImageView imageSlot121;
-
-    @FXML
-    private ImageView imageSlot2;
-
-    @FXML
-    private ImageView imageSlot21;
-
-    @FXML
     private ScrollPane scrollView;
 
     @FXML
