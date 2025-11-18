@@ -5,18 +5,18 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.poke_backend.User;
-import com.poke_backend.Card;
-import com.poke_backend.CardPack;
-import com.poke_backend.UserInventory;
+import com.poke_backend.models.User;
+import com.poke_backend.models.Card;
+import com.poke_backend.models.CardPack;
+import com.poke_backend.models.UserInventory;
 
-import com.poke_backend.CreateAccountRequest;
-import com.poke_backend.LoginRequest;
-import com.poke_backend.LogoutRequest;
-import com.poke_backend.InventoryRequest;
-import com.poke_backend.AllCardsRequest;
-import com.poke_backend.PackRequest;
-import com.poke_backend.PackPurchaseRequest;
+import com.poke_backend.dto.CreateAccountRequest;
+import com.poke_backend.dto.LoginRequest;
+import com.poke_backend.dto.LogoutRequest;
+import com.poke_backend.dto.InventoryRequest;
+import com.poke_backend.dto.AllCardsRequest;
+import com.poke_backend.dto.PackRequest;
+import com.poke_backend.dto.PackPurchaseRequest;
 
 public class SQLHandler {
 	
