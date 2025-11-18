@@ -5,6 +5,9 @@ import io.javalin.http.Context;
 import io.javalin.json.JavalinJackson;
 import io.javalin.community.ssl.*;
 import org.conscrypt.OpenSSLProvider;
+
+import com.poke_backend.dto.CreateAccountRequest;
+
 import java.security.Security;
 import java.util.Map;
 
@@ -56,7 +59,9 @@ public class Server {
     private static void registerRoutes(Javalin app) {
         //rout for creating an account
         app.post("/create-account", ctx -> {
-            //
+            CreateAccountRequest req = ctx.bodyAsClass(CreateAccountRequest.class);
+
+            
         });
 
         //rout for logging in
