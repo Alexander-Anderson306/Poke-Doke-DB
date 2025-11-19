@@ -15,7 +15,15 @@ public class Client {
         //try to connect to login using username and password. Will implement later
         //throw an exception if login fails
 
-        this.client = createSecureSclient();
+        this.client = createNgrokClient();
+    }
+
+    private HttpClient createNgrokClient() {
+        try {
+            return HttpClient.newBuilder().build();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to set up HTTPS client", e);
+        }
     }
 
     /**
