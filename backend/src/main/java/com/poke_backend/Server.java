@@ -4,12 +4,29 @@ import io.javalin.Javalin;
 import io.javalin.http.Context;
 import io.javalin.json.JavalinJackson;
 import io.javalin.community.ssl.*;
+
+import org.bouncycastle.crypto.util.Pack;
 import org.conscrypt.OpenSSLProvider;
+import java.sql.SQLException;
 
 import com.poke_backend.dto.CreateAccountRequest;
+import com.poke_backend.dto.InventoryRequest;
+import com.poke_backend.dto.LoginRequest;
+import com.poke_backend.dto.LogoutRequest;
+import com.poke_backend.dto.PackPurchaseRequest;
+import com.poke_backend.dto.PackRequest;
+import com.poke_backend.dto.AllCardsRequest;
+import com.poke_backend.dto.BaseResponse;
+import com.poke_backend.models.User;
+import com.poke_backend.models.UserInventory;
+import com.poke_backend.models.Card;
+import com.poke_backend.models.CardPack;
+
 
 import java.security.Security;
 import java.util.Map;
+
+import java.util.List;
 
 public class Server {
     /**
@@ -61,42 +78,96 @@ public class Server {
         app.post("/create-account", ctx -> {
             CreateAccountRequest req = ctx.bodyAsClass(CreateAccountRequest.class);
 
-            
+            //try adding the user
+            try {
+                SQLHandler sqlHandler = new SQLHandler();
+                sqlHandler.createAccount(req);
+                //send response back to client
+                ctx.json(new BaseResponse(true, "Successfully created account"));
+            } catch (SQLException e) {
+                //may or may not need to change error code
+                //error response to client
+                ctx.json(new BaseResponse(false, "Failed to create account", 500));
+            }
         });
 
         //rout for logging in
         app.post("/login", ctx -> {
+            LoginRequest req = ctx.bodyAsClass(LoginRequest.class);
+
+            try{
+                SQLHandler sqlHandler = new SQLHandler();
+                User user = sqlHandler.login(req);
+                ctx.json(new BaseResponse(true, "Successfully logged in"));
+            } catch (SQLException e) {
+                ctx.status(401).json(new BaseResponse(false, "Failed to find user", 401));
+            }
 
         });
 
         //rout for logging out
         app.post("/logout", ctx -> {
+            LogoutRequest req = ctx.bodyAsClass(LogoutRequest.class);
 
+            //do stuff
         });
 
         //rout for inventory search
         app.post("/inventory", ctx -> {
-
+            /*
+                InventoryRequest req = ctx.bodyAsClass(InventoryRequest.class);
+            try {
+                //query database for user inventoryRequestObject
+            } catch (SQLException e) {
+                ctx.status(500).json(new BaseResponse(false, "Failed to find inventory", 500));   
+            }
+                */
         });
 
         //rout for database card search
         app.post("/cards", ctx -> {
-            
+            AllCardsRequest req = ctx.bodyAsClass(AllCardsRequest.class);
+
+            try {
+                SQLHandler sqlHandler = new SQLHandler();
+                List<Card> cards = sqlHandler.getCards(req);
+                ctx.json(cards);
+            } catch (SQLException e) {
+                ctx.status(500).json(new BaseResponse(false, "Failed to find cards", 500));
+            }
         });
 
         //rout for pack search
         app.post("/store", ctx -> {
+            PackRequest req = ctx.bodyAsClass(PackRequest.class);
 
+            try {
+                SQLHandler sqlHandler = new SQLHandler();
+                List<CardPack> packs = sqlHandler.getPacks(req);
+                ctx.json(packs);
+            } catch (SQLException e) {
+                ctx.status(500).json(new BaseResponse(false, "Failed to find packs", 500));
+            }
+            
         });
 
         //rout for buying a pack
         app.post("/purchase", ctx -> {
+            PackPurchaseRequest req = ctx.bodyAsClass(PackPurchaseRequest.class);
 
+            try {
+                SQLHandler sqlHandler = new SQLHandler();
+                List<Card> cards = sqlHandler.purchasePack(req);
+                ctx.json(cards);
+            } catch (SQLException e) {
+                ctx.status(500).json(new BaseResponse(false, "Failed to find packs", 500));
+            }
         });
 
     }
 
     void main() {
         Javalin app = createNGrokCompatableServer();
+        registerRoutes(app);
     }
 }
