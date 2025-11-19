@@ -1,55 +1,47 @@
 package com.poke_frontend;
-import javax.net.ssl.*;
-import java.io.FileInputStream;
-import java.security.KeyStore;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.poke_frontend.dto.LoginRequest;
+
 import java.net.http.HttpClient;
-import java.security.cert.CertificateException;
+import java.net.URI;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.file.ProviderMismatchException;
 
 public class Client {
-    private HttpClient client;
-    private String url = "https://changeme/";
+    private final HttpClient http;
+    private final ObjectMapper mapper;
+
+    private String baseURL = "https://changeme.com";
+
+    private int userId;
     private String username;
 
-    public Client(String username, String password) {
+    public Client() {
+        this.http = HttpClient.newHttpClient();
+        this.mapper = new ObjectMapper();
+    }
+
+    //login
+    public boolean login(String username, String password) throws Exception {
         this.username = username;
-        //try to connect to login using username and password. Will implement later
-        //throw an exception if login fails
 
-        this.client = createNgrokClient();
-    }
+        LoginRequest req = new LoginRequest();
+        req.username = username;
+        req.password = password;
 
-    private HttpClient createNgrokClient() {
-        try {
-            return HttpClient.newBuilder().build();
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to set up HTTPS client", e);
-        }
-    }
+        //make json from request
+        String json = mapper.writeValueAsString(req);
 
-    /**
-     * Creates an HTTPS client using the truststore located at truststore.p12
-     * 
-     * @return an HTTPS client
-     * @throws RuntimeException if the truststore cannot be loaded or the HTTPS client cannot be created
-     */
-    private HttpClient createSecureSclient() {
-        try {
-            //first we load the truststore
-            KeyStore trustStore = KeyStore.getInstance("PKCS12");
-            trustStore.load(new FileInputStream("truststore.p12"), "password".toCharArray());
+        //make request
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(baseURL + "/login"))
+            .header("Content-Type", "application/json")
+            .POST(HttpRequest.BodyPublishers.ofString(json))
+            .build();
 
-            //create a trust manager factory using the loaded truststore
-            TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-            tmf.init(trustStore);
-
-            SSLContext sslContext = SSLContext.getInstance("TLS");
-            sslContext.init(null, tmf.getTrustManagers(), null);
-
-            return HttpClient.newBuilder()
-                    .sslContext(sslContext)
-                    .build();
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to set up HTTPS client", e);
-        }
+        //get response
+        
     }
 }
