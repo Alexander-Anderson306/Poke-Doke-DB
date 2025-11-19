@@ -1,7 +1,11 @@
 package com.poke_frontend;
 
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
+import javafx.beans.binding.Bindings;
 
 /**
  * A class that gives each page the ablity to scale
@@ -32,7 +36,6 @@ public abstract class ScalePage {
         scaleGroup.scaleYProperty().bind(newScene.heightProperty().divide(400));
         }
         });
-
 
     }
 

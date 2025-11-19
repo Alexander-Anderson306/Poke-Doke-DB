@@ -1,6 +1,7 @@
 package com.poke_frontend;
 
 import javafx.application.Application;
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -21,12 +22,15 @@ public class App extends Application {
      */
     public static void changeCurrentPage(Page newPage) {
 
+        Double sceneWidth = currentScene.getWidth();
+        Double sceneheight = currentScene.getHeight();
+
         currentPage = newPage;
 
         String fxml = currentPage.getFXML();
 
         try {
-            currentScene = new Scene(FXMLLoader.load(App.class.getResource(fxml)));
+            currentScene = new Scene(FXMLLoader.load(App.class.getResource(fxml)), sceneWidth, sceneheight);
             theStage.setScene(currentScene);
             theStage.show();
         } catch (IOException e) {

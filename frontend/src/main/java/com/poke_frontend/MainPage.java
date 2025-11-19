@@ -2,9 +2,11 @@ package com.poke_frontend;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
 
-public class MainPage {
+public class MainPage extends ScalePage{
 
     @FXML
     private Button databaseButton_Main;
@@ -20,6 +22,18 @@ public class MainPage {
 
     @FXML
     private Button shopButton_Main;
+
+    @FXML
+    protected Pane rootPane;
+
+    @FXML
+    private Group groupScale;
+
+    @FXML    
+    void initialize(){ 
+        implementScaling(groupScale, rootPane);  
+    }
+
 
     @FXML
     void closeApplication(ActionEvent event) {

@@ -2,12 +2,14 @@ package com.poke_frontend;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 
-public class CreateAccountPage {
+public class CreateAccountPage extends ScalePage{
 
     @FXML
     private PasswordField confirmPassword_Text;
@@ -35,6 +37,13 @@ public class CreateAccountPage {
 
     @FXML
     private TextField username_Text;
+
+    @FXML
+    protected Pane rootPane;
+
+    @FXML
+    private Group groupScale;
+    
 
     private static final String url = "";
     private static final String root = "";
@@ -79,5 +88,10 @@ public class CreateAccountPage {
         }
 
         return true;
+    }
+
+    @FXML    
+    void initialize(){ 
+        implementScaling(groupScale, rootPane);  
     }
 }

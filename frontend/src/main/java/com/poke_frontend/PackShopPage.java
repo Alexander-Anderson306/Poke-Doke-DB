@@ -2,12 +2,14 @@ package com.poke_frontend;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 
-public class PackShopPage {
+public class PackShopPage extends ScalePage{
 
     @FXML
     private Button accountButton_view;
@@ -35,6 +37,18 @@ public class PackShopPage {
 
     @FXML
     private Label username_label;
+
+    @FXML
+    protected Pane rootPane;
+
+    @FXML
+    private Group groupScale;
+
+    @FXML    
+    void initialize(){ 
+        implementScaling(groupScale, rootPane);  
+    }
+    
 
     @FXML
     void buyPack(MouseEvent event) {
