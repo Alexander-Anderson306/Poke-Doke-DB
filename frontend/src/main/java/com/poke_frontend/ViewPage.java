@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -12,15 +14,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.transform.Scale;
 import javafx.scene.image.Image;
 
 import java.util.List;
 
-public class ViewPage {
+public class ViewPage extends ScalePage{
 
     @FXML
     private Button accountButton_view;
+
+    @FXML
+    protected Pane rootPane;
 
     @FXML
     private Button buyButton_View;
@@ -49,13 +56,17 @@ public class ViewPage {
     @FXML
     private GridPane gird_View;
 
+    @FXML
+    private Group groupScale;
+
     @FXML    
     void initialize(){
 
+        
+        implementScaling(groupScale, rootPane);
         loadViewPage2(null);
+        
     }
-    
-    
 
     void loadViewPage2(List<String>urlList){
 
