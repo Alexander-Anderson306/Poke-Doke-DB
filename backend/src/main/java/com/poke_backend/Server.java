@@ -9,18 +9,9 @@ import org.bouncycastle.crypto.util.Pack;
 import org.conscrypt.OpenSSLProvider;
 import java.sql.SQLException;
 
-import com.poke_backend.dto.CreateAccountRequest;
-import com.poke_backend.dto.InventoryRequest;
-import com.poke_backend.dto.LoginRequest;
-import com.poke_backend.dto.LogoutRequest;
-import com.poke_backend.dto.PackPurchaseRequest;
-import com.poke_backend.dto.PackRequest;
-import com.poke_backend.dto.AllCardsRequest;
-import com.poke_backend.dto.BaseResponse;
-import com.poke_backend.models.User;
-import com.poke_backend.models.UserInventory;
-import com.poke_backend.models.Card;
-import com.poke_backend.models.CardPack;
+import com.poke_backend.dto.request.*;
+import com.poke_backend.dto.response.*;
+import com.poke_backend.models.*;
 
 
 import java.security.Security;
@@ -131,7 +122,7 @@ public class Server {
             try {
                 SQLHandler sqlHandler = new SQLHandler();
                 List<Card> cards = sqlHandler.getCards(req);
-                ctx.json(cards);
+                ctx.json(new AllCardsResponse(cards));
             } catch (SQLException e) {
                 ctx.status(500).json(new BaseResponse(false, "Failed to find cards", 500));
             }
@@ -144,7 +135,7 @@ public class Server {
             try {
                 SQLHandler sqlHandler = new SQLHandler();
                 List<CardPack> packs = sqlHandler.getPacks(req);
-                ctx.json(packs);
+                ctx.json(new PackResponse(packs));
             } catch (SQLException e) {
                 ctx.status(500).json(new BaseResponse(false, "Failed to find packs", 500));
             }
@@ -158,7 +149,7 @@ public class Server {
             try {
                 SQLHandler sqlHandler = new SQLHandler();
                 List<Card> cards = sqlHandler.purchasePack(req);
-                ctx.json(cards);
+                ctx.json(new PackPurchaseResponse(cards));
             } catch (SQLException e) {
                 ctx.status(500).json(new BaseResponse(false, "Failed to find packs", 500));
             }

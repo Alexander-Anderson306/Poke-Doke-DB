@@ -1,7 +1,8 @@
 package com.poke_frontend;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.poke_frontend.dto.LoginRequest;
+import com.poke_frontend.dto.request.*;
+import com.poke_frontend.dto.response.*;
 
 import java.net.http.HttpClient;
 import java.net.URI;

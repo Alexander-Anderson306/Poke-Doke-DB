@@ -1,4 +1,4 @@
-package com.poke_backend.dto;
+package com.poke_backend.dto.response;
 
 public class BaseResponse {
     public boolean success;

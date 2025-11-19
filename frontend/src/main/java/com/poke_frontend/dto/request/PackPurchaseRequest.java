@@ -1,4 +1,4 @@
-package com.poke_backend.dto;
+package com.poke_frontend.dto.request;
 
 public class PackPurchaseRequest {
     public int packId;

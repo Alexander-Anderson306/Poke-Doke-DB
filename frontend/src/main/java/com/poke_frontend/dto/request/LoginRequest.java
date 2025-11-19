@@ -1,4 +1,4 @@
-package com.poke_frontend.dto;
+package com.poke_frontend.dto.request;
 
 public class LoginRequest {
     public String username;

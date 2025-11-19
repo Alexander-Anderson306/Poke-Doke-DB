@@ -1,6 +1,6 @@
-package com.poke_backend.dto;
+package com.poke_frontend.dto.response;
 
-import com.poke_backend.models.InventoryRequestObject;
+import com.poke_frontend.models.InventoryRequestObject;
 import java.util.List;
 
 public class InventoryResponse {

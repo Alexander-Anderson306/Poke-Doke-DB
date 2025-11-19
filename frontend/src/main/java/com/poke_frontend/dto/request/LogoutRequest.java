@@ -1,4 +1,4 @@
-package com.poke_backend.dto;
+package com.poke_frontend.dto.request;
 
 public class LogoutRequest {
     public String token;
