@@ -13,6 +13,7 @@ module com.poke_frontend {
 
     exports com.poke_frontend.dto.request;
     exports com.poke_frontend.dto.response;
+    exports com.poke_frontend.models;
 
     opens com.poke_frontend to javafx.fxml;
 

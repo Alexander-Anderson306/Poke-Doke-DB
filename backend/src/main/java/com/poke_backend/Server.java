@@ -89,7 +89,7 @@ public class Server {
             try{
                 SQLHandler sqlHandler = new SQLHandler();
                 User user = sqlHandler.login(req);
-                ctx.json(new BaseResponse(true, "Successfully logged in"));
+                ctx.json(new LoginResponse(user.getId()));
             } catch (SQLException e) {
                 ctx.status(401).json(new BaseResponse(false, "Failed to find user", 401));
             }
