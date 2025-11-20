@@ -27,13 +27,21 @@ public class Client {
         this.mapper = new ObjectMapper();
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
     
-/**
- * Attempts to log in an existing user 
- * @param username the username of the user
- * @param password the password of the user
- * @return true if the login was successful, false otherwise
- */
+    /**
+     * Attempts to log in an existing user 
+     * @param username the username of the user
+     * @param password the password of the user
+     * @return true if the login was successful, false otherwise
+     */
     public boolean login(String username, String password) throws Exception {
         this.username = username;
 
@@ -70,12 +78,12 @@ public class Client {
         return true;
     }
 
-/**
- * Attempts to create a new account for the user
- * @param req the request from the user
- * @return true if the account was created successfully, false otherwise
- * @throws Exception
- */
+    /**
+     * Attempts to create a new account for the user
+     * @param req the request from the user
+     * @return true if the account was created successfully, false otherwise
+     * @throws Exception
+     */
     public boolean createAccount(CreateAccountRequest req) throws Exception {
         //make json from request
         String json = mapper.writeValueAsString(req);
@@ -106,12 +114,12 @@ public class Client {
         return null;
     }
 
-/**
- * Returns all the cards in the database which match the query specified in the request
- * @param req the request from the user
- * @return a list of cards
- * @throws Exception
- */
+    /**
+     * Returns all the cards in the database which match the query specified in the request
+     * @param req the request from the user
+     * @return a list of cards
+     * @throws Exception
+     */
     public List<Card> getDBCards(AllCardsRequest req) throws Exception{
         String json = mapper.writeValueAsString(req);
 
@@ -134,13 +142,13 @@ public class Client {
         return dbResponse.cards;
     }
 
-/**
- * Returns available packs in the store
- * @param req the request from the user
- * @return a list of packs
- * @throws Exception
- * 
- */
+    /**
+     * Returns available packs in the store
+     * @param req the request from the user
+     * @return a list of packs
+     * @throws Exception
+     * 
+     */
     public List<CardPack> displayStore(PackRequest req) throws Exception{
         String json = mapper.writeValueAsString(req);
 
@@ -163,13 +171,13 @@ public class Client {
         return storeResponse.packs;
     }
 
-/**
- * Attempts to purchase a a available packs in the store
- * @param req the request from the user
- * @return a list of packs
- * @throws Exception
-*/    
-public List<Card> purchasePack(PackPurchaseRequest req) throws Exception{
+    /**
+     * Attempts to purchase a a available packs in the store
+     * @param req the request from the user
+     * @return a list of packs
+     * @throws Exception
+    */    
+    public List<Card> purchasePack(PackPurchaseRequest req) throws Exception{
         String json = mapper.writeValueAsString(req);
 
         HttpRequest request = HttpRequest.newBuilder()
