@@ -58,6 +58,7 @@ public class CreateAccountPage extends ScalePage{
         String password = password_Text.getText();
 
         if(validInput(email, fname, lname, userName, password)) {
+            App.changeCurrentPage(Page.LOGIN);
         }
     }
 
@@ -94,4 +95,5 @@ public class CreateAccountPage extends ScalePage{
     void initialize(){ 
         implementScaling(groupScale, rootPane);  
     }
+
 }

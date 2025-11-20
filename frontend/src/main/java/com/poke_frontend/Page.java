@@ -7,7 +7,7 @@ public enum Page {
     MAIN_MENU("/fxml/mainMenu.fxml"),
     VIEW_INVENTORY("/fxml/viewCards.fxml"),
     VIEW_DATABASE("/fxml/viewCards.fxml"),
-//  SHOP(""),
+    SHOP("/fxml/buyPacks.fxml"),
     ;
 
     final String fxml;

@@ -52,7 +52,7 @@ public class MainPage extends ScalePage{
 
     @FXML
     void goToShop(ActionEvent event) {
-
+        App.changeCurrentPage(Page.SHOP);
     }
 
     @FXML
