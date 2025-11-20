@@ -19,8 +19,9 @@
                 <TextField fx:id="usernameField" layoutX="225.0" layoutY="188.0" prefHeight="20.0" prefWidth="150.0" promptText="Username" />
                 <PasswordField fx:id="passwordField" layoutX="225.0" layoutY="218.0" prefHeight="20.0" prefWidth="150.0" promptText="Password" />
                 <Button fx:id="loginButton" layoutX="225.0" layoutY="248.0" mnemonicParsing="false" onAction="#clickLoginButton" prefHeight="20.0" prefWidth="150.0" text="Login" />
-                <Label alignment="CENTER" layoutX="225.0" layoutY="278.0" prefHeight="20.0" prefWidth="150.0" text="No account?" />
-                <Button fx:id="createButton" layoutX="225.0" layoutY="298.0" mnemonicParsing="false" onAction="#clickCreateAccountButton" prefHeight="20.0" prefWidth="150.0" text="Create Account" />
+                <Label fx:id = "errorMessageLabel" alignment="CENTER" layoutX="220.0" layoutY="278.0" prefWidth="160.0" prefHeight="20.0" />
+                <Label alignment="CENTER" layoutX="225.0" layoutY="308.0" prefHeight="20.0" prefWidth="150.0" text="No account?" />
+                <Button fx:id="createButton" layoutX="225.0" layoutY="328.0" mnemonicParsing="false" onAction="#clickCreateAccountButton" prefHeight="20.0" prefWidth="150.0" text="Create Account" />
             </children>
             </Pane>
          </children>

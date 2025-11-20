@@ -1,7 +1,9 @@
 package com.poke_frontend;
 
+import com.poke_frontend.dto.request.LoginRequest;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -10,6 +12,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 
 public class LoginPage extends ScalePage{
+
+    @FXML
+    public Label errorMessageLabel;
+
     @FXML
     private TextField usernameField;
 
@@ -32,9 +38,29 @@ public class LoginPage extends ScalePage{
 
     @FXML
     void clickLoginButton(ActionEvent event) {
-        IO.print(usernameField.getText());
-        IO.print(passwordField.getText());
-        App.changeCurrentPage(Page.MAIN_MENU);
+
+        // TEMP CODE FOR TESTING PURPOSES, DELETE BEFORE PUBLISHING
+        if (usernameField.getText().equals("admin") && passwordField.getText().equals("admin"))
+            App.changeCurrentPage(Page.MAIN_MENU);
+
+        Client client = new Client();
+
+        LoginRequest request = new LoginRequest();
+        request.username = usernameField.getText();
+        request.password = passwordField.getText();
+
+        boolean success;
+        try {
+            success = client.login(request);
+        } catch (Exception e) {
+            success = false;
+        }
+
+        if (success)
+            App.changeCurrentPage(Page.MAIN_MENU);
+        else
+            errorMessageLabel.setText("Login failed, please try again.");
+
     }
 
     public void clickCreateAccountButton(ActionEvent actionEvent) {
