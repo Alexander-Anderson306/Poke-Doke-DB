@@ -38,16 +38,11 @@ public class Client {
     
     /**
      * Attempts to log in an existing user 
-     * @param username the username of the user
-     * @param password the password of the user
+     * @param req request holding the username and password
      * @return true if the login was successful, false otherwise
      */
-    public boolean login(String username, String password) throws Exception {
-        this.username = username;
-
-        LoginRequest req = new LoginRequest();
-        req.username = username;
-        req.password = password;
+    public boolean login(LoginRequest req) throws Exception {
+        this.username = req.username;
 
         //make json from request
         String json = mapper.writeValueAsString(req);
