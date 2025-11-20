@@ -2,7 +2,6 @@
 *.vscode/
 *.jks
 *.cer
-*.idea
 *maven*
 backend/target/
 frontend/target/

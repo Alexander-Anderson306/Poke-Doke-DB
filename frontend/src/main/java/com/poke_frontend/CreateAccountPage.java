@@ -56,39 +56,48 @@ public class CreateAccountPage extends ScalePage{
         String lname = lname_Text.getText();
         String userName = username_Text.getText();
         String password = password_Text.getText();
+        String confirmPass = confirmPassword_Text.getText();
 
-        if(validInput(email, fname, lname, userName, password)) {
-            App.changeCurrentPage(Page.LOGIN);
+        if(Blank(email, fname, lname, userName, password)) {
+            if (samePass(password, confirmPass)) {
+                App.changeCurrentPage(Page.LOGIN);
+            }
         }
     }
 
-    private boolean validInput(String email, String fname, String lname, String username, String password) {
+    private boolean Blank (String email, String fname, String lname, String username, String password) {
+        boolean emailBlank = false, fnameBlank = false, lnameBlank = false, usernameBlank = false, passwordBlank = false;
+
         if (email.isBlank()) {
             System.out.println("email is blank.");
-            return false;
+            emailBlank = true;
         }
 
         if (fname.isBlank()) {
             System.out.println("first name is blank.");
-            return false;
+            fnameBlank = true;
         }
 
         if (lname.isBlank()) {
             System.out.println("last name is blank.");
-            return false;
+            lnameBlank = true;
         }
 
         if (username.isBlank()) {
             System.out.println("username is blank.");
-            return false;
+            usernameBlank = true;
         }
 
         if (password.isBlank()) {
             System.out.println("password is blank.");
-            return false;
+            passwordBlank = true;
         }
 
-        return true;
+        return !emailBlank && !fnameBlank && !lnameBlank && !usernameBlank && !passwordBlank;
+    }
+
+    private boolean samePass(String password, String conPass) {
+        return password.equals(conPass);
     }
 
     @FXML    
