@@ -66,6 +66,7 @@
                      </font>
                   </Button>
                   <Label fx:id="usernameNull" alignment="BOTTOM_LEFT" graphicTextGap="1.0" layoutX="459.0" layoutY="104.0" text="* Username cannot be empty." textAlignment="CENTER" textFill="RED" visible="false" style="-fx-font-size: 10px;" />
+                  <Label fx:id="usernameSame" alignment="BOTTOM_LEFT" graphicTextGap="1.0" layoutX="459.0" layoutY="104.0" text="* Username already got taken." textAlignment="CENTER" textFill="RED" visible="false" style="-fx-font-size: 10px;" />
                   <Label fx:id="passwordNull" alignment="BOTTOM_LEFT" graphicTextGap="1.0" layoutX="462.0" layoutY="253.0" text="* Password cannot be empty." textAlignment="CENTER" textFill="RED" visible="false" style="-fx-font-size: 10px;" />
                    <Label fx:id="emailNull" alignment="BOTTOM_LEFT" graphicTextGap="1.0" layoutX="462.0" layoutY="211.0" text="* Email cannot be empty." textAlignment="CENTER" textFill="RED" visible="false" style="-fx-font-size: 10px;" />
                   <Label fx:id="passwordError" alignment="BOTTOM_LEFT" graphicTextGap="1.0" layoutX="462.0" layoutY="253.0" text="* Password does not match." textAlignment="CENTER" textFill="RED" visible="false" style="-fx-font-size: 10px;" >

@@ -16,6 +16,9 @@ import java.security.spec.EncodedKeySpec;
 public class CreateAccountPage extends ScalePage{
 
     @FXML
+    private Label usernameSame;
+
+    @FXML
     private Label emailNull;
 
     @FXML
@@ -86,15 +89,21 @@ public class CreateAccountPage extends ScalePage{
                  CAR.name = lname + ", " + fname;
                  CAR.username = userName;
                  CAR.password = password;
-
+                
+                 boolean successful;
                  try {
-                     cli.createAccount(CAR);
+                    successful = cli.createAccount(CAR);
                  } catch (Exception e) {
-                     System.out.println("Error message: " + e);
+                    successful = false;
                  }
-
-                /* Let the user login */
-                App.changeCurrentPage(Page.LOGIN);
+                
+                 if (!successful) {
+                    usernameSame.setVisible(true);
+                 } else {
+                    usernameSame.setVisible(false);
+                    /* Let the user login */
+                    App.changeCurrentPage(Page.LOGIN);
+                 }
             }
         }
     }
