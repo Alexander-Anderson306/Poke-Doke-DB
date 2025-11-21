@@ -33,7 +33,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="email_Text" layoutX="298.0" layoutY="211.0" prefHeight="25.0" prefWidth="178.0" promptText="Email Address">
+                  <TextField fx:id="email_Text" layoutX="298.0" layoutY="211.0" prefHeight="25.0" prefWidth="150.0" promptText="Email Address">
                      <font>
                         <Font size="10.0" />
                      </font>
@@ -65,8 +65,10 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Label fx:id="usernameError" alignment="BOTTOM_LEFT" graphicTextGap="1.0" layoutX="459.0" layoutY="104.0" text="* Username been taken." textAlignment="CENTER" textFill="RED" visible="false" />
-                  <Label fx:id="passwordError" alignment="BOTTOM_LEFT" graphicTextGap="1.0" layoutX="462.0" layoutY="253.0" text="* Password does not match" textAlignment="CENTER" textFill="RED" visible="false">
+                  <Label fx:id="usernameNull" alignment="BOTTOM_LEFT" graphicTextGap="1.0" layoutX="459.0" layoutY="104.0" text="* Username cannot be empty." textAlignment="CENTER" textFill="RED" visible="false" style="-fx-font-size: 10px;" />
+                  <Label fx:id="passwordNull" alignment="BOTTOM_LEFT" graphicTextGap="1.0" layoutX="462.0" layoutY="253.0" text="* Password cannot be empty." textAlignment="CENTER" textFill="RED" visible="false" style="-fx-font-size: 10px;" />
+                   <Label fx:id="emailNull" alignment="BOTTOM_LEFT" graphicTextGap="1.0" layoutX="462.0" layoutY="211.0" text="* Email cannot be empty." textAlignment="CENTER" textFill="RED" visible="false" style="-fx-font-size: 10px;" />
+                  <Label fx:id="passwordError" alignment="BOTTOM_LEFT" graphicTextGap="1.0" layoutX="462.0" layoutY="253.0" text="* Password does not match." textAlignment="CENTER" textFill="RED" visible="false" style="-fx-font-size: 10px;" >
                      <font>
                         <Font size="10.0" />
                      </font>

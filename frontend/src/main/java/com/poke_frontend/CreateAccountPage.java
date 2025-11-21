@@ -1,5 +1,7 @@
 package com.poke_frontend;
 
+import com.poke_frontend.dto.request.CreateAccountRequest;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -9,7 +11,15 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
+import java.security.spec.EncodedKeySpec;
+
 public class CreateAccountPage extends ScalePage{
+
+    @FXML
+    private Label emailNull;
+
+    @FXML
+    private Label passwordNull;
 
     @FXML
     private PasswordField confirmPassword_Text;
@@ -33,7 +43,7 @@ public class CreateAccountPage extends ScalePage{
     private PasswordField password_Text;
 
     @FXML
-    private Label usernameError;
+    private Label usernameNull;
 
     @FXML
     private TextField username_Text;
@@ -50,7 +60,12 @@ public class CreateAccountPage extends ScalePage{
     private static final String db_password = "";
 
     @FXML
+    /**
+     * Attempts to create a new account
+     */
     void createAccount(ActionEvent event) {
+
+        /* Getting the user input */
         String email = email_Text.getText(); // primary key
         String fname = fname_Text.getText();
         String lname = lname_Text.getText();
@@ -58,49 +73,81 @@ public class CreateAccountPage extends ScalePage{
         String password = password_Text.getText();
         String confirmPass = confirmPassword_Text.getText();
 
-        if(Blank(email, fname, lname, userName, password)) {
+        /* Checking if the input are valid */
+        if(Blank(email, userName, password)) {
+
+            /* Checking if the pass and conPass are the same*/
             if (samePass(password, confirmPass)) {
+                /* Add information to the database*/
+                 Client cli = new Client();
+                 CreateAccountRequest  CAR = new CreateAccountRequest();
+
+                 CAR.email = email;
+                 CAR.name = lname + ", " + fname;
+                 CAR.username = userName;
+                 CAR.password = password;
+
+                 try {
+                     cli.createAccount(CAR);
+                 } catch (Exception e) {
+                     System.out.println("Error message: " + e);
+                 }
+
+                /* Let the user login */
                 App.changeCurrentPage(Page.LOGIN);
             }
         }
     }
-
-    private boolean Blank (String email, String fname, String lname, String username, String password) {
-        boolean emailBlank = false, fnameBlank = false, lnameBlank = false, usernameBlank = false, passwordBlank = false;
+    
+    /**
+     * Methods to validate user input
+     */
+    private boolean Blank (String email, String username, String password) {
+        boolean emailBlank = false, usernameBlank = false, passwordBlank = false;
 
         if (email.isBlank()) {
-            System.out.println("email is blank.");
+            emailNull.setVisible(true);
             emailBlank = true;
-        }
-
-        if (fname.isBlank()) {
-            System.out.println("first name is blank.");
-            fnameBlank = true;
-        }
-
-        if (lname.isBlank()) {
-            System.out.println("last name is blank.");
-            lnameBlank = true;
+        } else {
+            emailNull.setVisible(false);
         }
 
         if (username.isBlank()) {
-            System.out.println("username is blank.");
+            usernameNull.setVisible(true);
             usernameBlank = true;
+        } else {
+            usernameNull.setVisible(false);
         }
 
         if (password.isBlank()) {
-            System.out.println("password is blank.");
+            passwordNull.setVisible(true);
             passwordBlank = true;
+        } else {
+            passwordNull.setVisible(false);
         }
 
-        return !emailBlank && !fnameBlank && !lnameBlank && !usernameBlank && !passwordBlank;
+
+        return !emailBlank && !usernameBlank && !passwordBlank;
     }
 
+    /**
+     * Checking pass and conPass are the same
+     */
     private boolean samePass(String password, String conPass) {
-        return password.equals(conPass);
+        boolean same = password.equals(conPass);
+
+        /* If pass != conPass*/
+        if (!same) {
+            /* Set the error message */
+            passwordError.setVisible(true);
+        }
+        return same;
     }
 
-    @FXML    
+    /**
+     * Scale the page
+     */
+    @FXML   
     void initialize(){ 
         implementScaling(groupScale, rootPane);  
     }
