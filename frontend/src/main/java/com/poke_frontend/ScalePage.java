@@ -16,6 +16,8 @@ public abstract class ScalePage {
     public Group scaleGroup;
     public Pane scalePane;
 
+    public String sceneName;
+
     /**
      * A method that makes the group and pane to scale up with scene
      * @param currentGroup the group that gives the objects the abilty to scale up
@@ -37,6 +39,14 @@ public abstract class ScalePage {
         }
         });
 
+    }
+
+    public void setSceneName(String newName){
+        sceneName = newName;
+    }
+
+    public String getSceneName(){
+        return sceneName;
     }
 
 }

@@ -2,21 +2,27 @@ package com.poke_frontend;
 
 public enum Page {
 
-    LOGIN("/fxml/login.fxml"),
-    CREATE_ACCOUNT("/fxml/createAccount.fxml"),
-    MAIN_MENU("/fxml/mainMenu.fxml"),
-    VIEW_INVENTORY("/fxml/viewCards.fxml"),
-    VIEW_DATABASE("/fxml/viewCards.fxml"),
-    SHOP("/fxml/buyPacks.fxml"),
+    LOGIN("/fxml/login.fxml", "Login to POKEDOKE"),
+    CREATE_ACCOUNT("/fxml/createAccount.fxml", "Create Account!"),
+    MAIN_MENU("/fxml/mainMenu.fxml", "POKEDOKE"),
+    VIEW_INVENTORY("/fxml/viewCards.fxml", "Inventory"),
+    VIEW_DATABASE("/fxml/viewCards.fxml", "The Pokedex"),
+    SHOP("/fxml/buyPacks.fxml", "POKEDOKE Store"),
     ;
 
     final String fxml;
+    final String sceneName;
 
-    Page(String fxml) {
+    Page(String fxml, String sceneName) {
         this.fxml=fxml;
+        this.sceneName = sceneName;
     }
 
     public String getFXML() {
         return fxml;
+    }
+
+    public String getSceneName(){
+        return sceneName;
     }
 }

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.poke_frontend.SortPopup">
+   <center>
+      <Group fx:id="groupScale">
+         <children>
+            <Pane fx:id="rootPane" layoutX="192.0" layoutY="154.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: gray;">
+               <children>
+                  <Label alignment="CENTER" layoutX="88.0" layoutY="76.0" prefHeight="28.0" prefWidth="106.0" text="Pokemon Name:" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="pokemonNameBox" layoutX="41.0" layoutY="104.0" prefHeight="25.0" prefWidth="200.0" promptText="Pokemon Name" />
+                  <Label layoutX="19.0" layoutY="172.0" prefHeight="28.0" prefWidth="122.0" text="Sort Type:" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="sortByChoiceBox" layoutX="361.0" layoutY="104.0" prefWidth="200.0">
+                        <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="Alphabetically" />
+                                 <String fx:value="Number Order" />
+                                 <String fx:value="Color/Type" />
+                              </FXCollections>
+                        </items>
+                  </ChoiceBox>
+                  <Label alignment="CENTER" layoutX="408.0" layoutY="76.0" prefHeight="28.0" prefWidth="106.0" text="Sort By:" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <GridPane fx:id="firstTypePane" layoutX="31.0" layoutY="200.0" prefHeight="91.0" prefWidth="545.0">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <CheckBox fx:id="normalBox" contentDisplay="CENTER" mnemonicParsing="false" text="Normal" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox fx:id="grassBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Grass" textFill="WHITE" GridPane.columnIndex="1">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox fx:id="fireBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Fire" textFill="WHITE" GridPane.columnIndex="2">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox fx:id="waterBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Water" textFill="WHITE" GridPane.columnIndex="3">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox fx:id="electricBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Electric" textFill="WHITE" GridPane.columnIndex="4">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox fx:id="fightingBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Fighting" textFill="WHITE" GridPane.columnIndex="5">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox fx:id="flyingBox" contentDisplay="CENTER" mnemonicParsing="false" text="Flying" textFill="WHITE" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox fx:id="groundBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Ground" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox fx:id="psychicBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Psychic" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox fx:id="iceBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Ice" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox fx:id="ghostBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Ghost" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox fx:id="posionBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Poison" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox fx:id="bugBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Bug" textFill="WHITE" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox fx:id="rockBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Rock" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox fx:id="dragonBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Dragon" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox fx:id="steelBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Steel" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox fx:id="darkBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Dark" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox fx:id="fairyBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Fairy" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </CheckBox>
+                     </children>
+                  </GridPane>
+                  <Button fx:id="andOrButton" layoutX="88.0" layoutY="174.0" mnemonicParsing="false" onAction="#switchTypeButton" prefHeight="25.0" prefWidth="56.0" style="-fx-background-color: black;" text="OR" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="sortButton" layoutX="194.0" layoutY="334.0" mnemonicParsing="false" onAction="#sortCards" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: black;" text="SORT" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="exitButton" layoutX="316.0" layoutY="334.0" mnemonicParsing="false" onAction="#exit" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: black;" text="EXIT" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="194.0" layoutY="27.0" text="ADVANCE SREACH" textFill="WHITE" underline="true">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Group>
+   </center>
+</BorderPane>
