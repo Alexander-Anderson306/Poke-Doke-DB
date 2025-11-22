@@ -18,6 +18,15 @@ public class SQLHandler {
 		
 	}
 	
+	/**
+	 * Checks whether the username already exists
+	 * 
+	 */
+	
+	public boolean userExists(String username) throws SQLException { 
+		return false;
+	}
+	
 //Account/ authentication
 	/*
 	 * creating a new account in the database
@@ -46,7 +55,7 @@ public class SQLHandler {
     /**
      * Returns the inventory for the given user
      */
-    public List<UserInventory> getUserInventory(InventoryRequest req) throws SQLException { 
+    public List<InventoryRequestObject> getUserInventory(InventoryRequest req) { 
     	
     	return null;
 }
