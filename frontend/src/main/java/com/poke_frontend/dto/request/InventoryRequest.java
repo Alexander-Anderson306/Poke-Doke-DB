@@ -7,6 +7,7 @@ public class InventoryRequest {
     public String cardName;
     public List<String> cardTypes;
     public String cardRarity;
+    public char andOr;
 
     public InventoryRequest() {}
 }
