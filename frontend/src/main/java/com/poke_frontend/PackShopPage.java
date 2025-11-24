@@ -60,12 +60,12 @@ public class PackShopPage extends ScalePage{
 
     @FXML
     void goToLogin(ActionEvent event) {
-
+        App.changeCurrentPage(Page.LOGIN);
     }
 
     @FXML
     void goToMainMenu(ActionEvent event) {
-
+        App.changeCurrentPage(Page.MAIN_MENU);
     }
 
     void loadPacks(List<String>urlList){
