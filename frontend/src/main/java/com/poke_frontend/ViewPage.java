@@ -64,11 +64,11 @@ public class ViewPage extends ScalePage{
 
         
         implementScaling(groupScale, rootPane);
-        loadViewPage2(null);
+        loadViewPage(null);
         
     }
 
-    void loadViewPage2(List<String>urlList){
+    void loadViewPage(List<String>urlList){
 
         //A temp image
         String tempImg = "/TempImages/RioluCard.png";
