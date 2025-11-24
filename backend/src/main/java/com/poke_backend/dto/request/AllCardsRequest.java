@@ -5,6 +5,7 @@ public class AllCardsRequest {
     public String cardName;
     public List<String> cardTypes;
     public String cardRarity;
+    public char andOr;
 
     public AllCardsRequest() {};
 }
