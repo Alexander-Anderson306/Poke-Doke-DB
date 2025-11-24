@@ -40,8 +40,20 @@ public class LoginPage extends ScalePage{
     void clickLoginButton(ActionEvent event) {
 
         // TEMP CODE FOR TESTING PURPOSES, DELETE BEFORE PUBLISHING
-        if (usernameField.getText().equals("admin") && passwordField.getText().equals("admin"))
+        if (usernameField.getText().equals("admin") && passwordField.getText().equals("admin")){
             App.changeCurrentPage(Page.MAIN_MENU);
+            return;
+        }
+
+        if(usernameField.getText().equals("test") || passwordField.getText().equals("test")) {
+            Client cli = new Client();
+            try {
+                IO.println(cli.test());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return;
+        }
 
         Client client = new Client();
 

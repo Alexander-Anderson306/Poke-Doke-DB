@@ -157,7 +157,7 @@ public class Server {
 
         //rout for testing the server
         app.post("/test", ctx -> {
-            IO.print("Received test request... Sending response back");
+            IO.println("Received test request... Sending response back");
             ctx.json(new BaseResponse(true, "Success"));
         });
 
