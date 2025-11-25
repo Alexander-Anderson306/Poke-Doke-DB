@@ -97,7 +97,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_name` VARCHAR(50) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
-  `name` VARCHAR(64) NOT NULL,
+  `first_name` VARCHAR(64) NOT NULL,
+  `last_name` VARCHAR(64) NOT NULL,
   `picture_name` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `userName_UNIQUE` (`user_name` ASC) VISIBLE)
@@ -140,9 +141,9 @@ INSERT INTO `mydb`.`cards` (`card_name`, `rarity`,`image_path`, `thumb_path`) VA
 INSERT INTO `mydb`.`card_pack`(`pack_name`, `price`, `pack_rarity`) VALUES
   ('Starter Pack', 4.99, 'Common');
 
-INSERT INTO `mydb`.`users` (`user_name`, `password`, `name`,`picture_name` ) VALUES
-  ('ash', 'password123', 'Ash Ketchup', NULL),
-  ('brock', 'password456', 'Brock Powers', NULL);
+INSERT INTO `mydb`.`users` (`user_name`, `password`, `first_name`,`last_name`,`picture_name` ) VALUES
+  ('ash', 'password123', 'Ash',  'Ketchup', NULL),
+  ('brock', 'password456', 'Brock', 'Powers', NULL);
 
 INSERT INTO `mydb`.`types_bridge` (`card_id`, `type_id`)
   SELECT c.id, t.id FROM cards c JOIN poke_types t

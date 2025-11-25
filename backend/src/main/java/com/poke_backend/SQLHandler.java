@@ -222,7 +222,31 @@ public class SQLHandler {
       */
      
      public List<Card> purchasePack(PackPurchaseRequest req) throws SQLException { 
-    	 
-    	 return null;
-     }
+    	 List<Card> cards = new ArrayList<>();
+
+    	    String sql = """
+    	        SELECT c.id, c.card_name, c.rarity, c.image_path, c.thumb_path
+    	        FROM card_pack_inventory cpi
+    	        JOIN cards c ON cpi.card_id = c.id
+    	        WHERE cpi.pack_id = ?
+    	    """;
+
+    	    PreparedStatement stmt = connection.prepareStatement(sql);
+    	    stmt.setInt(1, req.packId);
+
+    	    ResultSet rs = stmt.executeQuery();
+
+    	    while (rs.next()) {
+    	        Card card = new Card(
+    	            rs.getInt("id"),
+    	            rs.getString("card_name"),
+    	            rs.getString("rarity"),
+    	            rs.getString("image_path"),
+    	            rs.getString("thumb_path")
+    	        );
+    	        cards.add(card);
+    	    }
+
+    	    return cards;
+    	}
 }
