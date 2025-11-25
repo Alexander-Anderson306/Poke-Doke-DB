@@ -89,7 +89,11 @@ public class Server {
             try{
                 SQLHandler sqlHandler = new SQLHandler();
                 User user = sqlHandler.login(req);
-                ctx.json(new LoginResponse(user.getId()));
+                if(user == null) {
+                    ctx.status(401).json(new BaseResponse(false, "Failed to login", 401));
+                } else {
+                    ctx.json(new LoginResponse(user.getId()));
+                }
             } catch (SQLException e) {
                 ctx.status(401).json(new BaseResponse(false, "Failed to find user", 401));
             }
@@ -105,14 +109,15 @@ public class Server {
 
         //rout for inventory search
         app.post("/inventory", ctx -> {
-            /*
-                InventoryRequest req = ctx.bodyAsClass(InventoryRequest.class);
+            InventoryRequest req = ctx.bodyAsClass(InventoryRequest.class);
+
             try {
-                //query database for user inventoryRequestObject
+                SQLHandler sqlHandler = new SQLHandler();
+                List<InventoryRequestObject> inventory = sqlHandler.getUserInventory(req);
+                ctx.json(new InventoryResponse(inventory));
             } catch (SQLException e) {
-                ctx.status(500).json(new BaseResponse(false, "Failed to find inventory", 500));   
+                ctx.status(500).json(new BaseResponse(false, "Failed to find inventory", 500));
             }
-                */
         });
 
         //rout for database card search

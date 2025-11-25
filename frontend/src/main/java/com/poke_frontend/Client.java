@@ -18,8 +18,7 @@ public class Client {
     private final HttpClient http;
     private final ObjectMapper mapper;
 
-    //private String baseURL = "https://changeme.com";
-    private String baseURL = "https://untonsured-josue-unextraneously.ngrok-free.dev";
+    private String baseURL ="http://localhost:8080";
 
     private int userId;
     private String username;
