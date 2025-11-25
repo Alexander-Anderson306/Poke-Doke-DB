@@ -13,7 +13,6 @@ public class Card {
         this.rarity = rarity;
         this.imagePath = imagePath;
         this.thumbPath = thumbPath;
-
     }
 
     //getters
