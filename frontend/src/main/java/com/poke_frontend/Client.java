@@ -105,9 +105,32 @@ public class Client {
         return true;
     }
 
-    //TODO implement this
-    public List<Card> getInventory(){
-        return null;
+    /**
+     * Attempts to retrieve the inventory for the given user
+     * @param req the request from the user
+     * @return a list of inventory objects if the request was successful, null otherwise
+     * @throws Exception
+     */
+    public List<InventoryRequestObject> getInventory(InventoryRequest req) throws Exception {
+        String json = mapper.writeValueAsString(req);
+
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(baseURL + "/inventory"))
+            .header("Content-Type", "application/json")
+            .POST(HttpRequest.BodyPublishers.ofString(json))
+            .build();
+        
+        HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
+
+        BaseResponse base = mapper.readValue(response.body(), BaseResponse.class);
+
+        if(!base.success) {
+            IO.print(base.message);
+            return null;
+        }
+
+        InventoryResponse dbResponse = mapper.readValue(response.body(), InventoryResponse.class);
+        return dbResponse.inventory;
     }
 
     /**
