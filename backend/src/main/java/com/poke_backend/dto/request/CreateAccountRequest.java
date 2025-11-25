@@ -6,5 +6,8 @@ public class CreateAccountRequest {
     public String firstName;
     public String lastName;
 
+    public String email;
+   
+
     public CreateAccountRequest() {}
 }

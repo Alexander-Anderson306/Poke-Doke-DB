@@ -1,6 +1,7 @@
 package com.poke_frontend;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.JsonSerializable.Base;
 import com.poke_frontend.dto.request.*;
 import com.poke_frontend.dto.response.*;
 import com.poke_frontend.models.*;
@@ -192,5 +193,37 @@ public class Client {
 
         PackPurchaseResponse purchaseResponse = mapper.readValue(response.body(), PackPurchaseResponse.class);
         return purchaseResponse.cards;
+    }
+
+/**
+ * Attempts to login an existing user 
+ * @param req the request from the user
+ * @return true if the login was successful, false otherwise
+ * @throws Exception
+ */
+    public boolean test() throws Exception {
+        //request made for testing purposes
+        LoginRequest req = new LoginRequest();
+        req.username = "test";
+        req.password = "test";
+
+        String json = mapper.writeValueAsString(req);
+
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(baseURL + "/test"))
+            .header("Content-Type", "application/json")
+            .POST(HttpRequest.BodyPublishers.ofString(json))
+            .build();
+
+        HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
+
+        BaseResponse base = mapper.readValue(response.body(), BaseResponse.class);
+
+        if(!base.success) {
+            IO.print(base.message);
+            return false;
+        }
+        
+        return true;
     }
 }

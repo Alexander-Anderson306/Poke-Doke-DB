@@ -155,6 +155,12 @@ public class Server {
             }
         });
 
+        //rout for testing the server
+        app.post("/test", ctx -> {
+            IO.println("Received test request... Sending response back");
+            ctx.json(new BaseResponse(true, "Success"));
+        });
+
     }
 
     void main() {

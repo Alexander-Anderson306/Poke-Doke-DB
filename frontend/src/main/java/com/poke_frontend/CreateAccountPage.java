@@ -31,6 +31,9 @@ public class CreateAccountPage extends ScalePage{
     private Button createAccountButton;
 
     @FXML
+    private Button backButton;
+
+    @FXML
     private TextField email_Text;
 
     @FXML
@@ -152,6 +155,12 @@ public class CreateAccountPage extends ScalePage{
         }
         return same;
     }
+
+    @FXML
+    void backToLogin(ActionEvent event){
+        App.changeCurrentPage(Page.LOGIN);
+    }
+
 
     /**
      * Scale the page
