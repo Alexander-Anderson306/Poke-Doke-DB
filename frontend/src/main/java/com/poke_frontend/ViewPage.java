@@ -1,7 +1,9 @@
 package com.poke_frontend;
 
 import com.poke_frontend.dto.request.AllCardsRequest;
+import com.poke_frontend.dto.request.InventoryRequest;
 import com.poke_frontend.models.Card;
+import com.poke_frontend.models.InventoryRequestObject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
@@ -76,49 +78,76 @@ public class ViewPage extends ScalePage{
         }
 
 
-
-        // Viewing the inventory will be implemented later.
-        if (App.currentPage==Page.VIEW_INVENTORY) {
+        // Not logged in? Load default page.
+        if (!App.loggedIn()) {
             loadDefaultViewPage();
         }
 
-        // If not on the view inventory page, assume they want to view the database.
-        else {
-
-            if (App.loggedIn()) {
-
-                /*
-                In this block of code, we are creating a new "AllCardsRequest",
-                calling the Client.getDBCards() method, turning the list of cards
-                into a list of urls, and then loading the view page with those urls.
-                If anything fails, a default page will be loaded instead.
-                 */
-
-                List<String> urls = new ArrayList<String>();
-                AllCardsRequest req = new AllCardsRequest();
-                List<Card> databaseCards = null;
-
-                try {
-
-                    databaseCards = App.theClient.getDBCards(req);
-                    for (int i=0; i<databaseCards.size(); i++) {
-                        urls.add(databaseCards.get(i).getImagePath());
-                    }
-                    loadViewPage(urls);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    loadDefaultViewPage();
-                }
-
-            }
-
-            // If not logged in, load the default page.
-            else {
-                loadDefaultViewPage();
-            }
+        // Inventory Page
+        else if (App.currentPage==Page.VIEW_INVENTORY) {
+            loadInventoryPage(new InventoryRequest());
         }
 
+        // Database Page
+        else {
+            loadDatabasePage(new AllCardsRequest());
+        }
+
+    }
+
+    /**
+     * This method takes in an inventory request and loads it into the view page if possible.
+     * @param req The request that is going to be sent to the database.
+     */
+    public void loadInventoryPage(InventoryRequest req) {
+        if (!App.loggedIn()) {
+            loadDefaultViewPage();
+            return;
+        }
+        try {
+
+            List<InventoryRequestObject> allObjects = App.theClient.getInventory(req);
+            List<String> allUrls = new ArrayList<String>();
+
+            for (InventoryRequestObject currentObject: allObjects) {
+                for (int i=0; i<currentObject.getQuantity(); i++) {
+                    allUrls.add(currentObject.getCard().getImagePath());
+                }
+            }
+
+            loadViewPage(allUrls);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            loadDefaultViewPage();
+        }
+    }
+
+    /**
+     * This method takes in a allCardsRequest and loads it into the view page if possible.
+     * @param req The request that going to be sent the database.
+     */
+    public void loadDatabasePage(AllCardsRequest req) {
+        if (!App.loggedIn()) {
+            loadDefaultViewPage();
+            return;
+        }
+
+        try {
+
+            List<String> urls = new ArrayList<String>();
+            List<Card> databaseCards = App.theClient.getDBCards(req);
+
+            for (Card currentCard : databaseCards) {
+                urls.add(currentCard.getImagePath());
+            }
+
+            loadViewPage(urls);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            loadDefaultViewPage();
+        }
     }
 
     /**
