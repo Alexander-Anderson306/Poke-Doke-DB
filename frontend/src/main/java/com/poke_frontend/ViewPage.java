@@ -1,5 +1,7 @@
 package com.poke_frontend;
 
+import com.poke_frontend.dto.request.AllCardsRequest;
+import com.poke_frontend.models.Card;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
@@ -19,6 +21,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.transform.Scale;
 import javafx.scene.image.Image;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewPage extends ScalePage{
@@ -62,19 +65,66 @@ public class ViewPage extends ScalePage{
     @FXML    
     void initialize(){
 
-        
         implementScaling(groupScale, rootPane);
-        loadViewPage(null);
 
+
+        // Setting the username field in the top right.
         if (App.loggedIn()) {
             username_label.setText(App.theClient.getUsername());
         } else {
             username_label.setText("No User");
         }
 
+
+
+        // Viewing the inventory will be implemented later.
+        if (App.currentPage==Page.VIEW_INVENTORY) {
+            loadDefaultViewPage();
+        }
+
+        // If not on the view inventory page, assume they want to view the database.
+        else {
+
+            if (App.loggedIn()) {
+
+                /*
+                In this block of code, we are creating a new "AllCardsRequest",
+                calling the Client.getDBCards() method, turning the list of cards
+                into a list of urls, and then loading the view page with those urls.
+                If anything fails, a default page will be loaded instead.
+                 */
+
+                List<String> urls = new ArrayList<String>();
+                AllCardsRequest req = new AllCardsRequest();
+                List<Card> databaseCards = null;
+
+                try {
+
+                    databaseCards = App.theClient.getDBCards(req);
+                    for (int i=0; i<databaseCards.size(); i++) {
+                        urls.add(databaseCards.get(i).getImagePath());
+                    }
+                    loadViewPage(urls);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    loadDefaultViewPage();
+                }
+
+            }
+
+            // If not logged in, load the default page.
+            else {
+                loadDefaultViewPage();
+            }
+        }
+
     }
 
-    void loadViewPage(List<String>urlList){
+    /**
+     * This is the method that Alan made which will fill the screen with Rioulo cards.
+     */
+    void loadDefaultViewPage(){
 
         //A temp image
         String tempImg = "/TempImages/RioluCard.png";
@@ -139,7 +189,73 @@ public class ViewPage extends ScalePage{
 
         }
 
+    }
 
+    /**
+     * This is a copy paste of Alans method that will actually load the images passed to it.
+     * @param urlList A list of urls of images to display on screen.
+     */
+    void loadViewPage(List<String>urlList){
+
+        //Get the amount of images from list
+        int amountImgs = urlList.size();
+
+        //calulate the amount of rows needed in the grid pane
+        int amountOfRows = amountImgs/4;
+
+        //Add a extra row for extra cards
+        if(amountImgs % 4 > 0){
+            amountOfRows++;
+        }
+
+        //Keep count of current image
+        int currentImg = 0;
+
+        //Beauify a row
+        RowConstraints rc = new RowConstraints();
+        rc.setMinHeight(175);
+        rc.setPrefHeight(175);
+        rc.setMaxHeight(175);
+        rc.setValignment(VPos.CENTER);
+
+        //Beauify a column
+        ColumnConstraints cc = new ColumnConstraints();
+        cc.setMinWidth(130);
+        cc.setPrefWidth(130);
+        cc.setMaxWidth(130);
+        cc.setHalignment(HPos.CENTER);
+
+        //for every row and column add the card image
+        for(int row = 0; row < amountOfRows; row++){
+
+            //Get the current slot of the grid
+            for(int column = 0; column < 4; column++){
+
+                //If counter is more than the amount of images, stop loop
+                if(currentImg >= amountImgs)
+                    break;
+
+                //Create a image of current
+                Image img = new Image(getClass().getResourceAsStream(urlList.get(currentImg)));
+                ImageView imgView = new ImageView(img);
+
+                //Set the image height and width
+                imgView.setFitWidth(130);
+                imgView.setFitHeight(150);
+                imgView.setPreserveRatio(true);
+
+                //Add the image to the gridview
+                gird_View.add(imgView, column, row);
+
+                //Go to next index
+                currentImg++;
+
+            }
+
+            //Beauify Row
+            gird_View.getRowConstraints().add(rc);
+
+        }
 
     }
 
