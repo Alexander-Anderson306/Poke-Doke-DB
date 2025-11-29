@@ -18,6 +18,23 @@ public class App extends Application {
 
     private static Stage theStage;
 
+    public static Client theClient = null;
+
+    /**
+     * Returns whether there is a client currently logged into the software.
+     * @return Whether there is a client currently logged into the software.
+     */
+    public static boolean loggedIn() {
+        return (theClient!=null);
+    }
+
+    /**
+     * Will set the current client to null.
+     */
+    public static void logout() {
+        theClient=null;
+    }
+
     /**
      * Will change the current page the application is displaying.
      * @param newPage The page to be switched to.

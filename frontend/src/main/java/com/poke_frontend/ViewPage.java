@@ -65,7 +65,13 @@ public class ViewPage extends ScalePage{
         
         implementScaling(groupScale, rootPane);
         loadViewPage(null);
-        
+
+        if (App.loggedIn()) {
+            username_label.setText(App.theClient.getUsername());
+        } else {
+            username_label.setText("No User");
+        }
+
     }
 
     void loadViewPage(List<String>urlList){
@@ -140,6 +146,7 @@ public class ViewPage extends ScalePage{
     @FXML
     void goToLogin(ActionEvent event) {
         App.changeCurrentPage(Page.LOGIN);
+        App.logout();
     }
 
     @FXML
