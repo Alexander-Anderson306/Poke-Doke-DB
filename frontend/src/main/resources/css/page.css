@@ -1,0 +1,17 @@
+/*
+    Styles for basic buttons
+*/
+Button {
+
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+
+}
+
+/*
+    Background color
+*/
+.mainPane {
+    -fx-background-color: #262a52;
+}

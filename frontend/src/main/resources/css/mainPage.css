@@ -1,4 +1,7 @@
 
+/*
+    Styles for the main page button
+*/
 #pageButton {
 
     -fx-background-color: #262a52;
@@ -8,6 +11,9 @@
     -fx-text-fill: white;
 }
 
+/*
+    Styles for the main page hovered button
+*/
 #pageButton:hover {
 
     -fx-font-size: 18px;
@@ -17,10 +23,9 @@
     -fx-text-fill: Yellow;
 }
 
-Pane {
-    -fx-background-color: #262a52;
-}
-
+/*
+    Styles for footer
+*/
 #footer {
     -fx-fill: linear-gradient(to right, #3466AF 45%, #fbff00 100%);
 }

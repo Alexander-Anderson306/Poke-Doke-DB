@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -7,24 +8,36 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
-
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.poke_frontend.LoginPage">
    <center>
       <Group fx:id="groupScale">
          <children>
-            <Pane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="1.0" minWidth="1.0" prefHeight="400.0" prefWidth="600.0">
+            <Pane fx:id="rootPane" layoutY="231.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="1.0" minWidth="1.0" prefHeight="400.0" prefWidth="600.0" styleClass="mainPane">
             <children>
-                <Label alignment="CENTER" layoutX="225.0" layoutY="158.0" prefHeight="20.0" prefWidth="150.0" text="Login" textAlignment="CENTER" />
-                <TextField fx:id="usernameField" layoutX="225.0" layoutY="188.0" prefHeight="20.0" prefWidth="150.0" promptText="Username" />
-                <PasswordField fx:id="passwordField" layoutX="225.0" layoutY="218.0" prefHeight="20.0" prefWidth="150.0" promptText="Password" />
-                <Button fx:id="loginButton" layoutX="225.0" layoutY="248.0" mnemonicParsing="false" onAction="#clickLoginButton" prefHeight="20.0" prefWidth="150.0" text="Login" />
-                <Label fx:id = "errorMessageLabel" alignment="CENTER" layoutX="220.0" layoutY="278.0" prefWidth="160.0" prefHeight="20.0" />
-                <Label alignment="CENTER" layoutX="225.0" layoutY="308.0" prefHeight="20.0" prefWidth="150.0" text="No account?" />
-                <Button fx:id="createButton" layoutX="225.0" layoutY="328.0" mnemonicParsing="false" onAction="#clickCreateAccountButton" prefHeight="20.0" prefWidth="150.0" text="Create Account" />
+                <Label alignment="CENTER" layoutX="225.0" layoutY="132.0" prefHeight="20.0" prefWidth="150.0" text="Login" textAlignment="CENTER" />
+                <TextField fx:id="usernameField" layoutX="225.0" layoutY="162.0" prefHeight="20.0" prefWidth="150.0" promptText="Username" />
+                <PasswordField fx:id="passwordField" layoutX="225.0" layoutY="192.0" prefHeight="20.0" prefWidth="150.0" promptText="Password" />
+                <Button fx:id="loginButton" layoutX="225.0" layoutY="222.0" mnemonicParsing="false" onAction="#clickLoginButton" prefHeight="20.0" prefWidth="150.0" text="Login" />
+                <Label fx:id="errorMessageLabel" alignment="CENTER" layoutX="169.0" layoutY="255.0" prefHeight="20.0" prefWidth="265.0" styleClass="error" textFill="RED" />
+                <Label alignment="CENTER" layoutX="225.0" layoutY="282.0" prefHeight="20.0" prefWidth="150.0" text="No account?" />
+                <Button fx:id="createButton" layoutX="225.0" layoutY="302.0" mnemonicParsing="false" onAction="#clickCreateAccountButton" prefHeight="20.0" prefWidth="150.0" text="Create Account" />
+                  <Label alignment="CENTER" layoutX="215.0" layoutY="32.0" prefHeight="79.0" prefWidth="170.0" text="WELCOME TO POKEDOKE" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="400.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="sidePanels" width="170.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="400.0" layoutX="430.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="sidePanels" width="170.0" />
             </children>
             </Pane>
          </children>
       </Group>
    </center>
+   <stylesheets>
+      <URL value="@../css/page.css" />
+      <URL value="@../css/loginPage.css" />
+   </stylesheets>
 </BorderPane>
