@@ -37,7 +37,7 @@ public class MainPage extends ScalePage{
 
     @FXML
     void closeApplication(ActionEvent event) {
-
+        App.logout();
     }
 
     @FXML
@@ -58,6 +58,7 @@ public class MainPage extends ScalePage{
     @FXML
     void logOut(ActionEvent event) {
         App.changeCurrentPage(Page.LOGIN);
+        App.logout();
     }
 
 }

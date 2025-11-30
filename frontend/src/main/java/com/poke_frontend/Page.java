@@ -8,6 +8,7 @@ public enum Page {
     VIEW_INVENTORY("/fxml/viewCards.fxml", "Inventory"),
     VIEW_DATABASE("/fxml/viewCards.fxml", "The Pokedex"),
     SHOP("/fxml/buyPacks.fxml", "POKEDOKE Store"),
+    CHECKOUT("/fxml/checkout.fxml", "Checkout Page"),
     ;
 
     final String fxml;
