@@ -3,7 +3,7 @@ package com.poke_frontend;
 import com.poke_frontend.dto.request.AllCardsRequest;
 import com.poke_frontend.dto.request.InventoryRequest;
 import com.poke_frontend.models.Card;
-import com.poke_frontend.models.InventoryRequestObject;
+import com.poke_frontend.models.CardTypeQuant;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
@@ -106,10 +106,10 @@ public class ViewPage extends ScalePage{
         }
         try {
 
-            List<InventoryRequestObject> allObjects = App.theClient.getInventory(req);
+            List<CardTypeQuant> allObjects = App.theClient.getInventory(req);
             List<String> allUrls = new ArrayList<String>();
 
-            for (InventoryRequestObject currentObject: allObjects) {
+            for (CardTypeQuant currentObject: allObjects) {
                 for (int i=0; i<currentObject.getQuantity(); i++) {
                     allUrls.add(currentObject.getCard().getImagePath());
                 }
@@ -136,10 +136,10 @@ public class ViewPage extends ScalePage{
         try {
 
             List<String> urls = new ArrayList<String>();
-            List<Card> databaseCards = App.theClient.getDBCards(req);
+            List<CardTypeQuant> databaseCards = App.theClient.getDBCards(req);
 
-            for (Card currentCard : databaseCards) {
-                urls.add(currentCard.getImagePath());
+            for (CardTypeQuant currentCard : databaseCards) {
+                urls.add(currentCard.getCard().getImagePath());
             }
 
             loadViewPage(urls);

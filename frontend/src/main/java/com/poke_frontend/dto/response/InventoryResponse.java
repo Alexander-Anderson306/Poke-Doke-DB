@@ -1,14 +1,15 @@
 package com.poke_frontend.dto.response;
 
-import com.poke_frontend.models.InventoryRequestObject;
+import com.poke_frontend.models.CardTypeQuant;
 import java.util.List;
 
-public class InventoryResponse {
-    public List<InventoryRequestObject> inventory;
+public class InventoryResponse extends BaseResponse {
+    public List<CardTypeQuant> inventory;
 
     public InventoryResponse() {}
 
-    public InventoryResponse(List<InventoryRequestObject> inventory) {
+    public InventoryResponse(List<CardTypeQuant> inventory) {
+        super(true, "Successfully retrieved inventory");
         this.inventory = inventory;
     }
 }

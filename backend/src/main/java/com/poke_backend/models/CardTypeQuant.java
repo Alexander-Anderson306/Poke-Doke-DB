@@ -1,14 +1,13 @@
 package com.poke_backend.models;
 
-import com.poke_backend.models.Card;
 import java.util.List;
 
-public class InventoryRequestObject {
+public class CardTypeQuant {
     private Card card;
     private int quantity;
     private List<String> types;
 
-    public InventoryRequestObject(Card card, int quantity, List<String> types) {
+    public CardTypeQuant(Card card, int quantity, List<String> types) {
         this.card = card;
         this.quantity = quantity;
     }

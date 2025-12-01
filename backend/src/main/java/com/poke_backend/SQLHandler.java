@@ -120,9 +120,9 @@ public class SQLHandler {
     /**
      * Returns the inventory for the given user
      */
-    public List<InventoryRequestObject> getUserInventory(InventoryRequest req) throws SQLException { 
+    public List<CardTypeQuant> getUserInventory(InventoryRequest req) throws SQLException { 
     	
-    	List<InventoryRequestObject> inventory = new ArrayList<>();
+    	List<CardTypeQuant> inventory = new ArrayList<>();
     	
     	int userId = req.userId;
     	
@@ -154,7 +154,7 @@ public class SQLHandler {
         );
     	
     	int quantity = rs.getInt("quantity");
-    	InventoryRequestObject obj = new InventoryRequestObject(card, quantity, null);
+    	CardTypeQuant obj = new CardTypeQuant(card, quantity, null);
     	
     	inventory.add(obj);
     	}
@@ -167,9 +167,11 @@ public class SQLHandler {
     /**
      * returns cards from the main database
      */
-     public List<Card> getCards(AllCardsRequest req) throws SQLException { 
+	//Hey Ed, this function needs to return a list of CardTypeQuant objects. It is a refactored object of the
+	//inventory response object. It contains within it the card object, quantity, and a list of the types of the card
+     public List<CardTypeQuant> getCards(AllCardsRequest req) throws SQLException { 
     	 
-    	 List<Card> cards = new ArrayList<>();
+    	 List<CardTypeQuant> cards = new ArrayList<>();
 
     	    String sql = "SELECT id, card_name, rarity, image_path, thumb_path FROM cards";
 
@@ -185,7 +187,7 @@ public class SQLHandler {
     	            rs.getString("thumb_path")
     	        );
 
-    	        cards.add(card);
+    	        //cards.add(card);
     	    }
 
     	    return cards;
