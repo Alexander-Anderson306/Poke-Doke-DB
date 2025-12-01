@@ -5,8 +5,9 @@ import java.util.List;
 
 public class AllCardsResponse extends BaseResponse {
     public List<Card> cards;
+    public List<String> types;
     public AllCardsResponse() {}
-    public AllCardsResponse(List<Card> cards) {
+    public AllCardsResponse(List<Card> cards, List<String> types) {
         super(true, "Successfully retrieved cards");
         this.cards = cards;
     }
