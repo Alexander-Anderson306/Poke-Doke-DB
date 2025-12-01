@@ -154,7 +154,7 @@ public class SQLHandler {
         );
     	
     	int quantity = rs.getInt("quantity");
-    	InventoryRequestObject obj = new InventoryRequestObject(card, quantity);
+    	InventoryRequestObject obj = new InventoryRequestObject(card, quantity, null);
     	
     	inventory.add(obj);
     	}

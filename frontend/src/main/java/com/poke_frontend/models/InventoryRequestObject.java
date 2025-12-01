@@ -1,12 +1,14 @@
 package com.poke_frontend.models;
 
 import com.poke_frontend.models.Card;
+import java.util.List;
 
 public class InventoryRequestObject {
     private Card card;
     private int quantity;
+    private List<String> types;
 
-    public InventoryRequestObject(Card card, int quantity) {
+    public InventoryRequestObject(Card card, int quantity, List<String> types) {
         this.card = card;
         this.quantity = quantity;
     }
@@ -14,8 +16,10 @@ public class InventoryRequestObject {
     //getters
     public Card getCard() {return card;}
     public int getQuantity() {return quantity;}
+    public List<String> getTypes() {return types;}
 
     //setters
     public void setCard(Card card) {this.card = card;}
     public void setQuantity(int quantity) {this.quantity = quantity;}
+    public void setTypes(List<String> types) {this.types = types;}
 }
