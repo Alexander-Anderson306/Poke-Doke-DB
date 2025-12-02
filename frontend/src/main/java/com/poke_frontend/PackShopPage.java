@@ -1,5 +1,6 @@
 package com.poke_frontend;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class PackShopPage extends ScalePage {
      * <p>
      * Declared static so the inventory is shared across pages.
      */
-    private static final HashMap<String, Integer> userInvent = new HashMap<>();
+    private static final HashMap<Integer, Integer> userInvent = new HashMap<>();
 
     /**
      * Tracks the ID of the pack the user is currently editing.
@@ -66,7 +67,7 @@ public class PackShopPage extends ScalePage {
     @FXML
     void initialize() {
         implementScaling(groupScale, rootPane);
-        loadPacks(null);
+        loadPacks();
     }
 
     /**
@@ -112,7 +113,7 @@ public class PackShopPage extends ScalePage {
      *
      * @return a reference to the shared user inventory map
      */
-    public HashMap<String, Integer> getUserInventory() {
+    public HashMap<Integer, Integer> getUserInventory() {
         return userInvent;
     }
 
@@ -132,7 +133,7 @@ public class PackShopPage extends ScalePage {
                 amount = Integer.parseInt(packAmount);
 
                 if (amount >= 0) {
-                    userInvent.put(currentPackId, amount);
+                    userInvent.put(Integer.valueOf(currentPackId), amount);
 
                     // Reset UI
                     packAmount_field.setText("");
@@ -175,7 +176,7 @@ public class PackShopPage extends ScalePage {
      *
      * @param urlList optional list of image URLs (unused in current implementation)
      */
-    void loadPacks(List<String> urlList) {
+    void loadPacks() {
         // Row configuration
         RowConstraints rc = new RowConstraints();
         rc.setMinHeight(256);
@@ -191,27 +192,24 @@ public class PackShopPage extends ScalePage {
         cc.setHalignment(HPos.CENTER);
 
         // Temporary placeholder image
-        String tempImg = "/TempImages/PokemonPack1.png";
-        int amountImgs = 4;
+        int packAmount = 4;
+        String imgPath = "/TempImages/";
+        String fileType = ".png";
 
-        int currentImg = 0;
+        for (int col = 0; col < packAmount; col++) {
+            String imgFullPath = imgPath +  "PokemonPack" + (col + 1) + fileType;
+            Image img = new Image(getClass().getResourceAsStream(imgFullPath));
 
-        for (int col = 0; col < amountImgs; col++) {
-
-            if (currentImg >= amountImgs) break;
-
-            Image img = new Image(getClass().getResourceAsStream(tempImg));
             ImageView imgView = new ImageView(img);
 
             imgView.setFitWidth(150);
             imgView.setFitHeight(256);
             imgView.setPreserveRatio(true);
-            imgView.setId("Pack #" + (col + 1));
+            imgView.setId(String.valueOf(col + 1));
 
             imgView.setOnMouseClicked(this::buyPack);
 
             gird_View.add(imgView, col, 0);
-            currentImg++;
 
             gird_View.getColumnConstraints().add(cc);
         }
