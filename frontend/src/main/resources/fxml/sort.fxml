@@ -21,32 +21,33 @@
          <children>
             <Pane fx:id="rootPane" layoutX="192.0" layoutY="154.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: gray;">
                <children>
-                  <Label alignment="CENTER" layoutX="88.0" layoutY="76.0" prefHeight="28.0" prefWidth="106.0" text="Pokemon Name:" textAlignment="CENTER" textFill="WHITE">
+                  <Label alignment="CENTER" layoutX="87.0" layoutY="62.0" prefHeight="28.0" prefWidth="106.0" text="Pokemon Name:" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="pokemonNameBox" layoutX="41.0" layoutY="104.0" prefHeight="25.0" prefWidth="200.0" promptText="Pokemon Name" />
-                  <Label layoutX="19.0" layoutY="172.0" prefHeight="28.0" prefWidth="122.0" text="Sort Type:" textAlignment="CENTER" textFill="WHITE">
+                  <TextField fx:id="pokemonNameBox" layoutX="40.0" layoutY="90.0" prefHeight="25.0" prefWidth="200.0" promptText="Pokemon Name" />
+                  <Label layoutX="22.0" layoutY="149.0" prefHeight="28.0" prefWidth="122.0" text="Sort Type:" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ChoiceBox fx:id="sortByChoiceBox" layoutX="361.0" layoutY="104.0" prefWidth="200.0">
+                  <ChoiceBox fx:id="sortByChoiceBox" layoutX="360.0" layoutY="90.0" prefWidth="200.0">
                         <items>
                               <FXCollections fx:factory="observableArrayList">
                                  <String fx:value="Alphabetically" />
                                  <String fx:value="Number Order" />
-                                 <String fx:value="Color/Type" />
+                                 <String fx:value="Type" />
+                                 <String fx:value="Rarity" />
                               </FXCollections>
                         </items>
                   </ChoiceBox>
-                  <Label alignment="CENTER" layoutX="408.0" layoutY="76.0" prefHeight="28.0" prefWidth="106.0" text="Sort By:" textAlignment="CENTER" textFill="WHITE">
+                  <Label alignment="CENTER" layoutX="407.0" layoutY="62.0" prefHeight="28.0" prefWidth="106.0" text="Sort By:" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <GridPane fx:id="firstTypePane" layoutX="31.0" layoutY="200.0" prefHeight="91.0" prefWidth="545.0">
+                  <GridPane fx:id="firstTypePane" layoutX="34.0" layoutY="177.0" prefHeight="91.0" prefWidth="545.0">
                     <columnConstraints>
                       <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -153,17 +154,17 @@
                         </CheckBox>
                      </children>
                   </GridPane>
-                  <Button fx:id="andOrButton" layoutX="88.0" layoutY="174.0" mnemonicParsing="false" onAction="#switchTypeButton" prefHeight="25.0" prefWidth="56.0" style="-fx-background-color: black;" text="OR" textFill="WHITE">
+                  <Button fx:id="andOrButton" layoutX="91.0" layoutY="151.0" mnemonicParsing="false" onAction="#switchTypeButton" prefHeight="25.0" prefWidth="56.0" style="-fx-background-color: black;" text="OR" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="sortButton" layoutX="194.0" layoutY="334.0" mnemonicParsing="false" onAction="#sortCards" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: black;" text="SORT" textFill="WHITE">
+                  <Button fx:id="sortButton" layoutX="194.0" layoutY="344.0" mnemonicParsing="false" onAction="#sortCards" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: black;" text="SORT" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="exitButton" layoutX="316.0" layoutY="334.0" mnemonicParsing="false" onAction="#exit" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: black;" text="EXIT" textFill="WHITE">
+                  <Button fx:id="exitButton" layoutX="316.0" layoutY="344.0" mnemonicParsing="false" onAction="#exit" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: black;" text="EXIT" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -171,6 +172,50 @@
                   <Label layoutX="194.0" layoutY="27.0" text="ADVANCE SREACH" textFill="WHITE" underline="true">
                      <font>
                         <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <GridPane fx:id="firstTypePane1" layoutX="29.0" layoutY="300.0" prefHeight="25.0" prefWidth="542.0">
+                     <columnConstraints>
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <CheckBox fx:id="commonBox" contentDisplay="CENTER" mnemonicParsing="false" text="Common" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox fx:id="uncommonBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Uncommon" textFill="WHITE" GridPane.columnIndex="1">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox fx:id="rareBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Rare" textFill="WHITE" GridPane.columnIndex="2">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox fx:id="epicBox" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" text="Epic" textFill="WHITE" GridPane.columnIndex="3">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox fx:id="legendaryBox" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" text="Legendary" textFill="WHITE" GridPane.columnIndex="4">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </CheckBox>
+                     </children>
+                  </GridPane>
+                  <Label layoutX="26.0" layoutY="272.0" prefHeight="28.0" prefWidth="122.0" text="Sort Rarity:" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
                </children>

@@ -100,6 +100,23 @@ public class SortPopup extends ScalePage {
 
     // --- End Of Type Boxes ----
 
+    // --- Rairty Boxes ----
+    @FXML
+    private CheckBox commonBox;
+
+    @FXML
+    private CheckBox uncommonBox;
+
+    @FXML
+    private CheckBox rareBox;
+
+    @FXML
+    private CheckBox epicBox;
+
+    @FXML
+    private CheckBox legendaryBox;
+    // --- End Of Rairty Boxes ----
+
     @FXML
     void exit(ActionEvent event) {
         closePopup();

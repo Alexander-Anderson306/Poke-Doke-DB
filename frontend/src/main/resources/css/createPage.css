@@ -8,6 +8,10 @@ Label {
     -fx-text-fill: white;
 }
 
+#backButton, #backButton:hover{
+    -fx-font-size: 12px;
+}
+
 .error{
     -fx-text-fill: red;
     -fx-font-family: System;

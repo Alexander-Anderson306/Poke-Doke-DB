@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -15,29 +17,33 @@
    <center>
       <Group fx:id="groupScale" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0">
+            <Pane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainPane">
                <children>
                   <ScrollPane fx:id="scrollView" layoutX="16.0" layoutY="89.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="278.0" prefWidth="569.0">
                      <content>
-                        <GridPane fx:id="gird_View" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="260.0" prefWidth="610.0">
+                        <GridPane fx:id="gird_View" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="260.0" prefWidth="610.0" styleClass="cardView">
                            <rowConstraints>
                               <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS" />
                               <RowConstraints />
                            </rowConstraints>
                         </GridPane>
                      </content>
+                     <styleClass>
+                        <String fx:value="scrollPane" />
+                        <String fx:value="mainPane" />
+                     </styleClass>
                   </ScrollPane>
-                  <Button fx:id="homeButton_View" layoutX="27.0" layoutY="16.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToMainMenu" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: Black;" text="Home" textFill="WHITE">
+                  <Button fx:id="homeButton_View" layoutX="16.0" layoutY="28.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToMainMenu" prefHeight="37.0" prefWidth="97.0" styleClass="globalButton" text="Home" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="System Bold" />
                      </font>
                   </Button>
-                  <Button fx:id="checkout_button" alignment="TOP_CENTER" layoutX="490.0" layoutY="17.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToCheckout" prefHeight="35.0" prefWidth="95.0" style="-fx-background-color: Black;" text="Checkout" textFill="WHITE">
+                  <Button fx:id="checkout_button" alignment="CENTER" layoutX="479.0" layoutY="28.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToCheckout" prefHeight="40.0" prefWidth="106.0" styleClass="globalButton" text="Checkout" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font name="System Bold" />
                      </font>
                   </Button>
-                  <Label layoutX="200.0" layoutY="26.0" text="PACK SHOP" textFill="#2a1499" underline="true">
+                  <Label layoutX="186.0" layoutY="27.0" text="PACK SHOP" textFill="#2a1499" underline="true">
                      <font>
                         <Font name="System Bold" size="36.0" />
                      </font>
@@ -55,4 +61,9 @@
          </children>
       </Group>
    </center>
+   <stylesheets>
+      <URL value="@../css/page.css" />
+      <URL value="@../css/shopePage.css" />
+      <URL value="@../css/viewPage.css" />
+   </stylesheets>
 </BorderPane>

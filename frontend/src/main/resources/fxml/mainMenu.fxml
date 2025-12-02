@@ -46,12 +46,12 @@
                   </ImageView>
                   <Button fx:id="logOutButton_Menu" alignment="CENTER" layoutX="35.0" layoutY="349.0" mnemonicParsing="false" onAction="#logOut" prefHeight="39.0" prefWidth="81.0" text="Log Out">
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font name="System Bold"/>
                      </font>
                   </Button>
                   <Button fx:id="exitButton_Menu" alignment="CENTER" layoutX="141.0" layoutY="349.0" mnemonicParsing="false" onAction="#closeApplication" prefHeight="39.0" prefWidth="81.0" text="Exit">
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font name="System Bold"/>
                      </font>
                   </Button>
                   <Rectangle id="footer" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutY="-4.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />

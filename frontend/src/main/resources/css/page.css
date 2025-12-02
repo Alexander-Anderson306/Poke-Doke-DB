@@ -6,7 +6,13 @@ Button {
     -fx-background-color: black;
     -fx-text-fill: white;
     -fx-font-weight: bold;
+    -fx-font-family: System;
+    -fx-font-size: 15px;
 
+}
+
+Button:hover{
+     -fx-background-color: rgb(35, 35, 35);
 }
 
 /*
