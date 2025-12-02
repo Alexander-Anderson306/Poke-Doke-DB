@@ -85,7 +85,7 @@ public class SQLHandler {
     public User login(LoginRequest req) throws SQLException {
 
         String sql =
-            "SELECT id, user_name, password, first_name, last_name, picture_name " +
+            "SELECT id, user_name, password, first_name, last_name " +
             "FROM users WHERE user_name = ?";
 
         PreparedStatement stmt = connection.prepareStatement(sql);
@@ -113,7 +113,6 @@ public class SQLHandler {
         user.setUserName(rs.getString("user_name"));
         user.setFirstName(rs.getString("first_name"));
         user.setLastName(rs.getString("last_name"));
-        user.setPicture_name(rs.getString("picture_name"));
 
         return user;
     }
