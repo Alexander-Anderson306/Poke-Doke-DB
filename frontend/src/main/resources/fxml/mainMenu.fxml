@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
@@ -8,61 +9,59 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.poke_frontend.MainPage">
    <center>
       <Group fx:id="groupScale" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;">
+            <Pane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainPane">
                <children>
-                  <Button fx:id="shopButton_Main" layoutX="14.0" layoutY="124.0" mnemonicParsing="false" onAction="#goToShop" prefHeight="59.0" prefWidth="235.0" style="-fx-background-color: White;" text="BOOSTER PACK SHOP">
-                     <font>
-                        <Font name="Arial Bold" size="18.0" />
-                     </font>
+                  <Rectangle id="footer" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutY="340.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
+                  <Button id="pageButton" fx:id="shopButton_Main" defaultButton="true" layoutX="14.0" layoutY="108.0" mnemonicParsing="false" onAction="#goToShop" prefHeight="59.0" prefWidth="235.0" text="BOOSTER PACK SHOP">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="inventoryButton_Main" layoutX="14.0" layoutY="197.0" mnemonicParsing="false" onAction="#goToInventory" prefHeight="59.0" prefWidth="235.0" style="-fx-background-color: White;" text="View Inventory">
-                     <font>
-                        <Font name="Arial Bold" size="18.0" />
-                     </font>
+                  <Button id="pageButton" fx:id="inventoryButton_Main" layoutX="14.0" layoutY="181.0" mnemonicParsing="false" onAction="#goToInventory" prefHeight="59.0" prefWidth="235.0" text="View Inventory">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="databaseButton_Main" layoutX="14.0" layoutY="268.0" mnemonicParsing="false" onAction="#goToDatabase" prefHeight="59.0" prefWidth="235.0" style="-fx-background-color: White;" text="View Card Database">
-                     <font>
-                        <Font name="Arial Bold" size="18.0" />
-                     </font>
+                  <Button id="pageButton" fx:id="databaseButton_Main" layoutX="14.0" layoutY="252.0" mnemonicParsing="false" onAction="#goToDatabase" prefHeight="59.0" prefWidth="235.0" text="View Card Database">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Button>
-                  <Label alignment="CENTER" layoutX="27.0" layoutY="27.0" prefHeight="83.0" prefWidth="206.0" text="POKE DOKE" textAlignment="CENTER" underline="true">
+                  <Label alignment="CENTER" layoutX="27.0" layoutY="26.0" prefHeight="83.0" prefWidth="206.0" text="POKE DOKE" textAlignment="CENTER" textFill="WHITE" underline="true">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="297.0" fitWidth="221.0" layoutX="330.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="269.0" fitWidth="179.0" layoutX="349.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../TempImages/RioluCard.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="logOutButton_Menu" alignment="CENTER" layoutX="37.0" layoutY="330.0" mnemonicParsing="false" onAction="#logOut" prefHeight="39.0" prefWidth="81.0" text="Log Out">
+                  <Button fx:id="logOutButton_Menu" alignment="CENTER" layoutX="35.0" layoutY="349.0" mnemonicParsing="false" onAction="#logOut" prefHeight="39.0" prefWidth="81.0" text="Log Out">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="exitButton_Menu" alignment="CENTER" layoutX="141.0" layoutY="330.0" mnemonicParsing="false" onAction="#closeApplication" prefHeight="39.0" prefWidth="81.0" text="Exit">
+                  <Button fx:id="exitButton_Menu" alignment="CENTER" layoutX="141.0" layoutY="349.0" mnemonicParsing="false" onAction="#closeApplication" prefHeight="39.0" prefWidth="81.0" text="Exit">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
+                  <Rectangle id="footer" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutY="-4.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
                </children>
             </Pane>
          </children>
       </Group>
    </center>
+   <stylesheets>
+      <URL value="@../css/mainPage.css" />
+      <URL value="@../css/page.css" />
+   </stylesheets>
 </BorderPane>

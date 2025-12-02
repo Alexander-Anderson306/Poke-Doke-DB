@@ -130,6 +130,7 @@ public class SQLHandler {
     /**
      * Loads all type names for a given card id
      */
+
     private List<String> getTypesForCard(int cardId) throws SQLException {
         String sql = """
                 SELECT t.name
@@ -369,3 +370,137 @@ public class SQLHandler {
         return pulled;
     }
 }
+
+    public List<CardTypeQuant> getUserInventory(InventoryRequest req) throws SQLException { 
+    	
+    	List<CardTypeQuant> inventory = new ArrayList<>();
+    	
+    	int userId = req.userId;
+    	
+    	String sql = """
+    			SELECT c.id,
+    					c.card_name,
+    					c.rarity,
+    					c.image_path,
+    					c.thumb_path,
+    					ui.quantity
+    			FROM user_inventory ui
+    			JOIN cards c ON ui.card_id = c.id
+    			WHERE ui.user_id = ? 
+    			""";
+    	
+    	PreparedStatement stmt = connection.prepareStatement(sql);
+    	stmt.setInt(1, userId);
+    	
+    	ResultSet rs = stmt.executeQuery();
+    	
+    	while(rs.next()) { 
+    	//card model from row 
+    	Card card = new Card (
+    		rs.getInt("id"),
+    		rs.getString("card_name"),
+            rs.getString("rarity"),
+            rs.getString("image_path"),
+            rs.getString("thumb_path")
+        );
+    	
+    	int quantity = rs.getInt("quantity");
+    	CardTypeQuant obj = new CardTypeQuant(card, quantity, null);
+    	
+    	inventory.add(obj);
+    	}
+    			
+    	
+    	return inventory;
+}
+    
+    //Cards/database
+    /**
+     * returns cards from the main database
+     */
+	//Hey Ed, this function needs to return a list of CardTypeQuant objects. It is a refactored object of the
+	//inventory response object. It contains within it the card object, quantity, and a list of the types of the card
+     public List<CardTypeQuant> getCards(AllCardsRequest req) throws SQLException { 
+    	 
+    	 List<CardTypeQuant> cards = new ArrayList<>();
+
+    	    String sql = "SELECT id, card_name, rarity, image_path, thumb_path FROM cards";
+
+    	    PreparedStatement stmt = connection.prepareStatement(sql);
+    	    ResultSet rs = stmt.executeQuery();
+
+    	    while (rs.next()) {
+    	        Card card = new Card(
+    	            rs.getInt("id"),
+    	            rs.getString("card_name"),
+    	            rs.getString("rarity"),
+    	            rs.getString("image_path"),
+    	            rs.getString("thumb_path")
+    	        );
+
+    	        //cards.add(card);
+    	    }
+
+    	    return cards;
+    	}
+     
+     //Store/Packs
+     /**
+      * Returns available packs 
+      */
+     public List<CardPack> getPacks(PackRequest req) throws SQLException {
+    	 
+    	 List<CardPack> packs = new ArrayList<>();
+
+    	    String sql = "SELECT id, pack_name, price, pack_rarity FROM card_pack";
+
+    	    PreparedStatement stmt = connection.prepareStatement(sql);
+    	    ResultSet rs = stmt.executeQuery();
+
+    	    while (rs.next()) {
+    	        CardPack pack = new CardPack(
+    	            rs.getInt("id"),
+    	            rs.getString("pack_name"),
+    	            rs.getFloat("price"),        
+    	            rs.getString("pack_rarity")
+    	        );
+
+    	        packs.add(pack);
+    	    }
+
+    	    return packs;
+    	}
+     /**
+      * Handles purchasing a pack: 
+      */
+     
+     public List<Card> purchasePack(PackPurchaseRequest req) throws SQLException { 
+    	 List<Card> cards = new ArrayList<>();
+
+    	    String sql = """
+    	        SELECT c.id, c.card_name, c.rarity, c.image_path, c.thumb_path
+    	        FROM card_pack_inventory cpi
+    	        JOIN cards c ON cpi.card_id = c.id
+    	        WHERE cpi.pack_id = ?
+    	    """;
+
+    	    PreparedStatement stmt = connection.prepareStatement(sql);
+    	    stmt.setInt(1, req.packId);
+
+    	    ResultSet rs = stmt.executeQuery();
+
+    	    while (rs.next()) {
+    	        Card card = new Card(
+    	            rs.getInt("id"),
+    	            rs.getString("card_name"),
+    	            rs.getString("rarity"),
+    	            rs.getString("image_path"),
+    	            rs.getString("thumb_path")
+    	        );
+    	        cards.add(card);
+    	    }
+
+    	    return cards;
+    	}
+}
+

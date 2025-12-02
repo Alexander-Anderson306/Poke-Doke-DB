@@ -1,7 +1,6 @@
 package com.poke_frontend;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.JsonSerializable.Base;
 import com.poke_frontend.dto.request.*;
 import com.poke_frontend.dto.response.*;
 import com.poke_frontend.models.*;
@@ -10,7 +9,6 @@ import java.net.http.HttpClient;
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.file.ProviderMismatchException;
 
 import java.util.List;
 
@@ -18,7 +16,7 @@ public class Client {
     private final HttpClient http;
     private final ObjectMapper mapper;
 
-    private String baseURL = "https://changeme.com";
+    private String baseURL ="http://localhost:8080";
 
     private int userId;
     private String username;
@@ -105,18 +103,36 @@ public class Client {
         return true;
     }
 
-    //TODO implement this
-    public List<Card> getInventory(){
-        return null;
-    }
-
     /**
-     * Returns all the cards in the database which match the query specified in the request
+     * Attempts to retrieve the inventory for the given user
      * @param req the request from the user
-     * @return a list of cards
+     * @return a list of inventory objects if the request was successful, null otherwise
      * @throws Exception
      */
-    public List<Card> getDBCards(AllCardsRequest req) throws Exception{
+    public List<CardTypeQuant> getInventory(InventoryRequest req) throws Exception {
+        String json = mapper.writeValueAsString(req);
+
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(baseURL + "/inventory"))
+            .header("Content-Type", "application/json")
+            .POST(HttpRequest.BodyPublishers.ofString(json))
+            .build();
+        
+        HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
+
+        BaseResponse base = mapper.readValue(response.body(), BaseResponse.class);
+
+        if(!base.success) {
+            IO.print(base.message);
+            return null;
+        }
+
+        InventoryResponse dbResponse = mapper.readValue(response.body(), InventoryResponse.class);
+        return dbResponse.inventory;
+    }
+
+
+    public List<CardTypeQuant> getDBCards(AllCardsRequest req) throws Exception{
         String json = mapper.writeValueAsString(req);
 
         HttpRequest request = HttpRequest.newBuilder()

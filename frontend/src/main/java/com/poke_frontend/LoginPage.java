@@ -68,10 +68,13 @@ public class LoginPage extends ScalePage{
             success = false;
         }
 
-        if (success)
+        if (success) {
             App.changeCurrentPage(Page.MAIN_MENU);
-        else
+            App.theClient = client;
+        }
+        else {
             errorMessageLabel.setText("Login failed, please try again.");
+        }
 
     }
 

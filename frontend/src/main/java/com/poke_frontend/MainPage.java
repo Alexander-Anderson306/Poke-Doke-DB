@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 public class MainPage extends ScalePage{
 
@@ -37,7 +38,8 @@ public class MainPage extends ScalePage{
 
     @FXML
     void closeApplication(ActionEvent event) {
-
+        App.logout();
+        ( (Stage) exitButton_Menu.getScene().getWindow() ).close();
     }
 
     @FXML
@@ -58,6 +60,7 @@ public class MainPage extends ScalePage{
     @FXML
     void logOut(ActionEvent event) {
         App.changeCurrentPage(Page.LOGIN);
+        App.logout();
     }
 
 }
