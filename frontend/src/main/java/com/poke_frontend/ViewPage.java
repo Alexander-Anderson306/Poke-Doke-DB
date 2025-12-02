@@ -10,6 +10,8 @@ import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -85,7 +87,9 @@ public class ViewPage extends ScalePage{
 
         // Inventory Page
         else if (App.currentPage==Page.VIEW_INVENTORY) {
-            loadInventoryPage(new InventoryRequest());
+            InventoryRequest req = new InventoryRequest();
+            req.userId=App.theClient.getUserId();
+            loadInventoryPage(req);
         }
 
         // Database Page
@@ -306,7 +310,24 @@ public class ViewPage extends ScalePage{
 
     @FXML
     void searchCards(ActionEvent event) {
-
+        if(App.currentPage == Page.VIEW_INVENTORY) {
+            if(App.loggedIn()){
+                InventoryRequest req = new InventoryRequest();
+                req.userId=App.theClient.getUserId();
+                req.cardName=searchBar.getText();
+                loadInventoryPage(req);
+            } else {
+                Alert errorAlert = new Alert(AlertType.ERROR);
+                errorAlert.setTitle("Error");
+                errorAlert.setHeaderText("Not logged in.");
+                errorAlert.setContentText("Not logged in, so, no inventory search possible. Try loggin in first");
+                errorAlert.showAndWait();
+            }
+        } else {
+            AllCardsRequest req = new AllCardsRequest();
+            req.cardName=searchBar.getText();
+            loadDatabasePage(req);
+        }
     }
 
     @FXML
