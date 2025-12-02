@@ -113,7 +113,7 @@ public class Server {
 
             try {
                 SQLHandler sqlHandler = new SQLHandler();
-                List<InventoryRequestObject> inventory = sqlHandler.getUserInventory(req);
+                List<CardTypeQuant> inventory = sqlHandler.getUserInventory(req);
                 ctx.json(new InventoryResponse(inventory));
             } catch (SQLException e) {
                 ctx.status(500).json(new BaseResponse(false, "Failed to find inventory", 500));
@@ -126,7 +126,7 @@ public class Server {
 
             try {
                 SQLHandler sqlHandler = new SQLHandler();
-                List<Card> cards = sqlHandler.getCards(req);
+                List<CardTypeQuant> cards = sqlHandler.getCards(req);
                 ctx.json(new AllCardsResponse(cards));
             } catch (SQLException e) {
                 ctx.status(500).json(new BaseResponse(false, "Failed to find cards", 500));

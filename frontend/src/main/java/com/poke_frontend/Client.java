@@ -1,7 +1,6 @@
 package com.poke_frontend;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.JsonSerializable.Base;
 import com.poke_frontend.dto.request.*;
 import com.poke_frontend.dto.response.*;
 import com.poke_frontend.models.*;
@@ -10,7 +9,6 @@ import java.net.http.HttpClient;
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.file.ProviderMismatchException;
 
 import java.util.List;
 
@@ -111,7 +109,7 @@ public class Client {
      * @return a list of inventory objects if the request was successful, null otherwise
      * @throws Exception
      */
-    public List<InventoryRequestObject> getInventory(InventoryRequest req) throws Exception {
+    public List<CardTypeQuant> getInventory(InventoryRequest req) throws Exception {
         String json = mapper.writeValueAsString(req);
 
         HttpRequest request = HttpRequest.newBuilder()
@@ -133,13 +131,8 @@ public class Client {
         return dbResponse.inventory;
     }
 
-    /**
-     * Returns all the cards in the database which match the query specified in the request
-     * @param req the request from the user
-     * @return a list of cards
-     * @throws Exception
-     */
-    public List<Card> getDBCards(AllCardsRequest req) throws Exception{
+
+    public List<CardTypeQuant> getDBCards(AllCardsRequest req) throws Exception{
         String json = mapper.writeValueAsString(req);
 
         HttpRequest request = HttpRequest.newBuilder()
