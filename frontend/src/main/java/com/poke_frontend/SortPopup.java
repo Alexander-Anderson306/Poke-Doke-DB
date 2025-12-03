@@ -1,15 +1,16 @@
 package com.poke_frontend;
 
+import com.poke_frontend.dto.request.AllCardsRequest;
 import com.poke_frontend.dto.request.InventoryRequest;
+import com.poke_frontend.models.Card;
+import com.poke_frontend.models.CardTypeQuant;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,64 +106,153 @@ public class SortPopup extends ScalePage {
         closePopup();
     }
 
+    /**
+     * This method will load the view page with a new set of cards
+     * based on the parameters within the sort popup.
+     * @param event
+     */
     @FXML
     void sortCards(ActionEvent event) {
 
         if(!App.loggedIn()) {
-            closePopup();
+            throwLoggedOutError();
             return;
         }
 
-        InventoryRequest req = new InventoryRequest();
+        // The first step is to get a list of card objects to work with
+        List<CardTypeQuant> allObjects = new ArrayList<>();
 
-        // Id
-        req.userId=App.theClient.getUserId();
+        // If we want to view the inventory
+        if (App.currentPage==Page.VIEW_INVENTORY) {
+            // Send an inventory request to get the users inventory
+            InventoryRequest req = new InventoryRequest();
+            req.userId = App.theClient.getUserId();
+            try {
+                allObjects = App.theClient.getInventory(req);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throwDatabaseError();
+            }
+        }
 
-        // Name
-        req.cardName=pokemonNameBox.getText();
+        // Otherwise assume we want to see all cards in the database
+        else {
+            // Send an all card request to get the whole database.
+            try {
+                AllCardsRequest req = new AllCardsRequest();
+                allObjects = App.theClient.getDBCards(req);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throwDatabaseError();
+            }
+        }
 
-        // Card Type
+        // Creating a list of all selected types
         List<String> allSelectedTypes = new ArrayList<>();
-        if (bugBox.isSelected()) allSelectedTypes.add("bug");
-        if (darkBox.isSelected()) allSelectedTypes.add("dark");
-        if (dragonBox.isSelected()) allSelectedTypes.add("dragon");
-        if (electricBox.isSelected()) allSelectedTypes.add("electric");
-        if (fairyBox.isSelected()) allSelectedTypes.add("fairy");
-        if (fightingBox.isSelected()) allSelectedTypes.add("fighting");
-        if (fireBox.isSelected()) allSelectedTypes.add("fire");
-        if (flyingBox.isSelected()) allSelectedTypes.add("flying");
-        if (ghostBox.isSelected()) allSelectedTypes.add("ghost");
-        if (grassBox.isSelected()) allSelectedTypes.add("grass");
-        if (groundBox.isSelected()) allSelectedTypes.add("ground");
-        if (iceBox.isSelected()) allSelectedTypes.add("ice");
-        if (normalBox.isSelected()) allSelectedTypes.add("normal");
-        if (posionBox.isSelected()) allSelectedTypes.add("poison");
-        if (psychicBox.isSelected()) allSelectedTypes.add("psychic");
-        if (rockBox.isSelected()) allSelectedTypes.add("rock");
-        if (steelBox.isSelected()) allSelectedTypes.add("steel");
-        if (waterBox.isSelected()) allSelectedTypes.add("water");
-        req.cardTypes = allSelectedTypes;
+        if (bugBox.isSelected()) allSelectedTypes.add("Bug");
+        if (darkBox.isSelected()) allSelectedTypes.add("Dark");
+        if (dragonBox.isSelected()) allSelectedTypes.add("Dragon");
+        if (electricBox.isSelected()) allSelectedTypes.add("Electric");
+        if (fairyBox.isSelected()) allSelectedTypes.add("Fairy");
+        if (fightingBox.isSelected()) allSelectedTypes.add("Fighting");
+        if (fireBox.isSelected()) allSelectedTypes.add("Fire");
+        if (flyingBox.isSelected()) allSelectedTypes.add("Flying");
+        if (ghostBox.isSelected()) allSelectedTypes.add("Ghost");
+        if (grassBox.isSelected()) allSelectedTypes.add("Grass");
+        if (groundBox.isSelected()) allSelectedTypes.add("Ground");
+        if (iceBox.isSelected()) allSelectedTypes.add("Ice");
+        if (normalBox.isSelected()) allSelectedTypes.add("Normal");
+        if (posionBox.isSelected()) allSelectedTypes.add("Poison");
+        if (psychicBox.isSelected()) allSelectedTypes.add("Psychic");
+        if (rockBox.isSelected()) allSelectedTypes.add("Rock");
+        if (steelBox.isSelected()) allSelectedTypes.add("Steel");
+        if (waterBox.isSelected()) allSelectedTypes.add("Water");
 
-        // Card Rarity
-        // No button in the sort popup lets the user choose this.
-        req.cardRarity="";
+        // Determining what we need to filter by
+        boolean filterByType = !allSelectedTypes.isEmpty();
+        boolean filterByName = !pokemonNameBox.getText().isEmpty();
 
-        // And Or
-        if (andOrButton.getText().equals("AND"))
-            req.andOr='A';
-        else
-            req.andOr='O';
+        // We iterate over all of the cards we have.
+        // We check filters based on the booleans above
+        // If a card does not match the filters, it is removed from the list.
+        for (CardTypeQuant currentObject : allObjects) {
 
-        parentContoller.loadInventoryPage(req);
+            Card currentCard = currentObject.getCard();
+            List<String> currentCardsTypes = currentObject.getTypes();
 
+            // If we are filtering by name, and this card has a different name, discard it.
+            if (filterByName) {
+                if (!currentCard.getCardName().equalsIgnoreCase(pokemonNameBox.getText())) {
+                    allObjects.remove(currentObject);
+                    continue;
+                }
+            }
+
+            // If we are filtering by type, check if we are filtering by AND or OR
+            if (filterByType) {
+
+                // Filter by AND
+                if (andOrButton.equals("AND")) {
+                    // Check every type the Pokemon has. If any of them do not exist in the selectedTypes, discard it.
+                    for (String currentType : currentCardsTypes) {
+                        if (!allSelectedTypes.contains(currentType)) {
+                            allObjects.remove(currentObject);
+                            continue;
+                        }
+                    }
+                }
+
+                // Filter by OR
+                else {
+                    // Check every type the Pokemon has. If any of them exist in selectedTypes, keep it.
+                    boolean keep = false;
+                    for (String currentType : currentCardsTypes) {
+                        if (allSelectedTypes.contains(currentType)) {
+                            keep=true;
+                            break;
+                        }
+                    }
+                    if (!keep) {
+                        allObjects.remove(currentObject);
+                        continue;
+                    }
+                }
+            }
+        }
+
+        // Then we turn the remaining card objects into urls and send them to the view page to be loaded.
+        List<String> allUrls = new ArrayList<String>();
+        for (CardTypeQuant currentObject: allObjects) {
+            for (int i=0; i<currentObject.getQuantity(); i++) {
+                allUrls.add(currentObject.getCard().getImagePath());
+            }
+        }
+
+        parentContoller.loadViewPage(allUrls);
         closePopup();
 
     }
 
+    void throwLoggedOutError() {
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setTitle("Error");
+        errorAlert.setHeaderText("Not logged in.");
+        errorAlert.setContentText("Not logged in, so, no inventory search possible. Try logging in first");
+        errorAlert.showAndWait();
+        closePopup();
+    }
+
+    void throwDatabaseError() {
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setTitle("Error");
+        errorAlert.setHeaderText("Database Issue");
+        errorAlert.setContentText("Sorry, but there was an issue with our database. Please try again.");
+        errorAlert.showAndWait();
+        closePopup();
+    }
+
     void closePopup() {
-        /*
-        IDK how to implement this. This should just close the sort popup.
-         */
+        ( (Stage) pokemonNameBox.getScene().getWindow() ).close();
     }
 
     @FXML
