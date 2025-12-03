@@ -13,6 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class SortPopup extends ScalePage {
@@ -217,6 +218,19 @@ public class SortPopup extends ScalePage {
                         continue;
                     }
                 }
+            }
+        }
+
+        // If something has been selected in the "sortByChoiceBox", then we need to organize the list of cards.
+        if (sortByChoiceBox.getValue()!=null) {
+            if (sortByChoiceBox.getValue().equals("Alphabetically")) {
+                allObjects.sort(Comparator.comparing(a -> a.getCard().getCardName()));
+            }
+            else if (sortByChoiceBox.getValue().equals("Number Order")) {
+                allObjects.sort(Comparator.comparingInt(a -> a.getCard().getId()));
+            }
+            else if (sortByChoiceBox.getValue().equals("Type")) {
+                allObjects.sort(Comparator.comparing(a -> a.getTypes().getFirst()));
             }
         }
 

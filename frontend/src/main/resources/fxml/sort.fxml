@@ -37,7 +37,7 @@
                               <FXCollections fx:factory="observableArrayList">
                                  <String fx:value="Alphabetically" />
                                  <String fx:value="Number Order" />
-                                 <String fx:value="Color/Type" />
+                                 <String fx:value="Type" />
                               </FXCollections>
                         </items>
                   </ChoiceBox>
