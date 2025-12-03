@@ -23,7 +23,7 @@ public class SQLHandler {
         
         String url = "jdbc:mysql://localhost:3306/mydb";
         String user = "root";
-        String password = "";   // matches your current setup
+        String password = "";   
 
         this.connection = DriverManager.getConnection(url, user, password);
     }
