@@ -10,6 +10,7 @@ public class CardTypeQuant {
     public CardTypeQuant(Card card, int quantity, List<String> types) {
         this.card = card;
         this.quantity = quantity;
+        this.types = types;
     }
 
     //getters

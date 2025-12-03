@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.poke_backend.models.*;
-
 import com.poke_backend.dto.request.*;
 
 public class SQLHandler {
@@ -20,47 +19,37 @@ public class SQLHandler {
     private Connection connection;
 
     public SQLHandler() throws SQLException {
-        
         String url = "jdbc:mysql://localhost:3306/mydb";
         String user = "root";
-        String password = "";   
-
+        String password = "";
         this.connection = DriverManager.getConnection(url, user, password);
     }
 
     /**
-	 * Checks whether the username already exists
-	 * 
-	 */
-	
+     * 
+     * Checks whether the username already exists
+     * 
+     */
     public boolean userExists(String username) throws SQLException {
         String sql = "SELECT id FROM users WHERE user_name = ?";
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setString(1, username);
-
         ResultSet rs = stmt.executeQuery();
-        return rs.next(); // true if we found a row
+        return rs.next();
     }
-
- 
-    // Account / Authentication
+ // Account / Authentication
     /**
      * Creates a new account in the database.
      * Throws SQLException if the username already exists.
      */
     public User createAccount(CreateAccountRequest req) throws SQLException {
-
-        // Check if username is taken
         if (userExists(req.username)) {
             throw new SQLException("User already exists");
         }
-
-        //Hash the password
+        //hash the password
         String hashed = Hash.hashPassword(req.password);
-
         //Insert user into DB
-        String sql = "INSERT INTO users (user_name, password, first_name, last_name) " +
-                     "VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO users (user_name, password, first_name, last_name) VALUES (?, ?, ?, ?)";
         PreparedStatement stmt = connection.prepareStatement(sql);
 
         stmt.setString(1, req.username);
@@ -77,13 +66,11 @@ public class SQLHandler {
 
         return user;
     }
-
     /**
      *attempts to log in an existing user
      *Returns null if username doesn't exist or password is wrong
      */
     public User login(LoginRequest req) throws SQLException {
-
         String sql =
             "SELECT id, user_name, password, first_name, last_name " +
             "FROM users WHERE user_name = ?";
@@ -92,22 +79,18 @@ public class SQLHandler {
         stmt.setString(1, req.username);
 
         ResultSet rs = stmt.executeQuery();
-
         //no user with this username
         if (!rs.next()) {
             return null;
         }
-
-        //stored hashed password
+      //stored hashed password
         String hashedPassword = rs.getString("password");
-
         //Compare passwords
         boolean ok = Hash.checkPassword(req.password, hashedPassword);
         if (!ok) {
             return null;
         }
-
-        //Build and return user object
+      //Build and return user object
         User user = new User();
         user.setId(rs.getInt("id"));
         user.setUserName(rs.getString("user_name"));
@@ -116,20 +99,17 @@ public class SQLHandler {
 
         return user;
     }
-
+    
     /**
      * Logs out a user.
      */
-    public void logout(LogoutRequest req) throws SQLException {
-        // Intentionally left blank for this project
-    }
 
-  
+    public void logout(LogoutRequest req) throws SQLException {}
+
     // Helper: Card types lookup
     /**
      * Loads all type names for a given card id
      */
-
     private List<String> getTypesForCard(int cardId) throws SQLException {
         String sql = """
                 SELECT t.name
@@ -150,14 +130,11 @@ public class SQLHandler {
 
         return types;
     }
-
-
     // User Inventory
     /**
      * Returns the inventory for the given user as a list of CardTypeQuant
      */
     public List<CardTypeQuant> getUserInventory(InventoryRequest req) throws SQLException {
-
         int userId = req.userId;
         Map<Integer, CardTypeQuant> map = new LinkedHashMap<>();
 
@@ -207,15 +184,12 @@ public class SQLHandler {
 
         return new ArrayList<>(map.values());
     }
-
-
     // Cards / main DB
     /**
      * Returns ALL cards from the main database, along with their types,
      * wrapped in CardTypeQuant object
      */
     public List<CardTypeQuant> getCards(AllCardsRequest req) throws SQLException {
-
         Map<Integer, CardTypeQuant> map = new LinkedHashMap<>();
 
         String sql = """
@@ -246,7 +220,6 @@ public class SQLHandler {
                         rs.getString("thumb_path")
                 );
 
-                // quantity 0 since this is from DB, not inventory
                 ctq = new CardTypeQuant(card, 0, new ArrayList<>());
                 map.put(cardId, ctq);
             }
@@ -259,12 +232,11 @@ public class SQLHandler {
 
         return new ArrayList<>(map.values());
     }
-//store packs
+  //store packs
     /**
      * Returns all available packs (no filtering)
      */
     public List<CardPack> getPacks(PackRequest req) throws SQLException {
-
         List<CardPack> packs = new ArrayList<>();
 
         String sql = "SELECT id, pack_name, price, pack_rarity FROM card_pack";
@@ -285,17 +257,14 @@ public class SQLHandler {
 
         return packs;
     }
-
     /**
      * Handles purchasing a pack:
      *  - randomly selects 10 cards from card_pack_inventory, updates user_inventory, returns a list of cardtypequant 
      */
     public List<CardTypeQuant> purchasePack(PackPurchaseRequest req) throws SQLException {
-
         int userId = req.userId;
         Map<Integer, CardTypeQuant> pickedMap = new LinkedHashMap<>();
 
-        // Pick 10 random card_ids from this pack
         String sql = """
                 SELECT c.id,
                        c.card_name,
@@ -333,7 +302,6 @@ public class SQLHandler {
                         rs.getString("thumb_path")
                 );
 
-                //each pull gives you 1 copy of this card
                 ctq = new CardTypeQuant(card, 1, new ArrayList<>());
                 pickedMap.put(cardId, ctq);
             }
@@ -345,7 +313,6 @@ public class SQLHandler {
         }
 
         List<CardTypeQuant> pulled = new ArrayList<>(pickedMap.values());
-
         //update user_inventory for the pulled cards
         if (!pulled.isEmpty()) {
             String invSql = """
@@ -359,7 +326,7 @@ public class SQLHandler {
             for (CardTypeQuant ctq : pulled) {
                 invStmt.setInt(1, userId);
                 invStmt.setInt(2, ctq.getCard().getId());
-                invStmt.setInt(3, ctq.getQuantity()); // usually 1
+                invStmt.setInt(3, ctq.getQuantity());
                 invStmt.addBatch();
             }
 
@@ -369,137 +336,3 @@ public class SQLHandler {
         return pulled;
     }
 }
-
-    public List<CardTypeQuant> getUserInventory(InventoryRequest req) throws SQLException { 
-    	
-    	List<CardTypeQuant> inventory = new ArrayList<>();
-    	
-    	int userId = req.userId;
-    	
-    	String sql = """
-    			SELECT c.id,
-    					c.card_name,
-    					c.rarity,
-    					c.image_path,
-    					c.thumb_path,
-    					ui.quantity
-    			FROM user_inventory ui
-    			JOIN cards c ON ui.card_id = c.id
-    			WHERE ui.user_id = ? 
-    			""";
-    	
-    	PreparedStatement stmt = connection.prepareStatement(sql);
-    	stmt.setInt(1, userId);
-    	
-    	ResultSet rs = stmt.executeQuery();
-    	
-    	while(rs.next()) { 
-    	//card model from row 
-    	Card card = new Card (
-    		rs.getInt("id"),
-    		rs.getString("card_name"),
-            rs.getString("rarity"),
-            rs.getString("image_path"),
-            rs.getString("thumb_path")
-        );
-    	
-    	int quantity = rs.getInt("quantity");
-    	CardTypeQuant obj = new CardTypeQuant(card, quantity, null);
-    	
-    	inventory.add(obj);
-    	}
-    			
-    	
-    	return inventory;
-}
-    
-    //Cards/database
-    /**
-     * returns cards from the main database
-     */
-	//Hey Ed, this function needs to return a list of CardTypeQuant objects. It is a refactored object of the
-	//inventory response object. It contains within it the card object, quantity, and a list of the types of the card
-     public List<CardTypeQuant> getCards(AllCardsRequest req) throws SQLException { 
-    	 
-    	 List<CardTypeQuant> cards = new ArrayList<>();
-
-    	    String sql = "SELECT id, card_name, rarity, image_path, thumb_path FROM cards";
-
-    	    PreparedStatement stmt = connection.prepareStatement(sql);
-    	    ResultSet rs = stmt.executeQuery();
-
-    	    while (rs.next()) {
-    	        Card card = new Card(
-    	            rs.getInt("id"),
-    	            rs.getString("card_name"),
-    	            rs.getString("rarity"),
-    	            rs.getString("image_path"),
-    	            rs.getString("thumb_path")
-    	        );
-
-    	        //cards.add(card);
-    	    }
-
-    	    return cards;
-    	}
-     
-     //Store/Packs
-     /**
-      * Returns available packs 
-      */
-     public List<CardPack> getPacks(PackRequest req) throws SQLException {
-    	 
-    	 List<CardPack> packs = new ArrayList<>();
-
-    	    String sql = "SELECT id, pack_name, price, pack_rarity FROM card_pack";
-
-    	    PreparedStatement stmt = connection.prepareStatement(sql);
-    	    ResultSet rs = stmt.executeQuery();
-
-    	    while (rs.next()) {
-    	        CardPack pack = new CardPack(
-    	            rs.getInt("id"),
-    	            rs.getString("pack_name"),
-    	            rs.getFloat("price"),        
-    	            rs.getString("pack_rarity")
-    	        );
-
-    	        packs.add(pack);
-    	    }
-
-    	    return packs;
-    	}
-     /**
-      * Handles purchasing a pack: 
-      */
-     
-     public List<Card> purchasePack(PackPurchaseRequest req) throws SQLException { 
-    	 List<Card> cards = new ArrayList<>();
-
-    	    String sql = """
-    	        SELECT c.id, c.card_name, c.rarity, c.image_path, c.thumb_path
-    	        FROM card_pack_inventory cpi
-    	        JOIN cards c ON cpi.card_id = c.id
-    	        WHERE cpi.pack_id = ?
-    	    """;
-
-    	    PreparedStatement stmt = connection.prepareStatement(sql);
-    	    stmt.setInt(1, req.packId);
-
-    	    ResultSet rs = stmt.executeQuery();
-
-    	    while (rs.next()) {
-    	        Card card = new Card(
-    	            rs.getInt("id"),
-    	            rs.getString("card_name"),
-    	            rs.getString("rarity"),
-    	            rs.getString("image_path"),
-    	            rs.getString("thumb_path")
-    	        );
-    	        cards.add(card);
-    	    }
-
-    	    return cards;
-    	}
-}
-
