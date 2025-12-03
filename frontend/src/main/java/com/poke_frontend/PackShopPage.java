@@ -20,6 +20,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
+import javafx.stage.Stage;
 
 /**
  * Controller class for the Pack Shop page.
@@ -39,10 +40,12 @@ public class PackShopPage extends ScalePage {
     @FXML private TextField packAmount_field;
     @FXML private Label packAmountPrompt;
     @FXML private Button checkout_button;
+    @FXML private Button cancelButton;
     @FXML private GridPane gird_View;
     @FXML private Group groupScale;
     @FXML private Button homeButton_View;
     @FXML private Pane rootPane;
+    @FXML private Pane packBuyPane;
     @FXML private ScrollPane scrollView;
 
     /**
@@ -91,21 +94,7 @@ public class PackShopPage extends ScalePage {
         ImageView currentPack = (ImageView) event.getSource();
         this.currentPackId = currentPack.getId();
 
-        packAmount_field.setVisible(true);
-        confirmAmount.setVisible(true);
-        packAmountPrompt.setVisible(true);
-        hide(false);
-    }
-
-    /**
-     * Hides or shows the main UI elements so the user can enter a pack amount.
-     *
-     * @param input true to show the main view; false to hide it
-     */
-    private void hide(boolean input) {
-        scrollView.setVisible(input);
-        homeButton_View.setVisible(input);
-        checkout_button.setVisible(input);
+        packBuyPane.setVisible(true);
     }
 
     /**
@@ -136,12 +125,7 @@ public class PackShopPage extends ScalePage {
                     userInvent.put(Integer.valueOf(currentPackId), amount);
 
                     // Reset UI
-                    packAmount_field.setText("");
-                    packAmount_field.setVisible(false);
-                    packAmountPrompt.setVisible(false);
-                    errorAmount.setVisible(false);
-                    confirmAmount.setVisible(false);
-                    hide(true);
+                    backToShop(null);
                 } else {
                     errorAmount.setVisible(true);
                 }
@@ -167,6 +151,16 @@ public class PackShopPage extends ScalePage {
     @FXML
     void goToMainMenu(ActionEvent event) {
         App.changeCurrentPage(Page.MAIN_MENU);
+    }
+
+    /**
+     * Closes the pane user asking input
+     * @param event
+     */
+    @FXML
+    void backToShop(ActionEvent event){
+        packAmount_field.setText("");
+        packBuyPane.setVisible(false);
     }
 
     /**

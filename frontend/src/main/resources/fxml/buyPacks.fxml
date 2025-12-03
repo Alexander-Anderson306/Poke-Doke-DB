@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -9,50 +11,66 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.poke_frontend.PackShopPage">
    <center>
       <Group fx:id="groupScale" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0">
+            <Pane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainPane">
                <children>
                   <ScrollPane fx:id="scrollView" layoutX="16.0" layoutY="89.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="278.0" prefWidth="569.0">
                      <content>
-                        <GridPane fx:id="gird_View" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="260.0" prefWidth="610.0">
+                        <GridPane fx:id="gird_View" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="260.0" prefWidth="610.0" styleClass="cardView">
                            <rowConstraints>
                               <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS" />
                               <RowConstraints />
                            </rowConstraints>
                         </GridPane>
                      </content>
+                     <styleClass>
+                        <String fx:value="scrollPane" />
+                        <String fx:value="mainPane" />
+                     </styleClass>
                   </ScrollPane>
-                  <Button fx:id="homeButton_View" layoutX="27.0" layoutY="16.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToMainMenu" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: Black;" text="Home" textFill="WHITE">
+                  <Button fx:id="homeButton_View" layoutX="16.0" layoutY="28.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToMainMenu" prefHeight="37.0" prefWidth="97.0" styleClass="globalButton" text="Home" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="System Bold" />
                      </font>
                   </Button>
-                  <Button fx:id="checkout_button" alignment="TOP_CENTER" layoutX="490.0" layoutY="17.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToCheckout" prefHeight="35.0" prefWidth="95.0" style="-fx-background-color: Black;" text="Checkout" textFill="WHITE">
+                  <Button fx:id="checkout_button" alignment="CENTER" layoutX="479.0" layoutY="28.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToCheckout" prefHeight="40.0" prefWidth="106.0" styleClass="globalButton" text="Checkout" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font name="System Bold" />
                      </font>
                   </Button>
-                  <Label layoutX="200.0" layoutY="26.0" text="PACK SHOP" textFill="#2a1499" underline="true">
+                  <Label layoutX="186.0" layoutY="27.0" text="PACK SHOP" textFill="#2a1499" underline="true">
                      <font>
                         <Font name="System Bold" size="36.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="packAmount_field" layoutX="155.0" layoutY="250.0" prefHeight="25.0" prefWidth="245.0" promptText="How many?" visible="false" />
-                  <Label fx:id="packAmountPrompt" alignment="CENTER" layoutX="155.0" layoutY="205.0" prefHeight="39.0" prefWidth="301.0" style="-fx-background-color: black;" text="How many packs would you like to purchase?" textFill="WHITE" visible="false">
+               </children>
+            </Pane>
+            <Pane fx:id="packBuyPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainPane" visible="false">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="400.0" stroke="BLACK" strokeType="INSIDE" styleClass="border" width="600.0" />
+                  <TextField fx:id="packAmount_field" layoutX="178.0" layoutY="188.0" prefHeight="25.0" prefWidth="245.0" promptText="How many?" />
+                  <Label id="question" fx:id="packAmountPrompt" alignment="CENTER" layoutX="115.0" layoutY="136.0" prefHeight="39.0" prefWidth="370.0" text="How many packs would you like to purchase?" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button fx:id="confirmAmount" layoutX="400.0" layoutY="250.0" mnemonicParsing="false" onAction="#conPackAmount" prefHeight="18.0" prefWidth="60.0" style="-fx-background-color: black;" text="Confirm" textFill="WHITE" visible="false" />
-                  <Label fx:id="errorAmount" layoutX="160.0" layoutY="280.0" text="The amount of pack must be greater than 1." textFill="RED" visible="false" />
+                  <Button fx:id="confirmAmount" layoutX="334.0" layoutY="251.0" mnemonicParsing="false" onAction="#conPackAmount" prefHeight="31.0" prefWidth="81.0" text="Confirm" textFill="WHITE" />
+                  <Label fx:id="errorAmount" layoutX="186.0" layoutY="224.0" styleClass="error" text="The amount of pack must be greater than 1." textFill="RED" visible="false" />
+                  <Button fx:id="cancelButton" layoutX="202.0" layoutY="251.0" mnemonicParsing="false" onAction="#backToShop" prefHeight="31.0" prefWidth="81.0" text="Cancel" textFill="WHITE" />
                </children>
             </Pane>
          </children>
       </Group>
    </center>
+   <stylesheets>
+      <URL value="@../css/page.css" />
+      <URL value="@../css/shopePage.css" />
+      <URL value="@../css/viewPage.css" />
+   </stylesheets>
 </BorderPane>

@@ -61,9 +61,9 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Button fx:id="createAccountButton" layoutX="200.0" layoutY="328.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: BLACK;" text="Create Account" textFill="WHITE">
+                  <Button fx:id="createAccountButton" layoutX="200.0" layoutY="328.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="25.0" prefWidth="200.0" text="Create Account" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" />
                      </font>
                   </Button>
                   <Label fx:id="usernameNull" alignment="BOTTOM_LEFT" graphicTextGap="1.0" layoutX="459.0" layoutY="104.0" style="-fx-font-size: 10px;" styleClass="error" text="* Username cannot be empty." textAlignment="CENTER" textFill="RED" visible="false" />
@@ -75,9 +75,9 @@
                         <Font size="10.0" />
                      </font>
                   </Label>
-                  <Button fx:id="backButton" layoutX="20.0" layoutY="45.0" mnemonicParsing="false" onAction="#backToLogin" prefHeight="33.0" prefWidth="67.0" style="-fx-background-color: BLACK;" text="&lt; Back" textFill="WHITE">
+                  <Button id="backButton" fx:id="backButton" layoutX="20.0" layoutY="45.0" mnemonicParsing="false" onAction="#backToLogin" prefHeight="33.0" prefWidth="67.0" text="&lt; Back" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" />
                      </font>
                   </Button>
                </children>

@@ -37,6 +37,7 @@ public class CheckoutPage extends ScalePage {
 
     @FXML protected Pane rootPane;
     @FXML private Group groupScale;
+    @FXML private Button backButton;
     @FXML private Button confirm_button;
     @FXML private Button edit_button;
     @FXML private GridPane gird_View;
@@ -49,6 +50,16 @@ public class CheckoutPage extends ScalePage {
      */
     @FXML
     void edit(ActionEvent event) {
+        App.changeCurrentPage(Page.SHOP);
+    }
+
+    /**
+     * Navigates back to the shop page
+     *
+     * @param event the button click event
+     */
+    @FXML
+    void backToStore(ActionEvent event) {
         App.changeCurrentPage(Page.SHOP);
     }
 

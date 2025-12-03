@@ -1,0 +1,21 @@
+Label{
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-font-family: Georgia;
+    -fx-text-fill: white;
+}
+
+#question{
+    -fx-font-size: 15px;
+}
+
+.border{
+    -fx-stroke-width: 20px;
+    -fx-stroke: linear-gradient(#05003e, #3466AF 10%, #fbff00 50%, #3466AF 90%, #05003e 100%);
+}
+
+.error {
+    -fx-font-size: 12px;
+    -fx-font-weight: normal;
+    -fx-text-fill: red;
+}
