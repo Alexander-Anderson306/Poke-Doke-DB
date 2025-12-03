@@ -126,9 +126,9 @@ public class SortPopup extends ScalePage {
         // If we want to view the inventory
         if (App.currentPage==Page.VIEW_INVENTORY) {
             // Send an inventory request to get the users inventory
-            InventoryRequest req = new InventoryRequest();
-            req.userId = App.theClient.getUserId();
             try {
+                InventoryRequest req = new InventoryRequest();
+                req.userId = App.theClient.getUserId();
                 allObjects = App.theClient.getInventory(req);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -171,7 +171,7 @@ public class SortPopup extends ScalePage {
 
         // Determining what we need to filter by
         boolean filterByType = !allSelectedTypes.isEmpty();
-        boolean filterByName = !pokemonNameBox.getText().isEmpty();
+        boolean filterByName = !pokemonNameBox.getText().isBlank();
 
         // We iterate over all of the cards we have.
         // We check filters based on the booleans above
@@ -278,10 +278,10 @@ public class SortPopup extends ScalePage {
 
     }
 
-    @FXML    
-    void initialize(){ 
+    @FXML
+    void initialize(){
         implementScaling(groupScale, rootPane);
-        setSceneName("Sort Cards");  
+        setSceneName("Sort Cards");
     }
 
 
@@ -294,5 +294,5 @@ public class SortPopup extends ScalePage {
         parentContoller = previousPage;
     }
 
-    
+
 }

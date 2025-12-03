@@ -66,7 +66,7 @@ public class ViewPage extends ScalePage{
     @FXML
     private Group groupScale;
 
-    @FXML    
+    @FXML
     void initialize(){
 
         implementScaling(groupScale, rootPane);
@@ -253,25 +253,77 @@ public class ViewPage extends ScalePage{
 
     @FXML
     void searchCards(ActionEvent event) {
-        if(App.currentPage == Page.VIEW_INVENTORY) {
-            if(App.loggedIn()){
-                InventoryRequest req = new InventoryRequest();
-                req.userId=App.theClient.getUserId();
-                req.cardName=searchBar.getText();
-                loadInventoryPage(req);
-            } else {
-                Alert errorAlert = new Alert(AlertType.ERROR);
-                errorAlert.setTitle("Error");
-                errorAlert.setHeaderText("Not logged in.");
-                errorAlert.setContentText("Not logged in, so, no inventory search possible. Try logging in first");
-                errorAlert.showAndWait();
-            }
-        } else {
-            AllCardsRequest req = new AllCardsRequest();
-            req.cardName=searchBar.getText();
-            loadDatabasePage(req);
+
+        // If the user is not logged in, throw an error
+        if(!App.loggedIn()){
+            Alert errorAlert = new Alert(AlertType.ERROR);
+            errorAlert.setTitle("Error");
+            errorAlert.setHeaderText("Not logged in.");
+            errorAlert.setContentText("Not logged in, so, no inventory search possible. Try logging in first");
+            errorAlert.showAndWait();
+            return;
         }
+
+        // If the search bar is blank, throw an error.
+        if (searchBar.getText().isBlank()) {
+            Alert errorAlert = new Alert(AlertType.ERROR);
+            errorAlert.setTitle("Error");
+            errorAlert.setHeaderText("Empty Search Bar");
+            errorAlert.setContentText("The search bar is empty. Please enter the name of a Pokemon first.");
+            errorAlert.showAndWait();
+            return;
+        }
+
+        // This list of cards will be filled by either an inventory request or an all cards request.
+        List<CardTypeQuant> allObjects = new ArrayList<>();
+
+        // Inventory request
+        if (App.currentPage==Page.VIEW_INVENTORY) {
+            try {
+                InventoryRequest req = new InventoryRequest();
+                req.userId = App.theClient.getUserId();
+                allObjects = App.theClient.getInventory(req);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throwDatabaseError();
+            }
+        }
+
+        // Database request
+        else {
+            try {
+                AllCardsRequest req = new AllCardsRequest();
+                allObjects = App.theClient.getDBCards(req);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throwDatabaseError();
+            }
+        }
+
+        // Then we convert our list of cards to a list or urls, if they match the given search.
+        List<String> allUrls = new ArrayList<String>();
+        for (CardTypeQuant currentObject : allObjects) {
+            Card currentCard = currentObject.getCard();
+            if (currentCard.getCardName().equalsIgnoreCase(searchBar.getText())) {
+                for (int i=0; i<currentObject.getQuantity(); i++) {
+                    allUrls.add(currentObject.getCard().getImagePath());
+                }
+            }
+        }
+
+        // Then we load the view page with this new list of urls.
+        loadViewPage(allUrls);
+
     }
+
+    void throwDatabaseError() {
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setTitle("Error");
+        errorAlert.setHeaderText("Database Issue");
+        errorAlert.setContentText("Sorry, but there was an issue with our database. Please try again.");
+        errorAlert.showAndWait();
+    }
+
 
     @FXML
     void sortCards(ActionEvent event) {
