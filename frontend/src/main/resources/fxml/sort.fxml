@@ -38,10 +38,7 @@
                                  <String fx:value="Alphabetically" />
                                  <String fx:value="Number Order" />
                                  <String fx:value="Type" />
-<<<<<<< HEAD
                                  <String fx:value="Rarity" />
-=======
->>>>>>> 8f4ace73e4da7c6a07565665e5db399f285e1876
                               </FXCollections>
                         </items>
                   </ChoiceBox>
