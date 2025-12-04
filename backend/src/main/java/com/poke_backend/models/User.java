@@ -8,8 +8,8 @@ public class User {
     private String firstName;
     private String lastName;
    
-    
-    public User() { }
+    //for jackson
+    public User() {}
 
     public User(int id, String userName, String password, String firstName, String lastName) {
         this.id = id;

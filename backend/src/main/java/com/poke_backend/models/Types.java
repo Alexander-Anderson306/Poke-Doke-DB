@@ -4,6 +4,9 @@ public class Types {
     private int id;
     private String name;
 
+    //for jackson
+    public Types() {}
+
     public Types(int id, String name) {
         this.id = id;
         this.name = name;

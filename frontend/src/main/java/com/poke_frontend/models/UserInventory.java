@@ -5,6 +5,9 @@ public class UserInventory {
     private int cardId;
     private int quantity;
 
+    //for jackson
+    public UserInventory() {}
+
     public UserInventory(int userId, int cardId, int quantity) {
         this.userId = userId;
         this.cardId = cardId;

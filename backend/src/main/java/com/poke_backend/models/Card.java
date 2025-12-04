@@ -7,6 +7,9 @@ public class Card {
     private String imagePath;
     private String thumbPath;
 
+    //for jackson
+    public Card() {}
+
     public Card(int id, String cardName, String rarity, String imagePath, String thumbPath) {
         this.id = id;
         this.cardName = cardName;

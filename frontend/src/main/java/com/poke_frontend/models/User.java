@@ -7,6 +7,9 @@ public class User {
     private String passowrd;
     private String name;
     private String pictureName;
+    
+    //for jackson
+    public User() {}
 
     public User(int id, String userName, String passowrd, String name, String picture_name) {
         this.id = id;

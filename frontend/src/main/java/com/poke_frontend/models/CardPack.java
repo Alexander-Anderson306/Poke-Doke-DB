@@ -6,6 +6,9 @@ public class CardPack {
     private float price;
     private String packRarity;
 
+    //for jackson
+    public CardPack() {}
+
     public CardPack(int id, String packName, float price, String packRarity) {
         this.id = id;
         this.packName = packName;
