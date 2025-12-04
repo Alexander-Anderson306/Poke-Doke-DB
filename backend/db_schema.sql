@@ -304,10 +304,10 @@ INSERT INTO `mydb`.`cards` (`card_name`, `rarity`,`image_path`, `thumb_path`) VA
   ('Dragonite', 'Rare', 'Dragonite.png', 'DragoniteThumbnail.png'),
   ('Mewtwo', 'Rare', 'Mewtwo.png', 'MewtwoThumbnail.png'),
   ('Mew', 'Rare', 'Mew.png', 'MewThumbnail.png'),
-  ('Galvantula', 'Rare', 'Galvantula.png', 'GalvantulaThumbnail.png'),
-  ('Mega Gardevoir', 'Rare', 'Mega_Gardevoir.png', 'Mega_GardevoirThumbnail.png'),
-  ('Shiftry', 'Rare', 'Shiftry.png', 'ShiftryThumbnail.png'),
-  ('Volcanion', 'Rare', 'Volcanion.png', 'VolcanionThumbnail.png');
+  ('Galvantula', 'Rare', 'Galvantula.jpg', 'GalvantulaThumbnail.jpg'),
+  ('Mega Gardevoir', 'Rare', 'Mega_Gardevoir.jpg', 'Mega_GardevoirThumbnail.jpg'),
+  ('Shiftry', 'Rare', 'Shiftry.jpg', 'ShiftryThumbnail.jpg'),
+  ('Volcanion', 'Rare', 'Volcanion.jpg', 'VolcanionThumbnail.jpg');
 
 INSERT INTO types_bridge (card_id, type_id) VALUES
   ((SELECT id FROM cards WHERE card_name='Abra'), (SELECT id FROM poke_types WHERE name='Psychic')),

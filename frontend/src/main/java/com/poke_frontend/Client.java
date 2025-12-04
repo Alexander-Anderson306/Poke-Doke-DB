@@ -57,7 +57,6 @@ public class Client {
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
 
         //parse response as base response to make sure it was successful
-        //error here
         BaseResponse base = mapper.readValue(response.body(), LoginResponse.class);
 
         if(!base.success) {
