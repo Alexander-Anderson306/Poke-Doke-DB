@@ -15,6 +15,12 @@ CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8mb3 ;
 USE `mydb` ;
 
 -- -----------------------------------------------------
+-- Application database user
+-- -----------------------------------------------------
+CREATE USER IF NOT EXISTS 'poke_user'@'localhost' IDENTIFIED BY 'poke_pass';
+GRANT ALL PRIVILEGES ON mydb.* TO 'poke_user'@'localhost';
+FLUSH PRIVILEGES;
+-- -----------------------------------------------------
 -- Table `mydb`.`card_pack`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`card_pack` (
@@ -136,6 +142,7 @@ INSERT INTO `mydb`.`poke_types` (`name`) VALUES
   ('Fighting'),
   ('Poison'),
   ('Ground'),
+  ('Fairy'),
   ('Flying'),
   ('Psychic'),
   ('Bug'),
@@ -174,10 +181,10 @@ INSERT INTO `mydb`.`cards` (`card_name`, `rarity`,`image_path`, `thumb_path`) VA
   ('Raichu', 'Rare', 'Raichu.png', 'RaichuThumbnail.png'),
   ('Sandshrew', 'Uncommon', 'Sandshrew.png', 'SandshrewThumbnail.png'),
   ('Sandslash', 'Rare', 'Sandslash.png', 'SandslashThumbnail.png'),
-  ('Nidoran', 'Common', 'NidoranF.png', 'NidoranFThumbnail.png'),
+  ('NidoranF', 'Common', 'NidoranF.png', 'NidoranFThumbnail.png'),
   ('Nidorina', 'Uncommon', 'Nidorina.png', 'NidorinaThumbnail.png'),
   ('Nidoqueen', 'Rare', 'Nidoqueen.png', 'NidoqueenThumbnail.png'),
-  ('Nidoran', 'Common', 'NidoranM.png', 'NidoranMThumbnail.png'),
+  ('NidoranM', 'Common', 'NidoranM.png', 'NidoranMThumbnail.png'),
   ('Nidorino', 'Uncommon', 'Nidorino.png', 'NidorinoThumbnail.png'),
   ('Nidoking', 'Rare', 'Nidoking.png', 'NidokingThumbnail.png'),
   ('Clefairy', 'Common', 'Clefairy.png', 'ClefairyThumbnail.png'),
@@ -387,7 +394,6 @@ INSERT INTO types_bridge (card_id, type_id) VALUES
   ((SELECT id FROM cards WHERE card_name='Moltres'), (SELECT id FROM poke_types WHERE name='Fire')),
   ((SELECT id FROM cards WHERE card_name='MrMime'), (SELECT id FROM poke_types WHERE name='Psychic')),
   ((SELECT id FROM cards WHERE card_name='Muk'), (SELECT id FROM poke_types WHERE name='Poison')),
-  ((SELECT id FROM cards WHERE card_name='Dratini'), (SELECT id FROM poke_types WHERE name='Dragon')),
   ((SELECT id FROM cards WHERE card_name='Nidoking'), (SELECT id FROM poke_types WHERE name='Poison')),
   ((SELECT id FROM cards WHERE card_name='Nidoqueen'), (SELECT id FROM poke_types WHERE name='Poison')),
   ((SELECT id FROM cards WHERE card_name='NidoranF'), (SELECT id FROM poke_types WHERE name='Poison')),
@@ -452,7 +458,7 @@ INSERT INTO types_bridge (card_id, type_id) VALUES
   ((SELECT id FROM cards WHERE card_name='Weezing'), (SELECT id FROM poke_types WHERE name='Poison')),
   ((SELECT id FROM cards WHERE card_name='Wigglytuff'), (SELECT id FROM poke_types WHERE name='Normal')),
   ((SELECT id FROM cards WHERE card_name='Zapdos'), (SELECT id FROM poke_types WHERE name='Electric')),
-  ((SELECT id FROM cards WHERE card_name='Zubat'), (SELECT id FROM poke_types WHERE name='Poison'))
+  ((SELECT id FROM cards WHERE card_name='Zubat'), (SELECT id FROM poke_types WHERE name='Poison')),
   -- Special Multi-Type Cards
   ((SELECT id FROM cards WHERE card_name='Galvantula'), (SELECT id FROM poke_types WHERE name='Electric')),
   ((SELECT id FROM cards WHERE card_name='Galvantula'), (SELECT id FROM poke_types WHERE name='Grass')),

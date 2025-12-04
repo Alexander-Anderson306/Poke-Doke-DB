@@ -5,8 +5,8 @@ public class CreateAccountRequest {
     public String password;
     public String firstName;
     public String lastName;
-
     public String email;
+    public String name;
    
 
     public CreateAccountRequest() {}

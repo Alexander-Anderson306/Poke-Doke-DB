@@ -20,8 +20,8 @@ public class SQLHandler {
 
     public SQLHandler() throws SQLException {
         String url = "jdbc:mysql://localhost:3306/mydb";
-        String user = "root";
-        String password = "";
+        String user = "poke_user";
+        String password = "poke_pass";
         this.connection = DriverManager.getConnection(url, user, password);
     }
 
@@ -48,21 +48,47 @@ public class SQLHandler {
         }
         //hash the password
         String hashed = Hash.hashPassword(req.password);
-        //Insert user into DB
-        String sql = "INSERT INTO users (user_name, password, first_name, last_name) VALUES (?, ?, ?, ?)";
+        String firstName = req.firstName;
+        String lastName  = req.lastName;
+
+        //if frontend only sends name, it falls back to that
+        if ((firstName == null || firstName.isBlank()) &&
+            req.name != null && !req.name.isBlank()) {
+
+            String[] parts = req.name.trim().split("\\s+", 2);
+            firstName = parts[0]; // first chunk
+
+            if ((lastName == null || lastName.isBlank()) && parts.length > 1) {
+                lastName = parts[1];
+            }
+        }
+
+        //making sure never send nulls 
+        if (firstName == null) {
+            firstName = "";
+        }
+        if (lastName == null) {
+            lastName = "";
+        }
+
+        //insert user into DB
+        String sql =
+            "INSERT INTO users (user_name, password, first_name, last_name) " +
+            "VALUES (?, ?, ?, ?)";
         PreparedStatement stmt = connection.prepareStatement(sql);
 
         stmt.setString(1, req.username);
         stmt.setString(2, hashed);
-        stmt.setString(3, req.firstName);
-        stmt.setString(4, req.lastName);
+        stmt.setString(3, firstName);
+        stmt.setString(4, lastName);
 
         stmt.executeUpdate();
 
+        //build and return user object
         User user = new User();
         user.setUserName(req.username);
-        user.setFirstName(req.firstName);
-        user.setLastName(req.lastName);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
 
         return user;
     }
@@ -71,6 +97,8 @@ public class SQLHandler {
      *Returns null if username doesn't exist or password is wrong
      */
     public User login(LoginRequest req) throws SQLException {
+        System.out.println("Login attempt for username: " + req.username);
+
         String sql =
             "SELECT id, user_name, password, first_name, last_name " +
             "FROM users WHERE user_name = ?";
@@ -79,14 +107,17 @@ public class SQLHandler {
         stmt.setString(1, req.username);
 
         ResultSet rs = stmt.executeQuery();
-        //no user with this username
+
         if (!rs.next()) {
+            
             return null;
         }
-      //stored hashed password
+
         String hashedPassword = rs.getString("password");
-        //Compare passwords
+    
+
         boolean ok = Hash.checkPassword(req.password, hashedPassword);
+       
         if (!ok) {
             return null;
         }
