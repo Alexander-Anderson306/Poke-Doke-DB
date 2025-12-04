@@ -57,7 +57,8 @@ public class Client {
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
 
         //parse response as base response to make sure it was successful
-        BaseResponse base = mapper.readValue(response.body(), BaseResponse.class);
+        //error here
+        BaseResponse base = mapper.readValue(response.body(), LoginResponse.class);
 
         if(!base.success) {
             IO.print(base.message);
@@ -120,7 +121,7 @@ public class Client {
         
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
 
-        BaseResponse base = mapper.readValue(response.body(), BaseResponse.class);
+        BaseResponse base = mapper.readValue(response.body(), InventoryResponse.class);
 
         if(!base.success) {
             IO.print(base.message);
@@ -143,7 +144,7 @@ public class Client {
         
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
 
-        BaseResponse base = mapper.readValue(response.body(), BaseResponse.class);
+        BaseResponse base = mapper.readValue(response.body(), AllCardsResponse.class);
 
         if(!base.success) {
             IO.print(base.message);
@@ -172,7 +173,7 @@ public class Client {
         
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
 
-        BaseResponse base = mapper.readValue(response.body(), BaseResponse.class);
+        BaseResponse base = mapper.readValue(response.body(), PackResponse.class);
 
         if(!base.success) {
             IO.print(base.message);
@@ -200,7 +201,7 @@ public class Client {
         
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
 
-        BaseResponse base = mapper.readValue(response.body(), BaseResponse.class);
+        BaseResponse base = mapper.readValue(response.body(), PackPurchaseResponse.class);
 
         if(!base.success) {
             IO.print(base.message);

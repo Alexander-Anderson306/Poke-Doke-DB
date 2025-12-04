@@ -64,8 +64,10 @@ public class LoginPage extends ScalePage{
         boolean success;
         try {
             success = client.login(request);
+            App.theClient = client;
         } catch (Exception e) {
             success = false;
+            e.printStackTrace();
         }
 
         if (success) {
