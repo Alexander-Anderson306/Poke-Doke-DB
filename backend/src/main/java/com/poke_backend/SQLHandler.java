@@ -97,8 +97,6 @@ public class SQLHandler {
      *Returns null if username doesn't exist or password is wrong
      */
     public User login(LoginRequest req) throws SQLException {
-        System.out.println("Login attempt for username: " + req.username);
-
         String sql =
             "SELECT id, user_name, password, first_name, last_name " +
             "FROM users WHERE user_name = ?";

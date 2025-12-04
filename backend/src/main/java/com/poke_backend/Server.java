@@ -68,6 +68,7 @@ public class Server {
         //rout for creating an account
         app.post("/create-account", ctx -> {
             CreateAccountRequest req = ctx.bodyAsClass(CreateAccountRequest.class);
+            IO.println("Received create account request for username: " + req.username);
 
             //try adding the user
             try {
@@ -86,6 +87,7 @@ public class Server {
         //rout for logging in
         app.post("/login", ctx -> {
             LoginRequest req = ctx.bodyAsClass(LoginRequest.class);
+            IO.println("Received login request for username: " + req.username);
 
             try{
                 SQLHandler sqlHandler = new SQLHandler();
@@ -111,6 +113,7 @@ public class Server {
         //rout for inventory search
         app.post("/inventory", ctx -> {
             InventoryRequest req = ctx.bodyAsClass(InventoryRequest.class);
+            IO.println("Received inventory request for user id: " + req.userId);
 
             try {
                 SQLHandler sqlHandler = new SQLHandler();
@@ -124,6 +127,7 @@ public class Server {
         //rout for database card search
         app.post("/cards", ctx -> {
             AllCardsRequest req = ctx.bodyAsClass(AllCardsRequest.class);
+            IO.println("Received all cards request");
 
             try {
                 SQLHandler sqlHandler = new SQLHandler();
@@ -137,6 +141,7 @@ public class Server {
         //rout for pack search
         app.post("/store", ctx -> {
             PackRequest req = ctx.bodyAsClass(PackRequest.class);
+            IO.println("Received store request");
 
             try {
                 SQLHandler sqlHandler = new SQLHandler();
@@ -151,6 +156,7 @@ public class Server {
         //rout for buying a pack
         app.post("/purchase", ctx -> {
             PackPurchaseRequest req = ctx.bodyAsClass(PackPurchaseRequest.class);
+            IO.println("Received purchase request for user id: " + req.userId + " pack id: " + req.packId);
 
             try {
                 SQLHandler sqlHandler = new SQLHandler();
