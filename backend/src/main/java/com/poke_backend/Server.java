@@ -13,7 +13,7 @@ import com.poke_backend.dto.request.*;
 import com.poke_backend.dto.response.*;
 import com.poke_backend.models.*;
 
-
+import com.poke_backend.models.CardTypeQuant;
 import java.security.Security;
 import java.util.Map;
 
@@ -153,7 +153,7 @@ public class Server {
 
             try {
                 SQLHandler sqlHandler = new SQLHandler();
-                List<Card> cards = sqlHandler.purchasePack(req);
+                List<CardTypeQuant> cards = sqlHandler.purchasePack(req);
                 ctx.json(new PackPurchaseResponse(cards));
             } catch (SQLException e) {
                 ctx.status(500).json(new BaseResponse(false, "Failed to find packs", 500));
@@ -162,7 +162,7 @@ public class Server {
 
         //rout for testing the server
         app.post("/test", ctx -> {
-            IO.println("Received test request... Sending response back");
+            System.out.println("Received test request... Sending response back");
             ctx.json(new BaseResponse(true, "Success"));
         });
 
