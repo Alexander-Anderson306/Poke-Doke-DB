@@ -143,7 +143,7 @@ public class ViewPage extends ScalePage{
             List<CardTypeQuant> databaseCards = App.theClient.getDBCards(req);
 
             for (CardTypeQuant currentCard : databaseCards) {
-                urls.add(currentCard.getCard().getImagePath());
+                urls.add("/images/full_image/" + currentCard.getCard().getImagePath());
             }
 
             loadViewPage(urls);
