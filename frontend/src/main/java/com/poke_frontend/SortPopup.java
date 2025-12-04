@@ -255,7 +255,7 @@ public class SortPopup extends ScalePage {
         List<String> allUrls = new ArrayList<String>();
         for (CardTypeQuant currentObject: allObjects) {
             for (int i=0; i<currentObject.getQuantity(); i++) {
-                allUrls.add(currentObject.getCard().getImagePath());
+                allUrls.add("/images/full_image/" + currentObject.getCard().getImagePath());
             }
         }
 
