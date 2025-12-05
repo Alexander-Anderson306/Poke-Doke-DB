@@ -190,12 +190,20 @@ public class SortPopup extends ScalePage {
         boolean filterByType = !allSelectedTypes.isEmpty();
         boolean filterByName = !pokemonNameBox.getText().isBlank();
 
+        // Determining if we need to filter by rarity
+        String rarityFilter;
+        if (commonBox.isSelected()) rarityFilter="common";
+        else if (uncommonBox.isSelected()) rarityFilter="uncommon";
+        else if (rareBox.isSelected()) rarityFilter="rare";
+        else rarityFilter="";
+        boolean filterByRarity = !rarityFilter.isEmpty();
+
         // We iterate over all of the cards we have.
         // We check filters based on the booleans above
         // If a card does not match the filters, it is removed from the list.
-        //error here! cannot remove from an array list inside of an enhanced for loop
-        for (CardTypeQuant currentObject : allObjects) {
+        for (int i=0; i<allObjects.size(); i++) {
 
+            CardTypeQuant currentObject = allObjects.get(i);
             Card currentCard = currentObject.getCard();
             List<String> currentCardsTypes = currentObject.getTypes();
 
@@ -203,6 +211,7 @@ public class SortPopup extends ScalePage {
             if (filterByName) {
                 if (!currentCard.getCardName().equalsIgnoreCase(pokemonNameBox.getText())) {
                     allObjects.remove(currentObject);
+                    i--;
                     continue;
                 }
             }
@@ -213,11 +222,16 @@ public class SortPopup extends ScalePage {
                 // Filter by AND
                 if (andOrButton.equals("AND")) {
                     // Check every type the Pokemon has. If any of them do not exist in the selectedTypes, discard it.
+                    boolean keep = true;
                     for (String currentType : currentCardsTypes) {
                         if (!allSelectedTypes.contains(currentType)) {
-                            allObjects.remove(currentObject);
-                            continue;
+                            keep = false;
                         }
+                    }
+                    if (!keep) {
+                        allObjects.remove(currentObject);
+                        i--;
+                        continue;
                     }
                 }
 
@@ -227,17 +241,27 @@ public class SortPopup extends ScalePage {
                     boolean keep = false;
                     for (String currentType : currentCardsTypes) {
                         if (allSelectedTypes.contains(currentType)) {
-                            keep=true;
+                            keep = true;
                             break;
                         }
                     }
                     if (!keep) {
                         allObjects.remove(currentObject);
+                        i--;
                         continue;
                     }
                 }
             }
-        }
+
+            // If we are filtering by rarity, and this card has a different rarity, discard it.
+            if (filterByRarity) {
+                if (!currentCard.getRarity().equalsIgnoreCase(rarityFilter)) {
+                    allObjects.remove(currentObject);
+                    i--;
+                }
+            }
+
+        } // End of filter loop
 
         // If something has been selected in the "sortByChoiceBox", then we need to organize the list of cards.
         if (sortByChoiceBox.getValue()!=null) {
