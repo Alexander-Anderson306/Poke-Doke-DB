@@ -193,6 +193,7 @@ public class SortPopup extends ScalePage {
         // We iterate over all of the cards we have.
         // We check filters based on the booleans above
         // If a card does not match the filters, it is removed from the list.
+        //error here! cannot remove from an array list inside of an enhanced for loop
         for (CardTypeQuant currentObject : allObjects) {
 
             Card currentCard = currentObject.getCard();

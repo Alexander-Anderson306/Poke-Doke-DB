@@ -9,6 +9,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.function.Consumer;
 
 public class App extends Application {
 
@@ -75,23 +76,27 @@ public class App extends Application {
         launch();
     }
 
-    public static <T extends ScalePage> T openPopUp(String fxmlFile, Class<T> controllerClass){
+    //Consumer is a function that takes T and returns nothing. Meaning we can user the consumer to call our initialization stuff
+    public static <T extends ScalePage> T openPopUp(String fxmlFile, Class<T> controllerClass, Consumer<T> init)
+    {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource(fxmlFile));
             Parent root = loader.load();
 
-            //give popup reference to its parent stage
+            //create the controller and initialize it
+            T controller = loader.getController();
+            if(init != null) {
+                init.accept(controller);
+            }
+
             Stage popupStage = new Stage();
             popupStage.setScene(new Scene(root));
-            popupStage.setTitle(getTitle(loader, controllerClass));
             popupStage.initOwner(theStage);
-            //user cannot interact with primary stage while popup is open
             popupStage.initModality(Modality.WINDOW_MODAL);
+
             popupStage.showAndWait();
 
-            //return the controller of the popup
-            return controllerClass.cast(loader.getController());
-
+            return controller;
         } catch (Exception e) {
             e.printStackTrace();
             return null;

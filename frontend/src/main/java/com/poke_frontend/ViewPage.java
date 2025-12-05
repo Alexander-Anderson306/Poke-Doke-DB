@@ -327,8 +327,10 @@ public class ViewPage extends ScalePage{
 
     @FXML
     void sortCards(ActionEvent event) {
-        SortPopup popUP = App.openPopUp("/fxml/sort.fxml", SortPopup.class);
-        popUP.setParentController(this);
+        App.openPopUp("/fxml/sort.fxml", SortPopup.class, popup -> {
+            popup.setParentController(this);
+        });
     }
+
 
 }
