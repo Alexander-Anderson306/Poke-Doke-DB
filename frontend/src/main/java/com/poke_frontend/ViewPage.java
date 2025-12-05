@@ -30,6 +30,8 @@ import java.util.List;
 
 public class ViewPage extends ScalePage{
 
+    List<ImageView> allImageViews = new ArrayList<>();
+
     @FXML
     private Button accountButton_view;
 
@@ -173,6 +175,8 @@ public class ViewPage extends ScalePage{
      */
     void loadViewPage(List<String> urlList){
 
+        clearViewPage();
+
         //Get the amount of images from list
         int amountImgs = urlList.size();
 
@@ -214,6 +218,7 @@ public class ViewPage extends ScalePage{
                 //Create a image of current
                 Image img = new Image(getClass().getResourceAsStream(urlList.get(currentImg)));
                 ImageView imgView = new ImageView(img);
+                allImageViews.add(imgView);
 
                 //Set the image height and width
                 imgView.setFitWidth(130);
@@ -233,6 +238,16 @@ public class ViewPage extends ScalePage{
 
         }
 
+    }
+
+    /**
+     * This method will remove all the imageView objects, IE, it will wipe all cards off the screen.
+     */
+    void clearViewPage() {
+        while (!allImageViews.isEmpty()) {
+            gird_View.getChildren().remove(allImageViews.getFirst());
+            allImageViews.removeFirst();
+        }
     }
 
     @FXML
@@ -300,16 +315,23 @@ public class ViewPage extends ScalePage{
             }
         }
 
+        for (CardTypeQuant c : allObjects) System.out.println(c);
+
         // Then we convert our list of cards to a list or urls, if they match the given search.
         List<String> allUrls = new ArrayList<String>();
         for (CardTypeQuant currentObject : allObjects) {
             Card currentCard = currentObject.getCard();
             if (currentCard.getCardName().equalsIgnoreCase(searchBar.getText())) {
-                for (int i=0; i<currentObject.getQuantity(); i++) {
+                // TEMP FIX
+                allUrls.add("/images/full_image/" + currentObject.getCard().getImagePath());
+                for (int i=1; i<currentObject.getQuantity(); i++) {
                     allUrls.add(currentObject.getCard().getImagePath());
                 }
             }
         }
+
+        for (String c : allUrls) System.out.println(c);
+
 
         // Then we load the view page with this new list of urls.
         loadViewPage(allUrls);

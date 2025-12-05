@@ -186,27 +186,27 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <CheckBox fx:id="commonBox" contentDisplay="CENTER" mnemonicParsing="false" text="Common" textFill="WHITE">
+                        <CheckBox fx:id="commonBox" contentDisplay="CENTER" mnemonicParsing="false" text="Common" textFill="WHITE" onAction="#clickCommonBox">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </CheckBox>
-                        <CheckBox fx:id="uncommonBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Uncommon" textFill="WHITE" GridPane.columnIndex="1">
+                        <CheckBox fx:id="uncommonBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Uncommon" textFill="WHITE" GridPane.columnIndex="1" onAction="#clickUncommonBox">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </CheckBox>
-                        <CheckBox fx:id="rareBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Rare" textFill="WHITE" GridPane.columnIndex="2">
+                        <CheckBox fx:id="rareBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Rare" textFill="WHITE" GridPane.columnIndex="2" onAction="#clickRareBox">>
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </CheckBox>
-                        <CheckBox fx:id="epicBox" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" text="Epic" textFill="WHITE" GridPane.columnIndex="3">
+                        <CheckBox fx:id="epicBox" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" text="Epic" textFill="WHITE" GridPane.columnIndex="3" onAction="#clickEpicBox">>
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </CheckBox>
-                        <CheckBox fx:id="legendaryBox" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" text="Legendary" textFill="WHITE" GridPane.columnIndex="4">
+                        <CheckBox fx:id="legendaryBox" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" text="Legendary" textFill="WHITE" GridPane.columnIndex="4" onAction="#clickLegendaryBox">>
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>

@@ -220,12 +220,13 @@ public class SortPopup extends ScalePage {
             if (filterByType) {
 
                 // Filter by AND
-                if (andOrButton.equals("AND")) {
+                if (andOrButton.getText().equals("AND")) {
                     // Check every type the Pokemon has. If any of them do not exist in the selectedTypes, discard it.
                     boolean keep = true;
-                    for (String currentType : currentCardsTypes) {
-                        if (!allSelectedTypes.contains(currentType)) {
+                    for (String currentType : allSelectedTypes) {
+                        if (!currentCardsTypes.contains(currentType)) {
                             keep = false;
+                            break;
                         }
                     }
                     if (!keep) {
@@ -274,18 +275,43 @@ public class SortPopup extends ScalePage {
             else if (sortByChoiceBox.getValue().equals("Type")) {
                 allObjects.sort(Comparator.comparing(a -> a.getTypes().getFirst()));
             }
+            else if (sortByChoiceBox.getValue().equals("Rarity")) {
+                allObjects.sort((c1, c2) -> compareCardRarity(c1.getCard(), c2.getCard()));
+            }
         }
 
         // Then we turn the remaining card objects into urls and send them to the view page to be loaded.
         List<String> allUrls = new ArrayList<String>();
         for (CardTypeQuant currentObject: allObjects) {
-            for (int i=0; i<currentObject.getQuantity(); i++) {
+            // TEMP FIX
+            allUrls.add("/images/full_image/" + currentObject.getCard().getImagePath());
+            for (int i=1; i<currentObject.getQuantity(); i++) {
                 allUrls.add("/images/full_image/" + currentObject.getCard().getImagePath());
             }
         }
 
         parentContoller.loadViewPage(allUrls);
         closePopup();
+
+    }
+
+    public static int compareCardRarity(Card c1, Card c2) {
+
+        int c1Value=-1;
+        if (c1.getRarity().equalsIgnoreCase("common")) c1Value=1;
+        if (c1.getRarity().equalsIgnoreCase("uncommon")) c1Value=2;
+        if (c1.getRarity().equalsIgnoreCase("rare")) c1Value=3;
+        if (c1.getRarity().equalsIgnoreCase("epic")) c1Value=4;
+        if (c1.getRarity().equalsIgnoreCase("legendary")) c1Value=5;
+
+        int c2Value=-1;
+        if (c2.getRarity().equalsIgnoreCase("common")) c2Value=1;
+        if (c2.getRarity().equalsIgnoreCase("uncommon")) c2Value=2;
+        if (c2.getRarity().equalsIgnoreCase("rare")) c2Value=3;
+        if (c2.getRarity().equalsIgnoreCase("epic")) c2Value=4;
+        if (c2.getRarity().equalsIgnoreCase("legendary")) c2Value=5;
+
+        return Integer.compare(c1Value, c2Value);
 
     }
 
@@ -336,5 +362,42 @@ public class SortPopup extends ScalePage {
         parentContoller = previousPage;
     }
 
+
+    // These 5 methods prevent the user from having multiple rarity boxes clicked at once.
+
+    public void clickLegendaryBox(ActionEvent actionEvent) {
+        commonBox.setSelected(false);
+        uncommonBox.setSelected(false);
+        rareBox.setSelected(false);
+        epicBox.setSelected(false);
+    }
+
+    public void clickEpicBox(ActionEvent actionEvent) {
+        commonBox.setSelected(false);
+        uncommonBox.setSelected(false);
+        rareBox.setSelected(false);
+        legendaryBox.setSelected(false);
+    }
+
+    public void clickRareBox(ActionEvent actionEvent) {
+        commonBox.setSelected(false);
+        uncommonBox.setSelected(false);
+        epicBox.setSelected(false);
+        legendaryBox.setSelected(false);
+    }
+
+    public void clickUncommonBox(ActionEvent actionEvent) {
+        commonBox.setSelected(false);
+        rareBox.setSelected(false);
+        epicBox.setSelected(false);
+        legendaryBox.setSelected(false);
+    }
+
+    public void clickCommonBox(ActionEvent actionEvent) {
+        uncommonBox.setSelected(false);
+        rareBox.setSelected(false);
+        epicBox.setSelected(false);
+        legendaryBox.setSelected(false);
+    }
 
 }
