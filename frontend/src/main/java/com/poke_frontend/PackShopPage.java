@@ -187,7 +187,7 @@ public class PackShopPage extends ScalePage {
 
         // Temporary placeholder image
         int packAmount = 4;
-        String imgPath = "/TempImages/";
+        String imgPath = "/images/pack_images/";
         String fileType = ".png";
 
         for (int col = 0; col < packAmount; col++) {
