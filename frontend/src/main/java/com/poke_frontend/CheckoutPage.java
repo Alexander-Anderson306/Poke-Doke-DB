@@ -2,6 +2,9 @@ package com.poke_frontend;
 
 import java.util.HashMap;
 
+import com.poke_frontend.dto.request.PackPurchaseRequest;
+import com.poke_frontend.models.UserInventory;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
@@ -124,16 +127,24 @@ public class CheckoutPage extends ScalePage {
 
     @FXML
     void confirm(ActionEvent event) {
-        try {
-            Client client = new Client();
-            int userId = client.getUserId();
-            System.out.println(userId);
-            
-            gird_View.setVisible(false);
-            confirm_button.setVisible(false);
-            edit_button.setVisible(false);
+        // NEED TO CHANGE 
+        // MAYBE RUN
+        // DOUBLE CHECK WITH HOW THE (PACK ID) IS STORED IN THE DATABASE
 
-            success.setVisible(true);
+        try {
+            PackShopPage packShopPage = new PackShopPage();
+            HashMap<Integer, Integer> userInventory = packShopPage.getUserInventory();
+            int userId = App.theClient.getUserId();
+            
+            for (Integer key : userInventory.keySet()) {
+                // Sending information to the backend
+                PackPurchaseRequest PPR = new PackPurchaseRequest();
+                PPR.packId = key;
+                PPR.userId = userId;
+                App.theClient.purchasePack(PPR);
+
+                Thread.sleep(1000); // Delay 1 sec
+            }
         } catch (Exception e) {
             System.out.println("ERROR: " + e);
             error.setVisible(true);

@@ -59,11 +59,6 @@ public class CreateAccountPage extends ScalePage{
 
     @FXML
     private Group groupScale;
-    
-
-    private static final String url = "";
-    private static final String root = "";
-    private static final String db_password = "";
 
     @FXML
     /**
