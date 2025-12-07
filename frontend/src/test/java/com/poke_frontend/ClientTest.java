@@ -8,11 +8,22 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.TestMethodOrder;
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ClientTest {
+
+    @BeforeAll
+    static void informTestRequirments() {
+        IO.println("\n\n==================== IMPORTANT ====================\n");
+        IO.println("These test require the backend server to be running in a docker container" +
+         " on localhost at port 8080 with a fresh empty database. Ngrok must also be running on" +
+        " port 8080");
+        IO.println("\n==================================================\n");
+    }
 
     @Test
     void testCreateClient() {
@@ -170,8 +181,8 @@ public class ClientTest {
 
         try {
             List<CardTypeQuant> inventory = client.getInventory(req);
-            //Assuming user ID -1 has no inventory, we expect to get a null list
-            assertNull(inventory);
+            //Assuming user ID -1 has no inventory, we expect to get an empty list
+            assertEquals(0, inventory.size());
         } catch (Exception e) {
             fail("Get Inventory threw an exception: " + e.getMessage());
             return;
