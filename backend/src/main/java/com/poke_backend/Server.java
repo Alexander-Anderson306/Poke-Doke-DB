@@ -114,7 +114,6 @@ public class Server {
         app.post("/inventory", ctx -> {
             InventoryRequest req = ctx.bodyAsClass(InventoryRequest.class);
             IO.println("Received inventory request for user id: " + req.userId);
-
             try {
                 SQLHandler sqlHandler = new SQLHandler();
                 List<CardTypeQuant> inventory = sqlHandler.getUserInventory(req);

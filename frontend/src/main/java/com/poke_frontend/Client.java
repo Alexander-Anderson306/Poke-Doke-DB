@@ -189,7 +189,7 @@ public class Client {
      * @return a list of packs
      * @throws Exception
     */    
-    public List<Card> purchasePack(PackPurchaseRequest req) throws Exception{
+    public List<CardTypeQuant> purchasePack(PackPurchaseRequest req) throws Exception{
         String json = mapper.writeValueAsString(req);
 
         HttpRequest request = HttpRequest.newBuilder()

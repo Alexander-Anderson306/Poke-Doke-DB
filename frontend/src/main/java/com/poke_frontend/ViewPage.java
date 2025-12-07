@@ -117,7 +117,7 @@ public class ViewPage extends ScalePage{
 
             for (CardTypeQuant currentObject: allObjects) {
                 for (int i=0; i<currentObject.getQuantity(); i++) {
-                    allUrls.add(currentObject.getCard().getImagePath());
+                    allUrls.add("/images/full_image/" + currentObject.getCard().getImagePath());
                 }
             }
 

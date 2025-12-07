@@ -1,12 +1,13 @@
 package com.poke_frontend.dto.response;
 
-import com.poke_frontend.models.Card;
+import com.poke_frontend.models.CardTypeQuant;
+
 import java.util.List;
 public class PackPurchaseResponse extends BaseResponse {
 
-    public List<Card> cards;
+    public List<CardTypeQuant> cards;
     public PackPurchaseResponse() {}
-    public PackPurchaseResponse(List<Card> cards) {
+    public PackPurchaseResponse(List<CardTypeQuant> cards) {
         super(true, "Successfully purchased pack");
         this.cards = cards;
     }
