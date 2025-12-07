@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.poke_frontend.dto.request.PackRequest;
+import com.poke_frontend.models.CardPack;
+import com.poke_frontend.models.CardTypeQuant;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
@@ -208,4 +212,40 @@ public class PackShopPage extends ScalePage {
             gird_View.getColumnConstraints().add(cc);
         }
     }
+
+    //TODO: Create connections to packs in database
+
+    /*
+    void getDataPacks(PackRequest req){
+
+        //If not logged in, show default packs
+        if (!App.loggedIn()) {
+            loadProtoPacks();
+            return;
+        }
+        try {
+
+            //List all urls path of pack images
+            List<String> urls = new ArrayList<String>();
+
+            List<CardPack> databasePacks = App.theClient.displayStore(req)
+
+            for (CardPack currentPack : databasePacks) {
+                urls.add(App.imageDirectory + currentPack..getImagePath()); //TODO create paths for pack images
+            }
+
+            loadViewPage(urls);          
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            loadProtoPacks();
+        }
+
+    }
+
+    void loadProtoPacks(){
+
+    }
+
+    */
 }
