@@ -75,8 +75,6 @@ public class Server {
                 //send response back to client
                 ctx.json(new BaseResponse(true, "Successfully created account"));
             } catch (SQLException e) {
-            	e.printStackTrace();
-                //may or may not need to change error code
                 //error response to client
                 ctx.json(new BaseResponse(false, "Failed to create account", 500));
             }
