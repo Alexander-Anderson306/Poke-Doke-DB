@@ -123,7 +123,7 @@ public class ViewPage extends ScalePage{
 
             for (CardTypeQuant currentObject: allObjects) {
                 for (int i=0; i<currentObject.getQuantity(); i++) {
-                    allUrls.add("/images/full_image/" + currentObject.getCard().getImagePath());
+                    allUrls.add(App.imageDirectory + currentObject.getCard().getImagePath());
                 }
             }
 
@@ -150,7 +150,7 @@ public class ViewPage extends ScalePage{
             List<CardTypeQuant> databaseCards = App.theClient.getDBCards(req);
 
             for (CardTypeQuant currentCard : databaseCards) {
-                urls.add("/images/full_image/" + currentCard.getCard().getImagePath());
+                urls.add(App.imageDirectory + currentCard.getCard().getImagePath());
             }
 
             loadViewPage(urls);
@@ -332,7 +332,7 @@ public class ViewPage extends ScalePage{
         List<String> allUrls = new ArrayList<String>();
         for (CardTypeQuant currentObject : allObjects) {
             Card currentCard = currentObject.getCard();
-            if (currentCard.getCardName().equalsIgnoreCase(searchBar.getText())) {
+            if (currentCard.getCardName().toLowerCase().contains(searchBar.getText().toLowerCase())) {
                 // Temp fix since CardTypeQuant sometimes has the quantity value set to 0.
                 allUrls.add(App.imageDirectory + currentObject.getCard().getImagePath());
                 for (int i=1; i<currentObject.getQuantity(); i++) {

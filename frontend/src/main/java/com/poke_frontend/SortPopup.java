@@ -214,7 +214,7 @@ public class SortPopup extends ScalePage {
 
             // If we are filtering by name, and this card has a different name, discard it.
             if (filterByName) {
-                if (!currentCard.getCardName().equalsIgnoreCase(pokemonNameBox.getText())) {
+                if (!currentCard.getCardName().toLowerCase().contains(pokemonNameBox.getText().toLowerCase())) {
                     allObjects.remove(currentObject);
                     i--;
                     continue;
