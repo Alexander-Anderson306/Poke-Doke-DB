@@ -130,10 +130,9 @@ public class CheckoutPage extends ScalePage {
         // NEED TO CHANGE 
         // MAYBE RUN
         // DOUBLE CHECK WITH HOW THE (PACK ID) IS STORED IN THE DATABASE
-
+        PackShopPage packShopPage = new PackShopPage();
+        HashMap<Integer, Integer> userInventory = packShopPage.getUserInventory();
         try {
-            PackShopPage packShopPage = new PackShopPage();
-            HashMap<Integer, Integer> userInventory = packShopPage.getUserInventory();
             int userId = App.theClient.getUserId();
             
             for (Integer key : userInventory.keySet()) {
@@ -145,8 +144,15 @@ public class CheckoutPage extends ScalePage {
 
                 Thread.sleep(1000); // Delay 1 sec
             }
+
+            userInventory.clear();
+            displayUserCart();
+            success.setVisible(true);
+
         } catch (Exception e) {
             System.out.println("ERROR: " + e);
+            userInventory.clear();
+            displayUserCart();
             error.setVisible(true);
         }
     }
