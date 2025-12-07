@@ -47,6 +47,8 @@ public class PackShopPage extends ScalePage {
     @FXML private Pane rootPane;
     @FXML private Pane packBuyPane;
     @FXML private ScrollPane scrollView;
+    @FXML private Label amountPack;
+    //@FXML private Button clearButton;
 
     /**
      * Stores the user's pack inventory.
@@ -94,6 +96,13 @@ public class PackShopPage extends ScalePage {
         ImageView currentPack = (ImageView) event.getSource();
         this.currentPackId = currentPack.getId();
 
+        int currPackID = Integer.valueOf(currentPackId);
+        if (userInvent.containsKey(currPackID) && userInvent.get(currPackID) > 0) {
+            amountPack.setText("Currently has: " + userInvent.get(currPackID));
+        } else {
+            amountPack.setText("Currently has: " + 0);
+        }
+
         packBuyPane.setVisible(true);
     }
 
@@ -116,12 +125,12 @@ public class PackShopPage extends ScalePage {
     void conPackAmount(ActionEvent event) {
         String packAmount = packAmount_field.getText();
         int amount;
-
+        
         if (!packAmount.isBlank()) {
             try {
                 amount = Integer.parseInt(packAmount);
 
-                if (amount >= 0) {
+                if (amount > 0) {
                     userInvent.put(Integer.valueOf(currentPackId), amount);
 
                     // Reset UI
@@ -161,6 +170,18 @@ public class PackShopPage extends ScalePage {
     void backToShop(ActionEvent event){
         packAmount_field.setText("");
         packBuyPane.setVisible(false);
+    }
+
+    /**
+     * Clear the selected pack out of the user cart
+     * @param event
+     */
+    @FXML
+    void clearCart(ActionEvent event) {
+        if (userInvent.containsKey(Integer.valueOf(currentPackId))) {
+            userInvent.remove(Integer.valueOf(currentPackId));
+            packBuyPane.setVisible(false);
+        }
     }
 
     /**

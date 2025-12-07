@@ -54,15 +54,21 @@
             <Pane fx:id="packBuyPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainPane" visible="false">
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="400.0" stroke="BLACK" strokeType="INSIDE" styleClass="border" width="600.0" />
-                  <TextField fx:id="packAmount_field" layoutX="178.0" layoutY="188.0" prefHeight="25.0" prefWidth="245.0" promptText="How many?" />
+                  <TextField fx:id="packAmount_field" layoutX="150.0" layoutY="188.0" prefHeight="25.0" prefWidth="270.0" promptText="How many?" />
                   <Label id="question" fx:id="packAmountPrompt" alignment="CENTER" layoutX="115.0" layoutY="136.0" prefHeight="39.0" prefWidth="370.0" text="How many packs would you like to purchase?" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button fx:id="confirmAmount" layoutX="334.0" layoutY="251.0" mnemonicParsing="false" onAction="#conPackAmount" prefHeight="31.0" prefWidth="81.0" text="Confirm" textFill="WHITE" />
-                  <Label fx:id="errorAmount" layoutX="186.0" layoutY="224.0" styleClass="error" text="The amount of pack must be greater than 1." textFill="RED" visible="false" />
-                  <Button fx:id="cancelButton" layoutX="202.0" layoutY="251.0" mnemonicParsing="false" onAction="#backToShop" prefHeight="31.0" prefWidth="81.0" text="Cancel" textFill="WHITE" />
+                  <Button fx:id="confirmAmount" layoutX="248.0" layoutY="251.0" mnemonicParsing="false" onAction="#conPackAmount" prefHeight="31.0" prefWidth="81.0" text="Confirm" textFill="WHITE" />
+                  <Label fx:id="errorAmount" layoutX="186.0" layoutY="168.0" styleClass="error" text="The amount of pack must be greater than 1." textFill="RED" visible="false" />
+                  <Button fx:id="cancelButton" layoutX="150.0" layoutY="251.0" mnemonicParsing="false" onAction="#backToShop" prefHeight="31.0" prefWidth="81.0" text="Cancel" textFill="WHITE" />
+                  <Label id="question" fx:id="amountPack" alignment="CENTER" layoutX="140.0" layoutY="205.0" prefHeight="39.0" prefWidth="148.0" text="currently has: 0" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="clearButton" layoutX="339.0" layoutY="251.0" mnemonicParsing="false" onAction="#clearCart" prefHeight="31.0" prefWidth="81.0" text="Clear" textFill="WHITE" />
                </children>
             </Pane>
          </children>
