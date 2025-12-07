@@ -193,7 +193,7 @@ public class Client {
         String json = mapper.writeValueAsString(req);
 
         HttpRequest request = HttpRequest.newBuilder()
-            .uri(URI.create(baseURL + "/purchase-pack"))
+            .uri(URI.create(baseURL + "/purchase"))
             .header("Content-Type", "application/json")
             .POST(HttpRequest.BodyPublishers.ofString(json))
             .build();
