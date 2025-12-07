@@ -136,11 +136,15 @@ public class CheckoutPage extends ScalePage {
             int userId = App.theClient.getUserId();
             
             for (Integer key : userInventory.keySet()) {
-                // Sending information to the backend
-                PackPurchaseRequest PPR = new PackPurchaseRequest();
-                PPR.packId = key;
-                PPR.userId = userId;
-                App.theClient.purchasePack(PPR);
+                int amount = userInventory.get(key); // amount of packs
+
+                for (int i = 0; i < amount; i++) { 
+                    // Sending information to the backend
+                    PackPurchaseRequest PPR = new PackPurchaseRequest();
+                    PPR.packId = key;
+                    PPR.userId = userId;
+                    App.theClient.purchasePack(PPR);
+                }
             }
 
             userInventory.clear();
