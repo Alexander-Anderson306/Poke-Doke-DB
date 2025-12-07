@@ -113,7 +113,7 @@ public class CheckoutPage extends ScalePage {
             packRequest.packId = key;
 
             List<CardPack> list = App.theClient.displayStore(packRequest);
-            price = list.get(key).getPrice();     // Adjust index if needed
+            price = list.get(key - 1).getPrice();     // Adjust index if needed
         } catch (Exception e) {
             System.out.println(e);
         }
