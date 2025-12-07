@@ -474,7 +474,21 @@ INSERT INTO `mydb`.`card_pack`(`pack_name`, `price`, `pack_rarity`) VALUES
   ('Starter Pack', 11.99, 'Common'),
   ('Advanced Pack', 14.99, 'Uncommon'),
   ('Rare Pack', 19.99, 'Rare');
+  
+INSERT INTO card_pack_inventory (pack_id, card_id)
+SELECT 1, id
+FROM cards
+WHERE rarity = 'Common';
 
+INSERT INTO card_pack_inventory (pack_id, card_id)
+SELECT 2, id
+FROM cards
+WHERE rarity IN ('Uncommon', 'Common');
+
+INSERT INTO card_pack_inventory (pack_id, card_id)
+SELECT 3, id
+FROM cards
+WHERE rarity IN ('Rare', 'Uncommon', 'Common');
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
