@@ -186,7 +186,7 @@ public class PackShopPage extends ScalePage {
         cc.setHalignment(HPos.CENTER);
 
         // Temporary placeholder image
-        int packAmount = 4;
+        int packAmount = 3;
         String imgPath = "/images/pack_images/";
         String fileType = ".png";
 

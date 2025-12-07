@@ -81,7 +81,7 @@ public class CheckoutPage extends ScalePage {
         PackShopPage packShopPage = new PackShopPage();
         HashMap<Integer, Integer> userInventory = packShopPage.getUserInventory();
 
-        String imgPath = "/TempImages/";
+        String imgPath = "/images/pack_images/";
         String fileType = ".png";
 
         int col = 0; // column index for each pack
