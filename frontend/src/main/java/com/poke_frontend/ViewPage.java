@@ -7,6 +7,7 @@ import com.poke_frontend.models.CardTypeQuant;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -21,7 +22,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Scale;
 import javafx.scene.image.Image;
 
@@ -120,14 +124,16 @@ public class ViewPage extends ScalePage{
 
             List<CardTypeQuant> allObjects = App.theClient.getInventory(req);
             List<String> allUrls = new ArrayList<String>();
+            List<String> cardRarities = new ArrayList<String>();
 
             for (CardTypeQuant currentObject: allObjects) {
                 for (int i=0; i<currentObject.getQuantity(); i++) {
                     allUrls.add(App.imageDirectory + currentObject.getCard().getImagePath());
+                    cardRarities.add(currentObject.getCard().getRarity());
                 }
             }
 
-            loadViewPage(allUrls);
+            loadViewPage(allUrls, cardRarities);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -146,14 +152,20 @@ public class ViewPage extends ScalePage{
         }
         try {
 
+            //List all urls path of images
             List<String> urls = new ArrayList<String>();
+
+            //List all card rairty
+            List<String> cardRarities = new ArrayList<String>();
+
             List<CardTypeQuant> databaseCards = App.theClient.getDBCards(req);
 
             for (CardTypeQuant currentCard : databaseCards) {
                 urls.add(App.imageDirectory + currentCard.getCard().getImagePath());
+                cardRarities.add(currentCard.getCard().getRarity());
             }
 
-            loadViewPage(urls);
+            loadViewPage(urls, cardRarities);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -170,7 +182,7 @@ public class ViewPage extends ScalePage{
 
         List<String> urls = new ArrayList<>();
         for (int i=0; i<35; i++) { urls.add("/TempImages/RioluCard.png"); }
-        loadViewPage(urls);
+        loadViewPage(urls, null);
 
     }
 
@@ -178,7 +190,7 @@ public class ViewPage extends ScalePage{
      * This method will fill the view page with the given card images.
      * @param urlList A list of urls of images to display on screen.
      */
-    void loadViewPage(List<String> urlList){
+    void loadViewPage(List<String> urlList, List<String> rarityList){
 
         //Start by removing all the old images.
         clearViewPage();
@@ -193,6 +205,8 @@ public class ViewPage extends ScalePage{
         if(amountImgs % 4 > 0){
             amountOfRows++;
         }
+
+        boolean isDefault = (rarityList == null);
 
         //Keep count of current image
         int currentImg = 0;
@@ -227,12 +241,34 @@ public class ViewPage extends ScalePage{
                 allImageViews.add(imgView);
 
                 //Set the image height and width
-                imgView.setFitWidth(130);
-                imgView.setFitHeight(150);
+                imgView.setFitWidth(140);
+                imgView.setFitHeight(140);
                 imgView.setPreserveRatio(true);
 
-                //Add the image to the gridview
-                gird_View.add(imgView, column, row);
+                //Store the rarity of card
+                Label rairtyLabel;
+
+                if(isDefault){
+                    rairtyLabel= new Label("BestBoi");
+                }
+                else{
+                    rairtyLabel = new Label(rarityList.get(currentImg));
+                }
+
+                //Set Styles to rairtyLabel
+                rairtyLabel.setPrefWidth(imgView.getFitWidth() - 20);
+                rairtyLabel.setAlignment(Pos.CENTER_RIGHT);
+
+                //Create a cell that would store the image and label
+                VBox cardCell = new VBox();
+                cardCell.setPrefWidth(imgView.getFitWidth());
+                cardCell.setSpacing(5);
+                cardCell.setAlignment(Pos.CENTER);
+                VBox.setVgrow(imgView, Priority.ALWAYS);
+                cardCell.getChildren().addAll(imgView, rairtyLabel);
+                
+                //Add the cell to the gridview
+                gird_View.add(cardCell, column, row);
 
                 //Go to next index
                 currentImg++;
@@ -330,6 +366,8 @@ public class ViewPage extends ScalePage{
 
         // Then we convert our list of cards to a list or urls, if they match the given search.
         List<String> allUrls = new ArrayList<String>();
+        List<String> cardRarities = new ArrayList<String>();
+
         for (CardTypeQuant currentObject : allObjects) {
             Card currentCard = currentObject.getCard();
             if (currentCard.getCardName().toLowerCase().contains(searchBar.getText().toLowerCase())) {
@@ -337,12 +375,13 @@ public class ViewPage extends ScalePage{
                 allUrls.add(App.imageDirectory + currentObject.getCard().getImagePath());
                 for (int i=1; i<currentObject.getQuantity(); i++) {
                     allUrls.add(App.imageDirectory + currentObject.getCard().getImagePath());
+                    cardRarities.add(currentObject.getCard().getRarity());
                 }
             }
         }
 
         // Then we load the view page with this new list of urls.
-        loadViewPage(allUrls);
+        loadViewPage(allUrls, cardRarities);
 
     }
 

@@ -287,16 +287,18 @@ public class SortPopup extends ScalePage {
 
         // Then we turn the remaining card objects into urls and send them to the view page to be loaded.
         List<String> allUrls = new ArrayList<String>();
+        List<String> cardRarities = new ArrayList<String>();
         for (CardTypeQuant currentObject: allObjects) {
             // Temp fix since CardTypeQuant sometimes has the quantity value set to 0.
             allUrls.add("/images/full_image/" + currentObject.getCard().getImagePath());
             for (int i=1; i<currentObject.getQuantity(); i++) {
                 allUrls.add("/images/full_image/" + currentObject.getCard().getImagePath());
+                cardRarities.add(currentObject.getCard().getRarity());
             }
         }
 
         // Then we load this new set of images in the view page and close the popup.
-        parentContoller.loadViewPage(allUrls);
+        parentContoller.loadViewPage(allUrls, cardRarities);
         closePopup();
 
     }

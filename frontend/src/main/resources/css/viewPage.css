@@ -7,3 +7,9 @@
     -fx-border-color: linear-gradient(#05003e, #3466AF 10%, #fbff00 50%, #3466AF 90%, #05003e 100%);;
 
 }
+
+.scrollPane Label{
+
+    -fx-text-fill:white;
+
+}
