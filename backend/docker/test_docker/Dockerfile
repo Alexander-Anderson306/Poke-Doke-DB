@@ -15,14 +15,9 @@ COPY . .
 #Build shaded JAR
 RUN mvn clean package -DskipTests
 
-#Expose port for ngrok
-EXPOSE 8080
-
-# Start MariaDB and backend
 CMD ["bash", "-lc", "\
 service mariadb start && \
 sleep 5 && \
 mysql < /app/db_schema.sql && \
-java -jar target/backend-1.0.0.jar \
 mvn test \
 "]

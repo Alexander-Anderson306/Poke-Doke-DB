@@ -1,13 +1,23 @@
 package com.poke_backend;
 
-import java.util.List;
-import com.poke_backend.dto.request.*;
-import com.poke_backend.models.*;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.TestMethodOrder;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.MethodOrderer;
+public class HashTest {
+    @Test
+    void testHashFunction() {
+        String input = "testpassword";
+        String hash = Hash.hashPassword(input);
+        assertNotNull(hash);
+        assertNotEquals(input, hash);
+    }
+
+    @Test
+    void testCheckPassword() {
+        String input = "testpassword";
+        String hash = Hash.hashPassword(input);
+        assertTrue(Hash.checkPassword(input, hash));
+        assertFalse(Hash.checkPassword("wrongpassword", hash));
+    }
+}
