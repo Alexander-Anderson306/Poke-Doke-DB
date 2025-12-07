@@ -7,6 +7,7 @@ import com.poke_frontend.models.CardTypeQuant;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -291,6 +292,7 @@ public class SortPopup extends ScalePage {
         for (CardTypeQuant currentObject: allObjects) {
             // Temp fix since CardTypeQuant sometimes has the quantity value set to 0.
             allUrls.add("/images/full_image/" + currentObject.getCard().getImagePath());
+            cardRarities.add(currentObject.getCard().getRarity());
             for (int i=1; i<currentObject.getQuantity(); i++) {
                 allUrls.add("/images/full_image/" + currentObject.getCard().getImagePath());
                 cardRarities.add(currentObject.getCard().getRarity());

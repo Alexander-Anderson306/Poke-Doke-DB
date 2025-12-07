@@ -287,6 +287,7 @@ public class ViewPage extends ScalePage{
      */
     void clearViewPage() {
         while (!allImageViews.isEmpty()) {
+            //TODO remove text box as well
             gird_View.getChildren().remove(allImageViews.getFirst());
             allImageViews.removeFirst();
         }
