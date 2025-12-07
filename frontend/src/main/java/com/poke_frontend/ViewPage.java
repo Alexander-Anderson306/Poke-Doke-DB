@@ -286,11 +286,11 @@ public class ViewPage extends ScalePage{
      * This method will remove all the images current in the view page.
      */
     void clearViewPage() {
-        while (!allImageViews.isEmpty()) {
-            //TODO remove text box as well
-            gird_View.getChildren().remove(allImageViews.getFirst());
-            allImageViews.removeFirst();
-        }
+        
+        //Deleted and clear every row
+        gird_View.getChildren().clear();
+        gird_View.getRowConstraints().clear();
+
     }
 
     @FXML
