@@ -119,6 +119,10 @@ public class SortPopup extends ScalePage {
     private CheckBox legendaryBox;
     // --- End Of Rairty Boxes ----
 
+    /**
+     * This method is called when the user presses the exit button.
+     * It will bring them back to the view page without loading any cards.
+     */
     @FXML
     void exit(ActionEvent event) {
         closePopup();
@@ -132,6 +136,7 @@ public class SortPopup extends ScalePage {
     @FXML
     void sortCards(ActionEvent event) {
 
+        // If not logged in, throw an error and do nothing.
         if(!App.loggedIn()) {
             throwLoggedOutError();
             return;
@@ -198,7 +203,7 @@ public class SortPopup extends ScalePage {
         else rarityFilter="";
         boolean filterByRarity = !rarityFilter.isEmpty();
 
-        // We iterate over all of the cards we have.
+        // We iterate over all the cards we have.
         // We check filters based on the booleans above
         // If a card does not match the filters, it is removed from the list.
         for (int i=0; i<allObjects.size(); i++) {
@@ -221,7 +226,7 @@ public class SortPopup extends ScalePage {
 
                 // Filter by AND
                 if (andOrButton.getText().equals("AND")) {
-                    // Check every type the Pokemon has. If any of them do not exist in the selectedTypes, discard it.
+                    // Check every type we have selected. If the Pokemon does not have one of them, discard it.
                     boolean keep = true;
                     for (String currentType : allSelectedTypes) {
                         if (!currentCardsTypes.contains(currentType)) {
@@ -283,18 +288,26 @@ public class SortPopup extends ScalePage {
         // Then we turn the remaining card objects into urls and send them to the view page to be loaded.
         List<String> allUrls = new ArrayList<String>();
         for (CardTypeQuant currentObject: allObjects) {
-            // TEMP FIX
+            // Temp fix since CardTypeQuant sometimes has the quantity value set to 0.
             allUrls.add("/images/full_image/" + currentObject.getCard().getImagePath());
             for (int i=1; i<currentObject.getQuantity(); i++) {
                 allUrls.add("/images/full_image/" + currentObject.getCard().getImagePath());
             }
         }
 
+        // Then we load this new set of images in the view page and close the popup.
         parentContoller.loadViewPage(allUrls);
         closePopup();
 
     }
 
+    /**
+     * This method will compare the two cards by rarity and return
+     * an integer representing which one has a lower value.
+     * @param c1 The first card.
+     * @param c2 The second card.
+     * @return A negative number if the first card is more common then the second, a zero if they are of the same value, and a positive number if the second card is more common.
+     */
     public static int compareCardRarity(Card c1, Card c2) {
 
         int c1Value=-1;
@@ -315,6 +328,10 @@ public class SortPopup extends ScalePage {
 
     }
 
+    /**
+     * This helper method creates a popup warning the user that they are logged out
+     * and therefore their desired action can not be completed.
+     */
     void throwLoggedOutError() {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setTitle("Error");
@@ -324,6 +341,10 @@ public class SortPopup extends ScalePage {
         closePopup();
     }
 
+    /**
+     * This helper method creates a popup alerting the user that a database error occurred
+     * and therefore their desired action did not carry through.
+     */
     void throwDatabaseError() {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setTitle("Error");
@@ -333,17 +354,23 @@ public class SortPopup extends ScalePage {
         closePopup();
     }
 
+    /**
+     * This internal method will close the sort popup.
+     */
     void closePopup() {
         ( (Stage) pokemonNameBox.getScene().getWindow() ).close();
     }
 
+    /**
+     * This method is called upon when the user clicks to "OR" button
+     * in the sort popup, toggling it between "AND" and "OR"
+     */
     @FXML
     void switchTypeButton(ActionEvent event) {
         if (andOrButton.getText().equals("OR"))
             andOrButton.setText("AND");
         else
             andOrButton.setText("OR");
-
     }
 
     @FXML
@@ -351,8 +378,6 @@ public class SortPopup extends ScalePage {
         implementScaling(groupScale, rootPane);
         setSceneName("Sort Cards");
     }
-
-
 
     /**
      * Set the parent controller
@@ -362,8 +387,10 @@ public class SortPopup extends ScalePage {
         parentContoller = previousPage;
     }
 
-
-    // These 5 methods prevent the user from having multiple rarity boxes clicked at once.
+    /**
+     * All 5 of the below methods serve the same function.
+     * They make it so anytime the user clicks on a rarity box, all other rarity boxes become unselected.
+     */
 
     public void clickLegendaryBox(ActionEvent actionEvent) {
         commonBox.setSelected(false);

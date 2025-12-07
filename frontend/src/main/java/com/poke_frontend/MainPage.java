@@ -35,7 +35,9 @@ public class MainPage extends ScalePage{
         implementScaling(groupScale, rootPane);  
     }
 
-
+    /**
+     * This method will close the application and end the program.
+     */
     @FXML
     void closeApplication(ActionEvent event) {
         App.logout();
@@ -57,6 +59,10 @@ public class MainPage extends ScalePage{
         App.changeCurrentPage(Page.SHOP);
     }
 
+    /**
+     * This method will log out the current user and
+     * go back to the login page.
+     */
     @FXML
     void logOut(ActionEvent event) {
         App.changeCurrentPage(Page.LOGIN);

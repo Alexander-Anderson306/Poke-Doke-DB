@@ -1,5 +1,11 @@
 package com.poke_frontend;
 
+/**
+ * This represents one of the pages the program can be on at a given time.
+ * There are two string variables, one for storing the address for the
+ * fxml file necessary to load that page, and another for the title of the
+ * given page.
+ */
 public enum Page {
 
     LOGIN("/fxml/login.fxml", "Login to POKEDOKE"),

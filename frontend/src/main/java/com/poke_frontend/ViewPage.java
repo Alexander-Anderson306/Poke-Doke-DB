@@ -68,6 +68,12 @@ public class ViewPage extends ScalePage{
     @FXML
     private Group groupScale;
 
+    /**
+     * This method is called when this page is loaded.
+     * It will set the scaling, the username in the top right,
+     * and load the users inventory / the database into
+     * the view pane.
+     */
     @FXML
     void initialize(){
 
@@ -117,7 +123,7 @@ public class ViewPage extends ScalePage{
 
             for (CardTypeQuant currentObject: allObjects) {
                 for (int i=0; i<currentObject.getQuantity(); i++) {
-                    allUrls.add("/images/full_image/" + currentObject.getCard().getImagePath());
+                    allUrls.add(currentObject.getCard().getImagePath());
                 }
             }
 
@@ -138,7 +144,6 @@ public class ViewPage extends ScalePage{
             loadDefaultViewPage();
             return;
         }
-
         try {
 
             List<String> urls = new ArrayList<String>();
@@ -157,14 +162,14 @@ public class ViewPage extends ScalePage{
     }
 
     /**
-     * This method will call the load view page with 35 Rioulo cards
+     * This method will load the view page with 35 Rioulo cards
+     * This should be what the user sees if they are not logged in
+     * or if an error occurs.
      */
     void loadDefaultViewPage(){
 
         List<String> urls = new ArrayList<>();
-        for (int i=0; i<35; i++) {
-            urls.add("/TempImages/RioluCard.png");
-        }
+        for (int i=0; i<35; i++) { urls.add("/TempImages/RioluCard.png"); }
         loadViewPage(urls);
 
     }
@@ -175,6 +180,7 @@ public class ViewPage extends ScalePage{
      */
     void loadViewPage(List<String> urlList){
 
+        //Start by removing all the old images.
         clearViewPage();
 
         //Get the amount of images from list
@@ -241,7 +247,7 @@ public class ViewPage extends ScalePage{
     }
 
     /**
-     * This method will remove all the imageView objects, IE, it will wipe all cards off the screen.
+     * This method will remove all the images current in the view page.
      */
     void clearViewPage() {
         while (!allImageViews.isEmpty()) {
@@ -266,6 +272,13 @@ public class ViewPage extends ScalePage{
         App.changeCurrentPage(Page.SHOP);
     }
 
+    /**
+     * This method will be called when the user clicks the magnifying glass next to the search.
+     * This method will create an error popup if the user is not logged in or the search
+     * bar is blank.
+     * Otherwise, it will filter the cards so only those with a string matching the
+     * text in the search box will appear.
+     */
     @FXML
     void searchCards(ActionEvent event) {
 
@@ -315,29 +328,29 @@ public class ViewPage extends ScalePage{
             }
         }
 
-        for (CardTypeQuant c : allObjects) System.out.println(c);
-
         // Then we convert our list of cards to a list or urls, if they match the given search.
         List<String> allUrls = new ArrayList<String>();
         for (CardTypeQuant currentObject : allObjects) {
             Card currentCard = currentObject.getCard();
             if (currentCard.getCardName().equalsIgnoreCase(searchBar.getText())) {
-                // TEMP FIX
-                allUrls.add("/images/full_image/" + currentObject.getCard().getImagePath());
+                // Temp fix since CardTypeQuant sometimes has the quantity value set to 0.
+                allUrls.add(App.imageDirectory + currentObject.getCard().getImagePath());
                 for (int i=1; i<currentObject.getQuantity(); i++) {
-                    allUrls.add(currentObject.getCard().getImagePath());
+                    allUrls.add(App.imageDirectory + currentObject.getCard().getImagePath());
                 }
             }
         }
-
-        for (String c : allUrls) System.out.println(c);
-
 
         // Then we load the view page with this new list of urls.
         loadViewPage(allUrls);
 
     }
 
+    /**
+     * A helper method that will show a popup on screen warning the user
+     * that a database error has occurred and their desired action
+     * has not been completed.
+     */
     void throwDatabaseError() {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setTitle("Error");
@@ -347,6 +360,11 @@ public class ViewPage extends ScalePage{
     }
 
 
+    /**
+     * This method will be called when the user hits the sort button next
+     * to the magnifying glass.
+     * It will bring them to the sort cards pop up.
+     */
     @FXML
     void sortCards(ActionEvent event) {
         App.openPopUp("/fxml/sort.fxml", SortPopup.class, popup -> {

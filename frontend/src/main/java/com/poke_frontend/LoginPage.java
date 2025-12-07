@@ -36,15 +36,18 @@ public class LoginPage extends ScalePage{
         implementScaling(groupScale, rootPane);
     }
 
+    /**
+     * When the user clicks the login button, this method will create
+     * a login request object and send it to the database.
+     * If successful, theClient field in App will be set to the current
+     * client, and the user will be brought to the main menu.
+     * Otherwise, they will receive a warning that the login failed
+     * and nothing will happen.
+     */
     @FXML
     void clickLoginButton(ActionEvent event) {
 
-        // TEMP CODE FOR TESTING PURPOSES, DELETE BEFORE PUBLISHING
-        if (usernameField.getText().equals("admin") && passwordField.getText().equals("admin")){
-            App.changeCurrentPage(Page.MAIN_MENU);
-            return;
-        }
-
+        // Unused test code written by someone else.
         if(usernameField.getText().equals("test") || passwordField.getText().equals("test")) {
             Client cli = new Client();
             try {
@@ -55,12 +58,13 @@ public class LoginPage extends ScalePage{
             return;
         }
 
+        // Create a new client and request
         Client client = new Client();
-
         LoginRequest request = new LoginRequest();
         request.username = usernameField.getText();
         request.password = passwordField.getText();
 
+        // Send that request to the database using the newly created client.
         boolean success;
         try {
             success = client.login(request);
@@ -70,16 +74,22 @@ public class LoginPage extends ScalePage{
             e.printStackTrace();
         }
 
+        // If successful, save the client and switch to the main menu.
         if (success) {
             App.changeCurrentPage(Page.MAIN_MENU);
             App.theClient = client;
         }
+
+        // Otherwise print an error message.
         else {
             errorMessageLabel.setText("Login failed, please try again.");
         }
 
     }
 
+    /**
+     * Brings the user to the create account page.
+     */
     public void clickCreateAccountButton(ActionEvent actionEvent) {
         App.changeCurrentPage(Page.CREATE_ACCOUNT);
     }

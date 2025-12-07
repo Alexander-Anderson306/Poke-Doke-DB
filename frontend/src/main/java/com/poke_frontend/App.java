@@ -13,12 +13,28 @@ import java.util.function.Consumer;
 
 public class App extends Application {
 
+    /**
+     * This string represents the directory where all images are stored.
+     * It is to be used whenever an image is loaded or retrieved.
+     */
+    public static final String imageDirectory = "/images/full_image/";
+
+    /**
+     * This field represents the current page that the user is on.
+     * The App.changeCurrentPage() method can be used to change the
+     * page the user is currently on.
+     */
     static Page currentPage = Page.LOGIN;
 
     private static Scene currentScene;
 
     private static Stage theStage;
 
+    /**
+     * This represents the client that is logged into
+     * the program. If this is null, no client is
+     * logged into the program.
+     */
     public static Client theClient = null;
 
     /**
@@ -30,14 +46,14 @@ public class App extends Application {
     }
 
     /**
-     * Will set the current client to null.
+     * This method will log out the current client.
      */
     public static void logout() {
         theClient=null;
     }
 
     /**
-     * Will change the current page the application is displaying.
+     * This method can be used to switch the page the user is on.
      * @param newPage The page to be switched to.
      */
     public static void changeCurrentPage(Page newPage) {
@@ -46,7 +62,6 @@ public class App extends Application {
         Double sceneheight = currentScene.getHeight();
 
         currentPage = newPage;
-
         String fxml = currentPage.getFXML();
 
         try {
