@@ -1,21 +1,19 @@
 package com.poke_backend;
 
 import io.javalin.Javalin;
-import io.javalin.http.Context;
 import io.javalin.json.JavalinJackson;
 import io.javalin.community.ssl.*;
 
-import org.bouncycastle.crypto.util.Pack;
 import org.conscrypt.OpenSSLProvider;
 import java.sql.SQLException;
 
 import com.poke_backend.dto.request.*;
 import com.poke_backend.dto.response.*;
 import com.poke_backend.models.*;
+import com.poke_backend.UserLockManager;
 
 import com.poke_backend.models.CardTypeQuant;
 import java.security.Security;
-import java.util.Map;
 
 import java.util.List;
 
@@ -157,12 +155,15 @@ public class Server {
             PackPurchaseRequest req = ctx.bodyAsClass(PackPurchaseRequest.class);
             IO.println("Received purchase request for user id: " + req.userId + " pack id: " + req.packId);
 
-            try {
-                SQLHandler sqlHandler = new SQLHandler();
-                List<CardTypeQuant> cards = sqlHandler.purchasePack(req);
-                ctx.json(new PackPurchaseResponse(cards));
-            } catch (SQLException e) {
-                ctx.status(500).json(new BaseResponse(false, "Failed to find packs", 500));
+            Object userLock = UserLockManager.getLock(req.userId);
+            synchronized (userLock) {
+                try {
+                    SQLHandler sqlHandler = new SQLHandler();
+                    List<CardTypeQuant> cards = sqlHandler.purchasePack(req);
+                    ctx.json(new PackPurchaseResponse(cards));
+                } catch (SQLException e) {
+                    ctx.status(500).json(new BaseResponse(false, "Failed to find packs", 500));
+                }
             }
         });
 

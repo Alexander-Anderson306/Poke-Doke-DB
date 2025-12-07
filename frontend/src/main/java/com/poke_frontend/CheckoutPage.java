@@ -141,8 +141,6 @@ public class CheckoutPage extends ScalePage {
                 PPR.packId = key;
                 PPR.userId = userId;
                 App.theClient.purchasePack(PPR);
-
-                Thread.sleep(100); // Delay 1 sec
             }
 
             userInventory.clear();
