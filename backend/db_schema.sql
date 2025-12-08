@@ -312,7 +312,7 @@ INSERT INTO `mydb`.`cards` (`card_name`, `rarity`,`image_path`, `thumb_path`) VA
 
 INSERT INTO types_bridge (card_id, type_id) VALUES
   ((SELECT id FROM cards WHERE card_name='Abra'), (SELECT id FROM poke_types WHERE name='Psychic')),
-  ((SELECT id FROM cards WHERE card_name='Aerodactyl'), (SELECT id FROM poke_types WHERE name='Dragon')),
+  ((SELECT id FROM cards WHERE card_name='Aerodactyl'), (SELECT id FROM poke_types WHERE name='Normal')),
   ((SELECT id FROM cards WHERE card_name='Alakazam'), (SELECT id FROM poke_types WHERE name='Psychic')),
   ((SELECT id FROM cards WHERE card_name='Arbok'), (SELECT id FROM poke_types WHERE name='Poison')),
   ((SELECT id FROM cards WHERE card_name='Arcanine'), (SELECT id FROM poke_types WHERE name='Fire')),
@@ -326,6 +326,8 @@ INSERT INTO types_bridge (card_id, type_id) VALUES
   ((SELECT id FROM cards WHERE card_name='Chansey'), (SELECT id FROM poke_types WHERE name='Normal')),
   ((SELECT id FROM cards WHERE card_name='Charizard'), (SELECT id FROM poke_types WHERE name='Fire')),
   ((SELECT id FROM cards WHERE card_name='Charmander'), (SELECT id FROM poke_types WHERE name='Fire')),
+  ((SELECT id FROM cards WHERE card_name='Charmeleon'), (SELECT id FROM poke_types WHERE name='Fire')),
+  ((SELECT id FROM cards WHERE card_name='Clefairy'), (SELECT id FROM poke_types WHERE name='Fairy')),
   ((SELECT id FROM cards WHERE card_name='Clefable'), (SELECT id FROM poke_types WHERE name='Psychic')),
   ((SELECT id FROM cards WHERE card_name='Cloyster'), (SELECT id FROM poke_types WHERE name='Water')),
   ((SELECT id FROM cards WHERE card_name='Cubone'), (SELECT id FROM poke_types WHERE name='Fighting')),
