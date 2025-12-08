@@ -85,8 +85,11 @@ public class SQLHandler {
 
         stmt.executeUpdate();
 
-        //build and return user object
-        return new User(-1, req.username, hashed, firstName, lastName, req.email);
+        //we do this to get the newly created user ID
+        LoginRequest loginReq = new LoginRequest();
+        loginReq.username = req.username;
+        loginReq.password = hashed;
+        return login(loginReq);
     }
     /**
      *attempts to log in an existing user
@@ -116,7 +119,7 @@ public class SQLHandler {
             return null;
         }
         //Build and return user object
-        return new User(-1, rs.getString("user_name"), hashedPassword,
+        return new User(rs.getInt("id"), rs.getString("user_name"), hashedPassword,
                              rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"));
     }
     
