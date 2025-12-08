@@ -5,6 +5,20 @@ Label {
     -fx-text-fill: white;
 }
 
+#successLabel{
+    -fx-font-size: 20px;
+    -fx-font-family: Georgia;
+    -fx-text-fill: rgb(253, 253, 209);
+}
+
+#errorLabel{
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-font-family: Georgia;
+    -fx-text-fill: red;
+}
+
+
 #title {
     -fx-font-size: 32px;
     -fx-font-weight: bold;

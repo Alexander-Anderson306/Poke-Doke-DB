@@ -125,7 +125,7 @@ public class CheckoutPage extends ScalePage {
         priceLabel.setFont(Font.font(14));
         priceLabel.setAlignment(Pos.CENTER);
 
-        Label totalPriceLabel = new Label("Total: $" + totalPrice);
+        Label totalPriceLabel = new Label("Total: $" + String.format("%.2f",totalPrice));
         totalPriceLabel.setFont(Font.font(16));
         totalPriceLabel.setStyle("-fx-font-weight: bold;");
         totalPriceLabel.setAlignment(Pos.CENTER);

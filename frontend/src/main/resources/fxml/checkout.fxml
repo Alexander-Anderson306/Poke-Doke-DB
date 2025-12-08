@@ -27,8 +27,8 @@
                         <String fx:value="cardView" />
                      </styleClass>
                   </GridPane>
-                  <Label fx:id="error" layoutX="225.0" layoutY="200.0" prefHeight="19.0" prefWidth="162.0" text="Error" textFill="RED" visible="false" />
-                  <Label fx:id="success" layoutX="250.0" layoutY="200.0" prefHeight="17.0" prefWidth="67.0" style="-fx-background-color: Black;" text="Successful" textFill="WHITE" visible="false" />
+                  <Label id="errorLabel" fx:id="error" alignment="CENTER" layoutX="225.0" layoutY="200.0" prefHeight="19.0" prefWidth="162.0" text="ERROR" textFill="RED" visible="false" />
+                  <Label id="successLabel" fx:id="success" alignment="CENTER" layoutX="162.0" layoutY="145.0" prefHeight="75.0" prefWidth="264.0" text="Successful! Please check inventory!!!" textAlignment="CENTER" textFill="WHITE" visible="false" wrapText="true" />
                   <Button fx:id="backButton" layoutX="24.0" layoutY="23.0" mnemonicParsing="false" onAction="#backToStore" prefHeight="36.0" prefWidth="86.0" style="-fx-background-color: black;" text="&lt; Back" textFill="WHITE" />
                   <Label id="title" alignment="CENTER" layoutX="151.0" layoutY="22.0" prefHeight="25.0" prefWidth="275.0" text="CHECKOUT" textAlignment="CENTER" underline="true" />
                </children>
