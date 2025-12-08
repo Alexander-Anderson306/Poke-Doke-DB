@@ -73,14 +73,15 @@ public class SQLHandler {
 
         //insert user into DB
         String sql =
-            "INSERT INTO users (user_name, password, first_name, last_name) " +
-            "VALUES (?, ?, ?, ?)";
+            "INSERT INTO users (user_name, password, first_name, last_name, email) " +
+            "VALUES (?, ?, ?, ?, ?)";
         PreparedStatement stmt = connection.prepareStatement(sql);
 
         stmt.setString(1, req.username);
         stmt.setString(2, hashed);
         stmt.setString(3, firstName);
         stmt.setString(4, lastName);
+        stmt.setString(5, req.email);
 
         stmt.executeUpdate();
 

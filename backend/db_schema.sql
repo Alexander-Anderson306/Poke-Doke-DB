@@ -105,6 +105,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`users` (
   `password` VARCHAR(100) NOT NULL,
   `first_name` VARCHAR(64) NOT NULL,
   `last_name` VARCHAR(64) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `userName_UNIQUE` (`user_name` ASC) VISIBLE)
 ENGINE = InnoDB
