@@ -1,7 +1,6 @@
 package com.poke_frontend;
 
 import javafx.application.Application;
-import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

@@ -5,14 +5,12 @@ import java.util.List;
 
 import com.poke_frontend.dto.request.PackPurchaseRequest;
 import com.poke_frontend.dto.request.PackRequest;
-import com.poke_frontend.models.UserInventory;
 import com.poke_frontend.models.CardPack;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,7 +19,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 

@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import com.poke_backend.dto.request.*;
 import com.poke_backend.dto.response.*;
 import com.poke_backend.models.*;
-import com.poke_backend.UserLockManager;
 
 import com.poke_backend.models.CardTypeQuant;
 import java.security.Security;
@@ -163,12 +162,6 @@ public class Server {
                     ctx.status(500).json(new BaseResponse(false, "Failed to find packs", 500));
                 }
             }
-        });
-
-        //rout for testing the server
-        app.post("/test", ctx -> {
-            System.out.println("Received test request... Sending response back");
-            ctx.json(new BaseResponse(true, "Success"));
         });
 
     }

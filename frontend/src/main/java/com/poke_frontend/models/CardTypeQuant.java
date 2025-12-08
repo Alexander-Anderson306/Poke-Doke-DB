@@ -1,6 +1,5 @@
 package com.poke_frontend.models;
 
-import com.poke_frontend.models.Card;
 import java.util.List;
 
 public class CardTypeQuant {

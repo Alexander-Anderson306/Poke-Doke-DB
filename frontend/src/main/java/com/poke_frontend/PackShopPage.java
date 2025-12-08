@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.poke_frontend.dto.request.PackRequest;
 import com.poke_frontend.models.CardPack;
-import com.poke_frontend.models.CardTypeQuant;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,7 +26,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  * Controller class for the Pack Shop page.

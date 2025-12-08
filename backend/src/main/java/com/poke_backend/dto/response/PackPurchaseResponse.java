@@ -1,6 +1,5 @@
 package com.poke_backend.dto.response;
 
-import com.poke_backend.models.Card;
 import com.poke_backend.models.CardTypeQuant;
 
 import java.util.List;

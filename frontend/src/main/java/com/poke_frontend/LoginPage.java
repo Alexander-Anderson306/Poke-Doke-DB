@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.Group;
 import javafx.scene.control.Button;

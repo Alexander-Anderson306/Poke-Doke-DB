@@ -3,7 +3,6 @@ package com.poke_backend;
 import java.util.List;
 import com.poke_backend.dto.request.*;
 import com.poke_backend.models.*;
-import com.poke_backend.SQLHandler;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Order;
