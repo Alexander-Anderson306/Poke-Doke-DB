@@ -73,24 +73,23 @@ public class SQLHandler {
 
         //insert user into DB
         String sql =
-            "INSERT INTO users (user_name, password, first_name, last_name) " +
-            "VALUES (?, ?, ?, ?)";
+            "INSERT INTO users (user_name, password, first_name, last_name, email) " +
+            "VALUES (?, ?, ?, ?, ?)";
         PreparedStatement stmt = connection.prepareStatement(sql);
 
         stmt.setString(1, req.username);
         stmt.setString(2, hashed);
         stmt.setString(3, firstName);
         stmt.setString(4, lastName);
+        stmt.setString(5, req.email);
 
         stmt.executeUpdate();
 
-        //build and return user object
-        User user = new User();
-        user.setUserName(req.username);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-
-        return user;
+        //we do this to get the newly created user ID
+        LoginRequest loginReq = new LoginRequest();
+        loginReq.username = req.username;
+        loginReq.password = hashed;
+        return login(loginReq);
     }
     /**
      *attempts to log in an existing user
@@ -98,7 +97,7 @@ public class SQLHandler {
      */
     public User login(LoginRequest req) throws SQLException {
         String sql =
-            "SELECT id, user_name, password, first_name, last_name " +
+            "SELECT id, user_name, password, first_name, last_name, email " +
             "FROM users WHERE user_name = ?";
 
         PreparedStatement stmt = connection.prepareStatement(sql);
@@ -119,14 +118,9 @@ public class SQLHandler {
         if (!ok) {
             return null;
         }
-      //Build and return user object
-        User user = new User();
-        user.setId(rs.getInt("id"));
-        user.setUserName(rs.getString("user_name"));
-        user.setFirstName(rs.getString("first_name"));
-        user.setLastName(rs.getString("last_name"));
-
-        return user;
+        //Build and return user object
+        return new User(rs.getInt("id"), rs.getString("user_name"), hashedPassword,
+                             rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"));
     }
     
     /**

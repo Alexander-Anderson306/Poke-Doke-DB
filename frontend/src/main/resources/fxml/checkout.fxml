@@ -18,7 +18,7 @@
                <children>
                   <Button fx:id="confirm_button" layoutX="98.0" layoutY="322.0" mnemonicParsing="false" onAction="#confirm" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: black;" text="Confirm" textFill="WHITE" />
                   <Button fx:id="edit_button" layoutX="410.0" layoutY="322.0" mnemonicParsing="false" onAction="#edit" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: black;" text="Edit" textFill="WHITE" />
-                  <GridPane fx:id="gird_View" layoutX="17.0" layoutY="85.0" prefHeight="229.0" prefWidth="572.0">
+                  <GridPane fx:id="gird_View" layoutX="17.0" layoutY="61.0" prefHeight="253.0" prefWidth="572.0">
                      <columnConstraints>
                         <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
@@ -27,7 +27,7 @@
                         <String fx:value="cardView" />
                      </styleClass>
                   </GridPane>
-                  <Label fx:id="error" layoutX="275.0" layoutY="200.0" prefHeight="17.0" prefWidth="27.0" text="Error" textFill="RED" visible="false" />
+                  <Label fx:id="error" layoutX="225.0" layoutY="200.0" prefHeight="19.0" prefWidth="162.0" text="Error" textFill="RED" visible="false" />
                   <Label fx:id="success" layoutX="250.0" layoutY="200.0" prefHeight="17.0" prefWidth="67.0" style="-fx-background-color: Black;" text="Successful" textFill="WHITE" visible="false" />
                   <Button fx:id="backButton" layoutX="24.0" layoutY="23.0" mnemonicParsing="false" onAction="#backToStore" prefHeight="36.0" prefWidth="86.0" style="-fx-background-color: black;" text="&lt; Back" textFill="WHITE" />
                   <Label id="title" alignment="CENTER" layoutX="151.0" layoutY="22.0" prefHeight="25.0" prefWidth="275.0" text="CHECKOUT" textAlignment="CENTER" underline="true" />

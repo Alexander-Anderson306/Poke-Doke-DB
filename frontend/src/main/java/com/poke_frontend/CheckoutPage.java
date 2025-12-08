@@ -1,9 +1,12 @@
 package com.poke_frontend;
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.poke_frontend.dto.request.PackPurchaseRequest;
+import com.poke_frontend.dto.request.PackRequest;
 import com.poke_frontend.models.UserInventory;
+import com.poke_frontend.models.CardPack;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -74,55 +77,77 @@ public class CheckoutPage extends ScalePage {
      * so creating a new instance still provides access to the shared data.
      */
     void displayUserCart() {
-        gird_View.getChildren().clear(); 
-        gird_View.getColumnConstraints().clear();
-        gird_View.setAlignment(Pos.CENTER);   // Center whole grid
+    gird_View.getChildren().clear(); 
+    gird_View.getColumnConstraints().clear();
+    gird_View.setAlignment(Pos.CENTER);   // Center whole grid
 
-        PackShopPage packShopPage = new PackShopPage();
-        HashMap<Integer, Integer> userInventory = packShopPage.getUserInventory();
+    PackShopPage packShopPage = new PackShopPage();
+    HashMap<Integer, Integer> userInventory = packShopPage.getUserInventory();
 
-        String imgPath = "/images/pack_images/";
-        String fileType = ".png";
+    String imgPath = "/images/pack_images/";
+    String fileType = ".png";
 
-        int col = 0; // column index for each pack
+    int col = 0; // column index for each pack
 
-        for (Integer key : userInventory.keySet()) {
+    for (Integer key : userInventory.keySet()) {
 
-            // Load image
-            String imgFullPath = imgPath + "PokemonPack" + key + fileType;
-            Image img = new Image(getClass().getResourceAsStream(imgFullPath));
+        // Load image
+        String imgFullPath = imgPath + "PokemonPack" + key + fileType;
+        Image img = new Image(getClass().getResourceAsStream(imgFullPath));
+        ImageView imgView = new ImageView(img);
 
-            ImageView imgView = new ImageView(img);
+        imgView.setFitWidth(150);
+        imgView.setFitHeight(156);
+        imgView.setPreserveRatio(true);
 
-            // Setting the image width & height 
-            imgView.setFitWidth(150);
-            imgView.setFitHeight(156);
-            imgView.setPreserveRatio(true);
+        // Quantity
+        int qty = userInventory.get(key);
+        Label qtyLabel = new Label("Amount: " + qty);
+        qtyLabel.setFont(Font.font(16));
+        qtyLabel.setAlignment(Pos.CENTER);
 
-            // Quantity label
-            int qty = userInventory.get(key);
-            Label qtyLabel = new Label("Amount: " + qty);
-            qtyLabel.setFont(Font.font(16));
-            qtyLabel.setAlignment(Pos.CENTER);
+        // Get pack price
+        float price = 0;
+        try {
+            PackRequest packRequest = new PackRequest();
+            packRequest.packId = key;
 
-            // VBox = Image on top, text underneath
-            VBox box = new VBox(5);
-            box.setAlignment(Pos.CENTER);
-            box.getChildren().addAll(imgView, qtyLabel);
-
-            // Add VBox to grid
-            gird_View.add(box, col, 0);
-
-            // Column styling
-            ColumnConstraints cc = new ColumnConstraints();
-            cc.setMinWidth(150);
-            cc.setPrefWidth(160);
-            cc.setHalignment(HPos.CENTER);
-            gird_View.getColumnConstraints().add(cc);
-
-            col++;
+            List<CardPack> list = App.theClient.displayStore(packRequest);
+            price = list.get(key - 1).getPrice();     // Adjust index if needed
+        } catch (Exception e) {
+            System.out.println(e);
         }
+
+        // Total price
+        float totalPrice = price * qty;
+
+        Label priceLabel = new Label("Price: $" + price);
+        priceLabel.setFont(Font.font(14));
+        priceLabel.setAlignment(Pos.CENTER);
+
+        Label totalPriceLabel = new Label("Total: $" + totalPrice);
+        totalPriceLabel.setFont(Font.font(16));
+        totalPriceLabel.setStyle("-fx-font-weight: bold;");
+        totalPriceLabel.setAlignment(Pos.CENTER);
+
+        // VBox = image + qty + price + total
+        VBox box = new VBox(5);
+        box.setAlignment(Pos.CENTER);
+        box.getChildren().addAll(imgView, qtyLabel, priceLabel, totalPriceLabel);
+
+        // Add to grid
+        gird_View.add(box, col, 0);
+
+        ColumnConstraints cc = new ColumnConstraints();
+        cc.setMinWidth(150);
+        cc.setPrefWidth(160);
+        cc.setHalignment(HPos.CENTER);
+        gird_View.getColumnConstraints().add(cc);
+
+        col++;
     }
+}
+
 
 
     @FXML

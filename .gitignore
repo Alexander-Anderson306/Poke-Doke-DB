@@ -10,3 +10,4 @@ frontend/target/
 *.settings/
 *.pem
 *.p12
+*.idea/

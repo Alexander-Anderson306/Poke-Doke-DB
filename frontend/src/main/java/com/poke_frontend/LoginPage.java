@@ -47,17 +47,6 @@ public class LoginPage extends ScalePage{
     @FXML
     void clickLoginButton(ActionEvent event) {
 
-        // Unused test code written by someone else.
-        if(usernameField.getText().equals("test") || passwordField.getText().equals("test")) {
-            Client cli = new Client();
-            try {
-                IO.println(cli.test());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return;
-        }
-
         // Create a new client and request
         Client client = new Client();
         LoginRequest request = new LoginRequest();
