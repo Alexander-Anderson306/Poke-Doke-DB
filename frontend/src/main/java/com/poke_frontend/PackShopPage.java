@@ -11,6 +11,7 @@ import com.poke_frontend.models.CardTypeQuant;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
@@ -23,7 +24,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -76,7 +79,7 @@ public class PackShopPage extends ScalePage {
     @FXML
     void initialize() {
         implementScaling(groupScale, rootPane);
-        loadPacks();
+        getDataPacks(new PackRequest());
     }
 
     /**
@@ -193,9 +196,36 @@ public class PackShopPage extends ScalePage {
      * <p>
      * Currently uses placeholder images until URLs are provided.
      *
-     * @param urlList optional list of image URLs (unused in current implementation)
+     * @param databasePacks  list of objects packs (unused in current implementation)
      */
-    void loadPacks() {
+    void loadPacks(List<CardPack> databasePacks) {
+
+        //Get strings of pack info
+        List<String> idPackList = new ArrayList<String>();
+        List<String> packRairtyList = new ArrayList<String>();
+        List<String> packPriceList = new ArrayList<String>();
+        List<String> packNameList = new ArrayList<String>();
+
+        // Image path
+        String imgPath = "/images/pack_images/PokemonPack";
+        String fileType = ".png";
+
+        if(databasePacks == null){
+            idPackList.add("/images/pack_images/PokemonPack1.png");
+            packRairtyList.add("UNKNOWN");
+            packPriceList.add("$0");
+            packNameList.add("UNKNOWN");
+        }
+        else{
+            for (CardPack currentPack : databasePacks) {
+                idPackList.add(imgPath + (currentPack.getId()+1) +fileType);
+                packRairtyList.add(currentPack.getPackRarity());
+                packPriceList.add("$" + String.format("%.2f",currentPack.getPrice()));
+                packNameList.add(currentPack.getPackName());
+            }
+        }
+
+
         // Row configuration
         RowConstraints rc = new RowConstraints();
         rc.setMinHeight(256);
@@ -210,25 +240,48 @@ public class PackShopPage extends ScalePage {
         cc.setMaxWidth(200);
         cc.setHalignment(HPos.CENTER);
 
-        // Temporary placeholder image
-        int packAmount = 3;
-        String imgPath = "/images/pack_images/";
-        String fileType = ".png";
+        //Number of packs
+        int packAmount = idPackList.size();
 
         for (int col = 0; col < packAmount; col++) {
-            String imgFullPath = imgPath +  "PokemonPack" + (col + 1) + fileType;
-            Image img = new Image(getClass().getResourceAsStream(imgFullPath));
+            Image img = new Image(getClass().getResourceAsStream(idPackList.get(col)));
 
             ImageView imgView = new ImageView(img);
 
+            //Pack images properties
             imgView.setFitWidth(150);
-            imgView.setFitHeight(256);
+            imgView.setFitHeight(200);
             imgView.setPreserveRatio(true);
             imgView.setId(String.valueOf(col + 1));
-
             imgView.setOnMouseClicked(this::buyPack);
 
-            gird_View.add(imgView, col, 0);
+            //Get properties for pack rairty
+            Label rairtyLabel = new Label(packRairtyList.get(col));
+            rairtyLabel.setPrefWidth(imgView.getFitWidth() - 20);
+            rairtyLabel.setAlignment(Pos.CENTER_LEFT);
+
+            //Get properties for pack Price
+            Label priceLabel = new Label(packPriceList.get(col));
+            priceLabel.setPrefWidth(imgView.getFitWidth() - 20);
+            priceLabel.setAlignment(Pos.CENTER_RIGHT);
+
+            //Get properties for pack rairty
+            Label nameLabel = new Label(packNameList.get(col));
+            nameLabel.setPrefWidth(imgView.getFitWidth() - 20);
+            nameLabel.setAlignment(Pos.CENTER);
+
+
+
+
+            //Create a cell that would store the image and label
+            VBox cardCell = new VBox();
+            cardCell.setPrefHeight(imgView.getFitHeight());
+            cardCell.setSpacing(0);
+            cardCell.setAlignment(Pos.CENTER);
+            VBox.setVgrow(imgView, Priority.ALWAYS);
+            cardCell.getChildren().addAll(nameLabel, imgView, rairtyLabel, priceLabel);
+
+            gird_View.add(cardCell, col, 0);
 
             gird_View.getColumnConstraints().add(cc);
         }
@@ -236,37 +289,24 @@ public class PackShopPage extends ScalePage {
 
     //TODO: Create connections to packs in database
 
-    /*
+    
     void getDataPacks(PackRequest req){
 
         //If not logged in, show default packs
         if (!App.loggedIn()) {
-            loadProtoPacks();
+            loadPacks(null);
             return;
         }
         try {
 
-            //List all urls path of pack images
-            List<String> urls = new ArrayList<String>();
+            List<CardPack> databasePacks = App.theClient.displayStore(req);
 
-            List<CardPack> databasePacks = App.theClient.displayStore(req)
-
-            for (CardPack currentPack : databasePacks) {
-                urls.add(App.imageDirectory + currentPack..getImagePath()); //TODO create paths for pack images
-            }
-
-            loadViewPage(urls);          
+            loadPacks(databasePacks);          
 
         } catch (Exception e) {
             e.printStackTrace();
-            loadProtoPacks();
+            loadPacks(null);
         }
 
     }
-
-    void loadProtoPacks(){
-
-    }
-
-    */
 }

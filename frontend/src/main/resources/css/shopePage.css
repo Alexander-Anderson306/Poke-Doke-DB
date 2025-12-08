@@ -5,6 +5,15 @@ Label{
     -fx-text-fill: white;
 }
 
+.scrollPane Label{
+
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-font-family: Georgia;
+    -fx-text-fill:white;
+
+}
+
 #question{
     -fx-font-size: 15px;
 }
