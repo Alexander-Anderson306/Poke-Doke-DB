@@ -86,12 +86,7 @@ public class SQLHandler {
         stmt.executeUpdate();
 
         //build and return user object
-        User user = new User();
-        user.setUserName(req.username);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-
-        return user;
+        return new User(-1, req.username, hashed, firstName, lastName, req.email);
     }
     /**
      *attempts to log in an existing user
@@ -99,7 +94,7 @@ public class SQLHandler {
      */
     public User login(LoginRequest req) throws SQLException {
         String sql =
-            "SELECT id, user_name, password, first_name, last_name " +
+            "SELECT id, user_name, password, first_name, last_name, email " +
             "FROM users WHERE user_name = ?";
 
         PreparedStatement stmt = connection.prepareStatement(sql);
@@ -120,14 +115,9 @@ public class SQLHandler {
         if (!ok) {
             return null;
         }
-      //Build and return user object
-        User user = new User();
-        user.setId(rs.getInt("id"));
-        user.setUserName(rs.getString("user_name"));
-        user.setFirstName(rs.getString("first_name"));
-        user.setLastName(rs.getString("last_name"));
-
-        return user;
+        //Build and return user object
+        return new User(-1, rs.getString("user_name"), hashedPassword,
+                             rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"));
     }
     
     /**
