@@ -5,7 +5,7 @@
 Poke-Doke is desktop application that allows users to collect, view, and manage virtual Pokémon trading cards. The system
 includes a graphical user interface built with JavaFX, a Java backend using Javalin to handle HTTP requests, and a MySQL
 database that stores users, cards, packs, and inventory data.
-The goal of the application is to simulate the experience of collecting Pok´ emon cards. Users can create an account, log in,
+The goal of the application is to simulate the experience of collecting Pokémon cards. Users can create an account, log in,
 purchase card packs, and view the cards in their inventory. When a user purchases a pack, the backend randomly selects cards
 based on pack rarity and updates the user’s stored inventory. The frontend then displays these cards, along with details such
 as card type, rarity, and artwork.
