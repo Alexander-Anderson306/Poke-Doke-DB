@@ -2,7 +2,7 @@
 **The Pokémon card collection and inventory management software simulator.**
 
 ## Project Description:
-Poke-Doke is desktop application that allows users to collect, view, and manage virtual Pok´ emon trading cards. The system
+Poke-Doke is desktop application that allows users to collect, view, and manage virtual Pokémon trading cards. The system
 includes a graphical user interface built with JavaFX, a Java backend using Javalin to handle HTTP requests, and a MySQL
 database that stores users, cards, packs, and inventory data.
 The goal of the application is to simulate the experience of collecting Pok´ emon cards. Users can create an account, log in,
